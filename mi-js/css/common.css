@@ -1,0 +1,40 @@
+.container{
+	width: 1226px;
+	margin-left: auto;
+	margin-right: auto;
+}
+a{
+	font-size: 12px;
+	text-decoration: none;
+	color: #b0b0b0;
+}
+a:hover{
+	color: #fff;
+}
+.sep{
+	color: #393d42;
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.clearfix:after{
+	content: "";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+.clearfix{
+	*zoom:1;
+}
+.btn{
+	top: 230px;
+	margin-top: -25px;
+}
+.col1{
+	width: 234px;
+	float: left;
+}
+.col2{
+	width: 978px;
+	float: right;
+}
