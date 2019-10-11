@@ -2,13 +2,18 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>007-显示隐藏-淡入淡出卷入卷出共通.html</title>
+	<title>007-显示隐藏-js-淡入淡出卷土卷出共通.html</title>
 	<style>
 		*{
 			margin: 0;
 			padding: 0;
 		}
+		button{
+			width: 60px;
+			height: 30px;
+		}
 		#box{
+			display: none;
 			width: 200px;
 			height: 200px;
 			background-color: red;
@@ -26,10 +31,10 @@
 <script src="js/jquery-1.12.4.js"></script>
 <script>
 	function init(){
-		if($elem.is(':hidden')){
-			$elem.data('status','hidden')
+		if($elem.is(":hidden")){
+			$elem.data('status','hidden');
 		}else{
-			$elem.data('status','shown')
+			$elem.data('status','shown');
 		}
 	}
 	function show($elem,cb){
@@ -44,67 +49,84 @@
 		$elem.data('status','hide').trigger('hide');
 		cb();
 	}
+
+
+
 	var slient = {
-		init : init,
-		show : function($elem){
+		init:init,
+		show:function($elem){
 			show($elem,function(){
 				$elem.show();
 				$elem.trigger('shown').data('status','shown');
-			})	
-			
+			});
 		},
-		hide : function($elem){
+		hide:function($elem){
 			hide($elem,function(){
 				$elem.hide();
 				$elem.trigger('hidden').data('status','hidden');
 			})
-			
 		}
 	}
 	var js = {
-		fade :{
-			init : function($elem){
+		fade:{
+			init:function($elem){
+				/*
+				$elem.removeClass('transition');
+				init($elem);
+				*/
 				js._init($elem);
+
 			},
-			show : function($elem){
+			show:function($elem){
 				/*
 				show($elem,function(){
 					$elem.stop();
 					$elem.fadeIn();
 					$elem.trigger('shown').data('status','shown');
-				})*/
+				});
+				*/
 				js._show($elem,'fadeIn');
+				
 			},
-			hide : function($elem){
+			hide:function($elem){
 				/*
 				hide($elem,function(){
 					$elem.stop();
 					$elem.fadeOut();
 					$elem.trigger('hidden').data('status','hidden');
-				})*/
+				})
+				*/
 				js._hide($elem,'fadeOut');
 			}
 		},
-		slideDownUp :{
-			init : function($elem){
+		slideDownUp:{
+			init:function($elem){
+				/*
+				$elem.removeClass('transition');
+				init($elem);
+				*/
 				js._init($elem);
+
 			},
-			show : function($elem){
+			show:function($elem){
 				/*
 				show($elem,function(){
 					$elem.stop();
 					$elem.slideDown();
 					$elem.trigger('shown').data('status','shown');
-				})*/
-				js._show($elem,'slideDown');
+				});
+				*/
+				js._show($elem,'slideDown')
+				
 			},
-			hide : function($elem){
+			hide:function($elem){
 				/*
 				hide($elem,function(){
 					$elem.stop();
 					$elem.slideUp();
 					$elem.trigger('hidden').data('status','hidden');
-				})*/
+				})
+				*/
 				js._hide($elem,'slideUp');
 			}
 		}
@@ -118,7 +140,7 @@
 			$elem.stop();
 			$elem[mode]();
 			$elem.trigger('shown').data('status','shown');
-		})
+		});
 	}
 	js._hide = function($elem,mode){
 		hide($elem,function(){
@@ -127,42 +149,55 @@
 			$elem.trigger('hidden').data('status','hidden');
 		})
 	}
+
+
+
+
 	var $elem = $('#box');
-	
+
 	$elem.on('show shown hide hidden',function(ev){
 		if(ev.type == 'show'){
-			console.log('show');
+			console.log('show...')
 		}else if(ev.type == 'shown'){
-			console.log('shown');
+			console.log('shown...')
 		}else if(ev.type == 'hide'){
-			console.log('hide');
+			console.log('hide...')
 		}else if(ev.type == 'hidden'){
-			console.log('hidden');
+			console.log('hidden...')
 		}
 	})
+
 	/*
 	slient.init($elem);
-	$('button').eq(0).on('click',function(){
-		slient.show($elem)
-	})
-	$('button').eq(1).on('click',function(){
-		slient.hide($elem)
-	})
-	
-	js.fade.init($elem);
-	$('button').eq(0).on('click',function(){
-		js.fade.show($elem)
-	})
-	$('button').eq(1).on('click',function(){
-		js.fade.hide($elem)
-	})
+  	$('button').eq(0).on('click',function(){
+   		slient.show($elem);
+   	})
+   	$('button').eq(1).on('click',function(){
+   		slient.hide($elem);
+   	})
+ 	*/
+ 	/*
+   	js.fade.init($elem);
+  	$('button').eq(0).on('click',function(){
+   		js.fade.show($elem);
+   	})
+   	$('button').eq(1).on('click',function(){
+   		js.fade.hide($elem);
+   	})	
 	*/
-	js.slideDownUp.init($elem);
-	$('button').eq(0).on('click',function(){
-		js.slideDownUp.show($elem)
-	})
-	$('button').eq(1).on('click',function(){
-		js.slideDownUp.hide($elem)
-	})
+
+   	js.slideDownUp.init($elem);
+  	$('button').eq(0).on('click',function(){
+   		js.slideDownUp.show($elem);
+   	})
+   	$('button').eq(1).on('click',function(){
+   		js.slideDownUp.hide($elem);
+   	})
+  
+   	
+
+
+	
+	 
 </script>
 </html>

@@ -2,7 +2,7 @@ body{
 	font-size: 12px;
 }
 .container{
-	width: 1226px;
+	width: 1200px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -15,20 +15,30 @@ body{
 .clearfix:after{
 	content: '';
 	display: block;
-	clear:both;
+	clear: both;
 	height: 0;
-	visibility:hidden;
+	visibility: hidden;
 }
 .clearfix{
-	*zoom : 1;
+	*zoom:1;
 }
 a{
 	text-decoration: none;
+}
+a{
 	color:#4d555d;
 }
-a:hover{
-	color:#ea675a;
+a.link:hover{
+	color: #ea675a;
 }
 .transition{
-	transform: all 0.5s;
+	transition: all 0.5s;
+}
+
+.dropdown{
+	position: relative;
+}
+.dropdown-layer{
+	display: none;
+	position: absolute;
 }

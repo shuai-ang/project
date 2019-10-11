@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>008-显示隐藏-js-左右卷入卷出.html</title>
+	<title>006-显示隐藏-js-卷土卷出.html</title>
 	<style>
 		*{
 			margin: 0;
@@ -12,11 +12,9 @@
 			width: 60px;
 			height: 30px;
 		}
-		.box{
+		#box{
 			display: none;
 			width: 200px;
-			padding: 10px;
-			border: 20px solid #000;
 			height: 200px;
 			background-color: red;
 		}
@@ -28,15 +26,13 @@
 <body>
 	<button>显示</button>
 	<button>隐藏</button>
-	<div id="box1" class="transition box"></div>
-	<div id="box2" class="transition box"></div>
+	<div id="box" class="transition"></div>
 </body>
 <script src="js/jquery-1.12.4.js"></script>
 <script>
-	function init($elem,hiddenCb){
+	function init(){
 		if($elem.is(":hidden")){
 			$elem.data('status','hidden');
-			typeof hiddenCb == 'function' && hiddenCb();
 		}else{
 			$elem.data('status','shown');
 		}
@@ -53,6 +49,9 @@
 		$elem.data('status','hide').trigger('hide');
 		cb();
 	}
+
+
+
 	var slient = {
 		init:init,
 		show:function($elem){
@@ -68,109 +67,59 @@
 			})
 		}
 	}
+	
 	var js = {
 		fade:{
 			init:function($elem){
-				js._init($elem);
-			},
-			show:function($elem){
-				js._show($elem,'fadeIn');
-				
-			},
-			hide:function($elem){
-				js._hide($elem,'fadeOut');
-			}
-		},
-		slideDownUp:{
-			init:function($elem){
-				js._init($elem);
-			},
-			show:function($elem){
-				js._show($elem,'slideDown')
-				
-			},
-			hide:function($elem){
-				js._hide($elem,'slideUp');
-			}
-		},
-		slideLeftRight:{
-			init:function($elem){
 				$elem.removeClass('transition');
-				//1.将隐藏之前的状态（水平方向的值）存起来
-				//borderLeftWidth,paddingLeft,width,paddingRight,borderRightWidth
-				var styles = {
-					borderLeftWidth:$elem.css('borderLeftWidth'),
-					paddingLeft:$elem.css('paddingLeft'),
-					width:$elem.css('width'),
-					paddingRight:$elem.css('paddingRight'),
-					borderRightWidth:$elem.css('borderRightWidth')
-				}
-				$elem.data('styles',styles)
-				// console.log(styles)
-				//2.如果当前是隐藏的话，需要把水平方向的值设置为0
-				init($elem,function(){
-					$elem.css({
-						borderLeftWidth:0,
-						paddingLeft:0,
-						width:0,
-						paddingRight:0,
-						borderRightWidth:0
-					})
-				});
+				init($elem);
+
 			},
 			show:function($elem){
 				show($elem,function(){
-					$elem.show()//让display变为block
 					$elem.stop();
-					/*
-					$elem[mode]();
+					$elem.fadeIn();
 					$elem.trigger('shown').data('status','shown');
-					*/
-					$elem.animate($elem.data('styles'),function(){
-						$elem.trigger('shown').data('status','shown');
-					})
 				});
+				
 			},
 			hide:function($elem){
 				hide($elem,function(){
 					$elem.stop();
-					/*
-					$elem[mode]();
+					$elem.fadeOut();
 					$elem.trigger('hidden').data('status','hidden');
-					*/
-					$elem.animate({
-						borderLeftWidth:0,
-						paddingLeft:0,
-						width:0,
-						paddingRight:0,
-						borderRightWidth:0
-					},function(){
-						$elem.hide()//让display变为none
-						$elem.trigger('hidden').data('status','hidden');
-					})
+				})
+			}
+		},
+		slideDownUp:{
+			init:function($elem){
+				$elem.removeClass('transition');
+				init($elem);
+
+			},
+			show:function($elem){
+				show($elem,function(){
+					$elem.stop();
+					$elem.slideDown();
+					$elem.trigger('shown').data('status','shown');
+				});
+				
+			},
+			hide:function($elem){
+				hide($elem,function(){
+					$elem.stop();
+					$elem.slideUp();
+					$elem.trigger('hidden').data('status','hidden');
 				})
 			}
 		}
 	}
-	js._init = function($elem){
-		$elem.removeClass('transition');
-		init($elem);
-	}
-	js._show = function($elem,mode){
-		show($elem,function(){
-			$elem.stop();
-			$elem[mode]();
-			$elem.trigger('shown').data('status','shown');
-		});
-	}
-	js._hide = function($elem,mode){
-		hide($elem,function(){
-			$elem.stop();
-			$elem[mode]();
-			$elem.trigger('hidden').data('status','hidden');
-		})
-	}
-	var $elem = $('.box');
+
+
+
+
+	var $elem = $('#box');
+
 	$elem.on('show shown hide hidden',function(ev){
 		if(ev.type == 'show'){
 			console.log('show...')
@@ -182,6 +131,7 @@
 			console.log('hidden...')
 		}
 	})
+
 	/*
 	slient.init($elem);
   	$('button').eq(0).on('click',function(){
@@ -191,7 +141,7 @@
    		slient.hide($elem);
    	})
  	*/
- 	/*
+   	/*
    	js.fade.init($elem);
   	$('button').eq(0).on('click',function(){
    		js.fade.show($elem);
@@ -200,7 +150,6 @@
    		js.fade.hide($elem);
    	})
    	*/
-   	/*
    	js.slideDownUp.init($elem);
   	$('button').eq(0).on('click',function(){
    		js.slideDownUp.show($elem);
@@ -208,13 +157,9 @@
    	$('button').eq(1).on('click',function(){
    		js.slideDownUp.hide($elem);
    	})
-   	*/
-   	js.slideLeftRight.init($elem);
-  	$('button').eq(0).on('click',function(){
-   		js.slideLeftRight.show($elem);
-   	})
-   	$('button').eq(1).on('click',function(){
-   		js.slideLeftRight.hide($elem);
-   	})
+
+
+	
+	 
 </script>
 </html>

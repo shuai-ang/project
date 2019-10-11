@@ -1,13 +1,40 @@
-
 ;(function($){
-	function handleDrop(){
+	//共通只加载一次html
+	function loadHtmlOnce($elem,cb){
+
+		var $layer = $elem.find('.dropdown-layer');
+		var dataUrl = $elem .data('url');
+		if(!dataUrl) return;
+		if($elem.data('isLoaded')) return;
+		$.getJSON(dataUrl,function(data){
+			$elem.data('isLoaded',true);
+			/*
+			var html = '';
+			
+			for(var i=0;i<data.length;i++){
+				html += '<li class="menu-item"><a href="'+data[i].url+'">'+data[i].name+'</a></li>'
+			}
+			//.模仿数据加载
+			setTimeout(function(){
+				$layer.html(html);
+			},1000)
+			*/
+			typeof cb == 'function' && cb(data,$layer);
+			
+			
+		})
+	}
+
+
+
+	function handleDropDown(){
 		var $dropdown = $('.nav-side .dropdown');
-		$dropdown.dropdown({delay:200,eventName:'click'}); 
+		
 		$dropdown.on('dropdown-show',function(ev){
-			// console.log(this)
+			/*
 			var $elem = $(this);
+			var $layer = $elem.find('.dropdown-layer');
 			var dataUrl = $elem .data('url');
-			// console.log(dataUrl)
 			if(!dataUrl) return;
 			if($elem.data('isLoaded')) return;
 			$.getJSON(dataUrl,function(data){
@@ -16,24 +43,31 @@
 				for(var i=0;i<data.length;i++){
 					html += '<li class="menu-item"><a href="'+data[i].url+'">'+data[i].name+'</a></li>'
 				}
-
-				//.模仿数据加载
-				setTimeout(function(){
-					$dropdown.find('.dropdown-layer').html(html);
-				},1000)
+				
 				
 			})
-
-			
-			
+			*/
+			loadHtmlOnce($(this),createMenuHtml)
+			function createMenuHtml(data,$layer){
+				var html = '';
+				for(var i=0;i<data.length;i++){
+					html += '<li class="menu-item"><a href="'+data[i].url+'">'+data[i].name+'</a></li>'
+				}
+				//.模仿数据加载
+				setTimeout(function(){
+					$layer.html(html);
+				},1000)
+			}
 		})
-		
+		$dropdown.dropdown({delay:200}); 
+		/*
 		$('.nav-side button').on('click',function(ev){
 			// ev.stopPropagation();
 			$('.nav-side .dropdown').dropdown('show');
 		})
+		*/
 	}
-	handleDrop();
+	handleDropDown();
 	function handleSearch(){
 		$('.search').search();
 		$('.search').on('getData',function(ev,data){
@@ -66,4 +100,78 @@
 		}
 	}
 	handleSearch();
+
+	function handleCategory(){
+		var $dropdown = $('.category .dropdown');
+		
+		$dropdown.on('dropdown-show',function(ev){
+			/*
+			var $elem = $(this);
+			var $layer = $elem.find('.dropdown-layer');
+			var dataUrl = $elem .data('url');
+			if(!dataUrl) return;
+			if($elem.data('isLoaded')) return;
+			$.getJSON(dataUrl,function(data){
+				$elem.data('isLoaded',true);
+				var html = '';
+				for(var i=0;i<data.length;i++){
+					html += '<dl class="category-details"><dt class="category-details-title fl"><a href="#" class="category-details-title-link">'+data[i].title+'</a></dt><dd class="category-details-item fl">'
+					for(var j=0;j<data[i].items.length;j++){
+						html += '<a href="#" class="link">'+data[i].items[j]+'</a>'
+					}
+					html += '</dd></dl>'
+				}
+				//.模仿数据加载
+				setTimeout(function(){
+					 $layer.html(html);
+				},1000)
+				
+			})
+			*/
+			loadHtmlOnce($(this),createCategoryHtml)
+			function createCategoryHtml(data,$layer){
+				var html = '';
+				for(var i=0;i<data.length;i++){
+					html += '<dl class="category-details"><dt class="category-details-title fl"><a href="#" class="category-details-title-link">'+data[i].title+'</a></dt><dd class="category-details-item fl">'
+					for(var j=0;j<data[i].items.length;j++){
+						html += '<a href="#" class="link">'+data[i].items[j]+'</a>'
+					}
+					html += '</dd></dl>'
+				}
+				//.模仿数据加载
+				setTimeout(function(){
+					$layer.html(html);
+				},1000)
+			}
+		})
+		$dropdown.dropdown({delay:200,js:true,mode:"fade"});
+	}
+	handleCategory();
+
+	function handleCarousel(){
+		var $carousel = $('.focus .carousel-wrap');
+		var item = {};
+		var loadItemNum = $carousel.find('.carousel-item').length;
+		var loadedItemNum = 0;
+		$carousel.on('carousel-show',function(ev,index,elem){
+			console.log('carousel-show');
+			if(item[index] != 'loaded'){
+				console.log('loaded',index)
+				var $Img = $(elem).find('.carousel-img');
+				var $imgUrl = $Img.data('src');
+				$Img.attr('src',$imgUrl);
+				item[index] = 'loaded';
+				loadedItemNum ++;
+				if(loadedItemNum == loadItemNum){
+					$carousel.off('carousel-show');
+				}
+			}
+			 
+		})
+
+
+
+		$carousel.carousel({});
+	}
+	handleCarousel();
 })(jQuery);

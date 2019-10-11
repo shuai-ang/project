@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>010-显示隐藏-封装插件.html</title>
+	<title>010-显示隐藏-插件封装-测试.html</title>
 	<style>
 		*{
 			margin: 0;
@@ -34,8 +34,10 @@
 <script src="js/jquery-1.12.4.js"></script>
 <script src="js/showHide.js"></script>
 <script>
+	
 	var $elem = $('.box');
-	$elem.showHide({js:true,mode:'slideLeftRight'});
+	//初始化插件
+	$elem.showHide({js:true,mode:"slideLeftRight"});
 	$elem.on('show shown hide hidden',function(ev){
 		if(ev.type == 'show'){
 			console.log('show...')
@@ -48,10 +50,14 @@
 		}
 	})
 	$('button').eq(0).on('click',function(){
-		$elem.showHide('show')
+		console.log($elem.showHide('show'));
 	})
 	$('button').eq(1).on('click',function(){
-		$elem.showHide('hide')
+		$elem.showHide('hide');
 	})
+
+
+	
+	 
 </script>
 </html>
