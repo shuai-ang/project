@@ -1,0 +1,108 @@
+body{
+	background-color: #ccc;
+}
+#blog-nav .navbar-nav li{
+	margin-right: 15px;
+}
+#blog-nav .navbar-nav li a{
+	font-size: 18px;
+}
+#blog-nav .navbar-nav li a:hover{
+	color: #f65a8a;
+}
+#blog-nav .navbar-nav .active a{
+	background-color: transparent;
+	color:#f65a8a;
+}
+.link{
+	color:#333;
+	text-decoration: none !important;
+}
+.link:hover{
+	color:#f65a8a !important;
+}
+.row .panel .panel-heading{
+	background-color: transparent !important;
+	border-bottom: none !important;
+}
+.row .panel .panel-footer{
+	background-color: transparent !important;
+	border-top: none !important;
+}
+
+.row .panel .panel-footer .list-group-item{
+	float: left !important;
+	padding-left: 0px !important;
+	padding-top: 0px !important;
+	margin-right: 5px !important;
+	box-sizing: border-box !important;
+	background-color: transparent !important;
+	border: none !important;
+}
+.row .ad{
+	margin-bottom: 20px;
+}
+.row .ad img{
+	width: 100% !important;
+	height: 200px !important;
+}
+/*用户注册登录*/
+.col-md-4 .user-panel{
+	/*text-align: center;*/
+	background: #fff;
+	padding-top:20px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+	border-radius: 5px;
+}
+.user-panel .btn{
+	width:100%;
+}
+.user-panel .link{
+	margin-top: 10px;
+	display: block;
+	text-align: right;
+}
+#user-info{
+	padding-left: 40px;
+	font-size: 18px;
+	box-sizing: border-box;
+	height: 130px;
+}
+#user-info .link{
+	text-align: left;
+}
+.user-panel .err{
+	height: 30px;
+	line-height: 30px;
+	padding-left: 10px;
+}
+/*用户注册登录*/
+.col-md-4 .person{
+	float: left;
+}
+.col-md-4 .right{
+	float: left;
+	width: 210px;
+	padding: 0 !important;
+	border:none;
+	box-sizing: border-box;
+}
+.col-md-4 .right .panel-heading{
+	padding: 0 10px !important;
+}
+.col-md-4 .right .panel-body{
+	padding: 5px 0px 0px 10px !important;
+}
+.col-md-4 .person img{
+	width: 100px;
+	height: 100px;
+}
+.text-ellipsis{
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+}
+.col-md-4 .list-group-item.text-ellipsis{
+	border-color: transparent !important;
+}
