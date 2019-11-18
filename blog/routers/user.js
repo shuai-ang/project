@@ -20,7 +20,8 @@ router.post('/register',(req, res)=> {
    	   }else{
    	   	  UserModel.insertMany({
    	   	  	username:username,
-   	   	  	password:hmac(password)
+   	   	  	password:hmac(password),
+               // isAdmin:true
    	   	  })
    	   	  .then(result=>{
    	   	  	res.json({
@@ -54,6 +55,10 @@ router.post('/login',(req, res)=> {
    UserModel.findOne({username:username,password:hmac(password)},'-password')
    .then(user=>{
    	   if(user){
+   	   	//设置cookie
+   	   	// req.cookies.set('userInfo',JSON.stringify(user),{maxAge:1000*60*60*24})
+
+   	   	req.session.userInfo = user;
    	   	  res.json({
    	   	  	code:0,
    	   	  	message:"登陆成功",
@@ -62,7 +67,7 @@ router.post('/login',(req, res)=> {
    	   }else{
    	   	  res.json({
 	  		code:10,
-	  		message:"数据库操作失败"
+	  		message:"用户名或密码不正确"
 	  	})
    	   }
    })
@@ -72,5 +77,16 @@ router.post('/login',(req, res)=> {
 	  		message:"数据库操作失败"
 	  	})
 	  })
+})
+
+//处理退出
+router.get('/logout',(req,res)=>{
+	//清除cookie
+	// req.cookies.set('userInfo',null)
+	req.session.destroy()
+	res.json({
+		code:0,
+		message:"退出成功"
+	})
 })
 module.exports = router;

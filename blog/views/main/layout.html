@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<title>{% block title %}{% endblock %}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="bootstrap-3.3.7/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="css/common.css">
+	<link rel="stylesheet" href="/bootstrap-3.3.7/dist/css/bootstrap.css">
+	<link rel="stylesheet" href="/css/common.css">
 	{% block head %}{% endblock %}
 </head>
 <body>
@@ -42,9 +42,14 @@
 		  </div>
 		  <div class="col-md-4 hidden-xs hidden-sm">
 		  	 <!--用户注册登录-->
-	          <div class="user-panel" id='user-info' style="display: none;">
-	            欢迎<span>Tom</span>
+		  	 {% if userInfo._id %}
+	          <div class="user-panel" id='user-info'>
+	            欢迎,<span>{{userInfo.username}}</span>
+	            {% if userInfo.isAdmin %}
+	            <a class="link" href="/admin">进入管理员中心</a>
+	            {% else %}
 	            <a class="link" href="/home">进入个人中心</a>
+	            {% endif %}
 	            <a class="link" href="javascript:;" id='logout'>退出</a>
 	            <div class="form-group">
 	              <div class="col-sm-12">
@@ -52,6 +57,7 @@
 	              </div>
 	            </div>              
 	          </div>
+	          {% else %}
 	          <div class="form-horizontal user-panel" id='register' style="display: none;">
 	            <div class="form-group">
 	              <label class="col-sm-4 control-label">用户名</label>
@@ -109,6 +115,7 @@
 	              </div>
 	            </div>            
 	          </div>
+	          {% endif %}
 	          <!--用户注册登录--> 
 		  	<div class="ad"><a href="#"><img src="images/ad1.jpg" class="img-responsive"></a></div>
 		  	<div class="ad"><a href="#"><img src="images/ad2.jpg" class="img-responsive"></a></div>
@@ -161,8 +168,9 @@
 		</div>
 	</div>
 </body>
-<script src="bootstrap-3.3.7/dist/js/jquery-1.12.4.js"></script>
-<script src="bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
-<script src="js/common.js"></script>
+<script src="/bootstrap-3.3.7/dist/js/jquery-1.12.4.js"></script>
+<script src="/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/logout.js"></script>
 {% block end %}{% endblock %}
 </html>

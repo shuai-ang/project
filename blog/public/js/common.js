@@ -100,9 +100,12 @@
 			})
 			.done(function(data){
 				if(data.code == 0){
+					/*
 					$userInfo.find($('span')).html(data.user.username)
 					$login.hide();
 					$userInfo.show();
+					*/
+					window.location.reload()
 				}else{
 					$err.html(data.message)
 				}
@@ -113,5 +116,21 @@
 			})
 		}
 		
+	})
+
+	//4.处理退出
+	$('#logout').on('click',function(){
+		$.ajax({
+			url:'user/logout',
+			type:"GET"
+		})
+		.done(data=>{
+			if(data.code == 0){
+				window.location.href = '/'
+			}
+		})
+		.fail(function(err){
+			$userInfo.find('.err').html('请求失败,请稍后再试')
+		})
 	})
 })(jQuery);
