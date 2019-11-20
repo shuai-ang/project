@@ -1,4 +1,5 @@
 .row .carousel-inner .item img{
+	width: 100% !important;
 	height: 420px !important;
 }
 .row #carousel-example-generic{

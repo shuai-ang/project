@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
 <a href="/category/add" class="btn btn-primary">新增分类</a>
-<div class="table-responsive">
+<div class="table-responsive content">
 	<table class="table table-striped">
 	  <thead>
 	    <tr>
@@ -18,16 +18,19 @@
 	    </tr>
 	  </thead>
 	  <tbody>
+	  		{% for category in categories %}
 		    <tr>
-		      <td>111</td>
-		      <td>HTML</td>
-		      <td>1</td>
+		      <td>{{ category._id.toString() }}</td>
+		      <td>{{ category.name }}</td>
+		      <td>{{ category.order }}</td>
 		      <td>
-		      	 <a href="#">编辑</a>
-		      	 <a href="#">删除</a>
+		      	 <a href="/category/edit/{{ category._id.toString() }}">编辑</a>
+		      	 <a href="/category/delete/{{ category._id.toString() }}" class="del">删除</a>
 		      </td>
 		    </tr>
+		    {% endfor %}
 	  </tbody>
 	</table>
 </div>
+{% include './pagination.html' %}
 {% endblock %}
