@@ -26,11 +26,9 @@
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      <ul class="nav navbar-nav">
 		        <li class="active"><a href="index.html">首页 <span class="sr-only">(current)</span></a></li>
-		        <li><a href="list.html">HTML/CSS</a></li>
-	            <li><a href="list.html">JavaScript</a></li>
-	            <li><a href="list.html">学无止境</a></li>
-	            <li><a href="list.html">我的足迹</a></li>
-		        
+		        {% for category in categories %}
+			        <li><a href="/list/{{ category._id.toString() }}">{{ category.name }}</a></li>
+		        {% endfor %}
 		      </ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
@@ -146,14 +144,9 @@
 
 			  <!-- List group -->
 			  <ul class="list-group list">
-			    <li class="list-group-item text-ellipsis"><a href="#" class="link">杨洋出生于上海，从小学习舞蹈。2003年，杨洋同时报考了解放军艺术学院和上海舞蹈学院，最终他选择进入中国解放军艺术学院舞蹈系5年制中专就读</a></li>
-			    <li class="list-group-item text-ellipsis"><a href="#" class="link">杨洋出生于上海，从小学习舞蹈。2003年，杨洋同时报考了解放军艺术学院和上海舞蹈学院，最终他选择进入中国解放军艺术学院舞蹈系5年制中专就读</a></li>
-			    <li class="list-group-item text-ellipsis"><a href="#" class="link">杨洋出生于上海，从小学习舞蹈。2003年，杨洋同时报考了解放军艺术学院和上海舞蹈学院，最终他选择进入中国解放军艺术学院舞蹈系5年制中专就读</a></li>
-			    <li class="list-group-item text-ellipsis"><a href="#" class="link">杨洋出生于上海，从小学习舞蹈。2003年，杨洋同时报考了解放军艺术学院和上海舞蹈学院，最终他选择进入中国解放军艺术学院舞蹈系5年制中专就读</a></li>
-			    <li class="list-group-item text-ellipsis"><a href="#" class="link">杨洋出生于上海，从小学习舞蹈。2003年，杨洋同时报考了解放军艺术学院和上海舞蹈学院，最终他选择进入中国解放军艺术学院舞蹈系5年制中专就读</a></li>
-			    <li class="list-group-item text-ellipsis"><a href="#" class="link">杨洋出生于上海，从小学习舞蹈。2003年，杨洋同时报考了解放军艺术学院和上海舞蹈学院，最终他选择进入中国解放军艺术学院舞蹈系5年制中专就读</a></li>
-			    <li class="list-group-item text-ellipsis"><a href="#" class="link">杨洋出生于上海，从小学习舞蹈。2003年，杨洋同时报考了解放军艺术学院和上海舞蹈学院，最终他选择进入中国解放军艺术学院舞蹈系5年制中专就读</a></li>
-			    <li class="list-group-item text-ellipsis"><a href="#" class="link">杨洋出生于上海，从小学习舞蹈。2003年，杨洋同时报考了解放军艺术学院和上海舞蹈学院，最终他选择进入中国解放军艺术学院舞蹈系5年制中专就读</a></li>
+			  	{% for topArticle in topArticles %}
+			    <li class="list-group-item text-ellipsis"><a href="/detail/{{ article._id.toString() }}" class="link">[{{ topArticle.click }}] {{ topArticle.title }}</a></li>
+			    {% endfor %}
 			  </ul>
 			</div>
 			<div class="panel panel-default">
@@ -170,6 +163,7 @@
 </body>
 <script src="/bootstrap-3.3.7/dist/js/jquery-1.12.4.js"></script>
 <script src="/bootstrap-3.3.7/dist/js/bootstrap.min.js"></script>
+<script src="/js/pagination.js"></script>
 <script src="/js/common.js"></script>
 <script src="/js/logout.js"></script>
 {% block end %}{% endblock %}

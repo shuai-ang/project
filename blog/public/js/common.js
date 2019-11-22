@@ -133,4 +133,45 @@
 			$userInfo.find('.err').html('请求失败,请稍后再试')
 		})
 	})
+
+	//首页分页逻辑
+	var $articlePage = $('#articlePage');
+	var $articleWrap = $('#articleWrap');
+
+	function buildArticalHtml(article){
+		var html = '';
+		html += `<div class="panel panel-default">
+				  <div class="panel-heading">
+				  	<h3 class="panel-title"><a href="/detail/${ article._id }" class="link">${ article.title }</a></h3>
+				  </div>
+				  <div class="panel-body">
+				    ${ article.intro }
+				  </div>
+				  <div class="panel-footer">
+				  	<ul class="list-group">
+					  <li class="list-group-item">
+					  	<span class="glyphicon glyphicon-user"></span>&nbsp;${ article.user }
+					  </li>
+					  <li class="list-group-item">
+					  	<span class="glyphicon glyphicon-th-list"></span>&nbsp;${ article[0].category.name }
+					  </li>
+					  <li class="list-group-item">
+					  	<span class="glyphicon glyphicon-time"></span>&nbsp;${ article.createdTime }
+					  </li>
+					  <li class="list-group-item">
+					  	<span class="glyphicon glyphicon-eye-open"></span>&nbsp;${ article.click }
+					  </li>
+					</ul>
+				  </div>
+				</div>`
+		return html;
+	}
+
+	$articlePage.on('get-data',function(ev,data){
+		$articleWrap.html(buildArticalHtml(data.docs))
+	})
+
+	$articlePage.pagination({
+		url:'/articles'
+	})
 })(jQuery);

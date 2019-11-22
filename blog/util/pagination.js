@@ -1,6 +1,6 @@
 async function pagination(options){
 	const limit = 2;
-	let { page,model,query,projection,sort } = options;
+	let { page,model,query,projection,sort,populates } = options;
 
     if(isNaN(page)){
        page = 1
@@ -25,7 +25,15 @@ async function pagination(options){
        }
 
        let skip = (page - 1)*limit;
-       const docs = await model.find(query,projection).skip(skip).limit(limit).sort(sort)
+
+       let result = model.find(query,projection)
+
+       if(populates){
+          populates.forEach(function(populate){
+              return result.populate(populate)
+          })
+       }
+       const docs = await result.skip(skip).limit(limit).sort(sort)
 
        return {
        	  docs:docs,

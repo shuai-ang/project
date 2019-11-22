@@ -15,14 +15,7 @@ router.use((req,res,next)=>{
 })
 
 router.get('/',(req, res)=> {
-    const options = {
-       page:req.query.page / 1,
-       model:ArticleModel,
-       query:{},
-       projection:'-__v',
-       sort:{_id:1}
-    }
-    pagination(options)
+    ArticleModel.getPaginationData(req)
     .then(result=>{
         res.render('admin/article_list',{
             userInfo:req.userInfo,//获取用户信息
