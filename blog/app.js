@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'))
 
 mongoose.connect('mongodb://localhost/blog', {useNewUrlParser: true,useUnifiedTopology: true});
+mongoose.set('useFindAndModify', false);
+
 var db = mongoose.connection;
 db.on('error', function(){
 	 console.log('connection error:')
@@ -83,5 +85,6 @@ app.use('/user',require('./routers/user.js'))
 app.use('/admin',require('./routers/admin.js'))
 app.use('/category',require('./routers/category.js'))
 app.use('/article',require('./routers/article.js'))
+app.use('/comment',require('./routers/comment.js'))
 
 app.listen(3000, () => console.log('Server is running at http://127.0.0.1:3000!'))

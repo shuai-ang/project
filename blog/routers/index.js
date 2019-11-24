@@ -41,19 +41,70 @@ router.get('/',(req, res)=> {
   
   
 })
-router.get('/list',(req, res)=> {
-  res.render('main/list',{
-  	userInfo:req.userInfo
+router.get('/list/:id',(req, res)=> {
+  let id = req.params.id;
+  ArticleModel.getPaginationData(req,{category:id})
+  .then(result=>{
+      getDataPromise()
+      .then(data=>{
+         const { categories,topArticles } = data;
+         res.render('main/list',{
+            userInfo:req.userInfo,
+            categories,
+            topArticles,
+            articles:result.docs,
+            page:result.page,
+            list:result.list,
+            pages:result.pages,
+            url:'/',
+            currentCategoryId:id
+          })
+      })
   })
 })
-router.get('/detail',(req, res)=> {
-  res.render('main/detail',{
-  	userInfo:req.userInfo
+
+//获取详情页数据
+async function getCommonData(req){
+  let id = req.params.id;
+
+  const getArticleData = ArticleModel.findOneAndUpdate({_id:id},{$inc:{click:1}},{new:true})
+                        .populate({ path: 'user', select: 'username' })
+                        .populate({ path: 'category', select: 'name' })
+
+   const getCommonData = getDataPromise();
+   const articleData = await getArticleData;
+   const commonData = await getCommonData;
+   const { categories,topArticles } = commonData;
+   return {
+       categories,
+       topArticles,
+       articleData
+   }
+}
+
+router.get('/detail/:id',(req, res)=> {
+  getCommonData(req)
+  .then(data=>{
+     const { categories,topArticles,articleData } = data;
+     // console.log(articleData)
+      res.render('main/detail',{
+          userInfo:req.userInfo,
+          categories,
+          topArticles,
+          articleData,
+          currentCategoryId:articleData.category._id.toString()
+      })
   })
+  
 })
 //处理首页文章分页ajax
 router.get('/articles',(req,res)=>{
-  ArticleModel.getPaginationData(req)
+  let id = req.query.id;
+  let query = {};
+  if(id){
+     query.category = id;
+  }
+  ArticleModel.getPaginationData(req,query)
   .then(result=>{
      res.json({
         code:0,

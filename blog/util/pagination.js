@@ -10,7 +10,7 @@ async function pagination(options){
        page = 1
     }
 
-    const count = await model.countDocuments()
+    const count = await model.countDocuments(query)
        // console.log(count)
        let pages = Math.ceil(count/limit);
        if(page > pages){

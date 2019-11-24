@@ -138,11 +138,13 @@
 	var $articlePage = $('#articlePage');
 	var $articleWrap = $('#articleWrap');
 
-	function buildArticalHtml(article){
+	function buildArticalHtml(articles){
 		var html = '';
-		html += `<div class="panel panel-default">
+		articles.forEach(function(article){
+			var createdTime = moment(article.createAt).format('YYYY - MM - DD HH:mm:ss')
+			html += `<div class="panel panel-default">
 				  <div class="panel-heading">
-				  	<h3 class="panel-title"><a href="/detail/${ article._id }" class="link">${ article.title }</a></h3>
+				  	<h3 class="panel-title"><a href="/detail/${ article._id.toString() }" class="link">${ article.title }</a></h3>
 				  </div>
 				  <div class="panel-body">
 				    ${ article.intro }
@@ -150,13 +152,13 @@
 				  <div class="panel-footer">
 				  	<ul class="list-group">
 					  <li class="list-group-item">
-					  	<span class="glyphicon glyphicon-user"></span>&nbsp;${ article.user }
+					  	<span class="glyphicon glyphicon-user"></span>&nbsp;${ article.user.username }
 					  </li>
 					  <li class="list-group-item">
-					  	<span class="glyphicon glyphicon-th-list"></span>&nbsp;${ article[0].category.name }
+					  	<span class="glyphicon glyphicon-th-list"></span>&nbsp;${ article.category.name }
 					  </li>
 					  <li class="list-group-item">
-					  	<span class="glyphicon glyphicon-time"></span>&nbsp;${ article.createdTime }
+					  	<span class="glyphicon glyphicon-time"></span>&nbsp;${ createdTime }
 					  </li>
 					  <li class="list-group-item">
 					  	<span class="glyphicon glyphicon-eye-open"></span>&nbsp;${ article.click }
@@ -164,11 +166,52 @@
 					</ul>
 				  </div>
 				</div>`
+		})
+		
+		
 		return html;
 	}
 
+	function buildPaginationHtml(page,pages,list){
+		var html = '';
+		if(page == 1){
+			html += `<li class="disabled">`
+		}else{
+			html += `<li>`
+		}
+		html += ` <a href="javascript:;" aria-label="Previous">
+			        <span aria-hidden="true">&laquo;</span>
+			      </a>`
+	    list.forEach(function(i){
+	    	if(i == page){
+	    		html += '<li class="active"><a href="javascript:;">'+i+'</a></li>'
+	    	}else{
+	    		html += '<li><a href="javascript:;">'+i+'</a></li>'
+	    	}
+	    })
+	    if(page == pages){
+	    	html += `<li class="disabled">`
+		}else{
+			html += `<li>`
+		}
+		html += ` <a href="javascript:;" aria-label="Next">
+			        <span aria-hidden="true">&raquo;</span>
+			      </a>`
+	    return html;
+	}
+
 	$articlePage.on('get-data',function(ev,data){
+		//获取首页文章分页数据
+		//构建文章列表结构
 		$articleWrap.html(buildArticalHtml(data.docs))
+		//构建分页器结构
+		var $pagination = $articlePage.find('.pagination');
+		if(data.pages >1){
+			$pagination.html(buildPaginationHtml(data.page,data.pages,data.list))
+		}else{
+			$pagination.html('')
+		}
+		
 	})
 
 	$articlePage.pagination({

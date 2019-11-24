@@ -21,8 +21,14 @@
 				if(page == currentPage){
 					return false;
 				}
+
+				var id = $elem.data('id');
+				var url = options.url+"?page="+page;
+				if(id){
+					url = url+"&id="+id;
+				}
 				$.ajax({
-					url:options.url+"?page="+page,
+					url:url,
 					type:"get",
 					dataType:"json"
 				})
