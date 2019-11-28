@@ -134,7 +134,7 @@
 		})
 	})
 
-	//首页分页逻辑
+	//5.首页分页逻辑
 	var $articlePage = $('#articlePage');
 	var $articleWrap = $('#articleWrap');
 
@@ -217,4 +217,43 @@
 	$articlePage.pagination({
 		url:'/articles'
 	})
+
+	//6.详情页评论分页逻辑
+	var $commentPage = $('#commentPage');
+	var $commentWrap = $('#comment-wrap');
+
+	function buildCommentHtml(comments){
+		var html = '';
+		comments.forEach(function(comment){
+			var createdTime = moment(comment.createAt).format('YYYY - MM - DD HH:mm:ss')
+			html += `<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">${comment.user.username} 发布于 ${createdTime}</h3>
+					  </div>
+					  <div class="panel-body">
+					    ${comment.content}
+					  </div>
+					</div>`
+		})
+		return html;
+	}
+
+	$commentPage.on('get-data',function(ev,data){
+		// console.log(data)
+		//获取评论信息分页数据
+		//构建评论信息结构
+		$commentWrap.html(buildCommentHtml(data.docs))
+		//构建分页器结构
+		var $pagination = $commentPage.find('.pagination');
+		if(data.pages >1){
+			$pagination.html(buildPaginationHtml(data.page,data.pages,data.list))
+		}else{
+			$pagination.html('')
+		}
+		
+	})
+	$commentPage.pagination({
+		url:'/comment/list'
+	})
+
 })(jQuery);

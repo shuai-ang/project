@@ -7,6 +7,64 @@ router.use((req,res,next)=>{
   if(req.userInfo._id){
     next()
   }else{
-    res.send('<h1>请使用管理员账号登陆</h1>')
+    res.send('<h1>请登录后再评论</h1>')
   }
 })
+
+router.post('/add',(req,res)=>{
+	const { content,article } = req.body;
+	CommentModel.insertMany({
+		content,
+		article,
+		user:req.userInfo._id.toString()
+	})
+	.then(comment=>{
+		CommentModel.getPaginationData(req,{article:article})
+		.then(data=>{
+			res.json({
+				code:0,
+				message:"评论成功",
+				data:data
+			})
+		})
+		.catch(err=>{
+			res.json({
+				code:10,
+				message:"评论失败"
+			})
+		})
+	})
+	.catch(err=>{
+		res.json({
+			code:10,
+			message:"数据库操作失败,请稍后再试"
+		})
+	})
+})
+
+
+router.get('/list',(req,res)=>{
+  let id = req.query.id;
+  let query = {};
+  if(id){
+     query.article = id;
+  }
+  CommentModel.getPaginationData(req,query)
+  .then(result=>{
+     res.json({
+        code:0,
+        message:"获取评论信息成功",
+        data:result
+     })
+  })
+  .catch(err=>{
+     res.json({
+        code:10,
+        message:"获取评论信息失败"
+     })
+  })
+})
+
+
+
+module.exports = router;

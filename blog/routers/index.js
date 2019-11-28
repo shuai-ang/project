@@ -2,6 +2,7 @@ var express = require('express')
 var router = express.Router()
 const CategoryModel = require('../models/category.js')
 const ArticleModel = require('../models/article.js')
+const CommentModel = require('../models/comment.js')
 
 async function getDataPromise(){
    const getCategoriesDataPromise = CategoryModel.find({},'name').sort({order:1})
@@ -71,28 +72,37 @@ async function getCommonData(req){
                         .populate({ path: 'user', select: 'username' })
                         .populate({ path: 'category', select: 'name' })
 
+  const getCommentData = CommentModel.getPaginationData(req,{article:id});
    const getCommonData = getDataPromise();
    const articleData = await getArticleData;
+
+   const commentData = await getCommentData;
    const commonData = await getCommonData;
    const { categories,topArticles } = commonData;
    return {
        categories,
        topArticles,
-       articleData
+       articleData,
+       commentData
    }
 }
 
 router.get('/detail/:id',(req, res)=> {
   getCommonData(req)
   .then(data=>{
-     const { categories,topArticles,articleData } = data;
+     const { categories,topArticles,articleData,commentData } = data;
      // console.log(articleData)
       res.render('main/detail',{
           userInfo:req.userInfo,
           categories,
           topArticles,
           articleData,
-          currentCategoryId:articleData.category._id.toString()
+          currentCategoryId:articleData.category._id.toString(),
+          //返回分页数据
+          comments:commentData.docs,
+          page:commentData.page,
+          list:commentData.list,
+          pages:commentData.pages
       })
   })
   
@@ -120,3 +130,4 @@ router.get('/articles',(req,res)=>{
   })
 })
 module.exports = router;
+

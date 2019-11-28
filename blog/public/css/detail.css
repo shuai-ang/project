@@ -20,3 +20,9 @@
 .btn-sub{
 	padding: 26px 20px;
 }
+#comment-wrap .panel-body{
+	word-break: break-all;
+}
+#comment-wrap{
+	min-height: 400px;
+}

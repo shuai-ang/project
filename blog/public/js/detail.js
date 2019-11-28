@@ -26,10 +26,12 @@
 			}
 		})
 		.done(result=>{
-			console.log(result)
+			// console.log(result)
+			$('#text-content').val('')
+			$('#commentPage').trigger('get-data',result.data)
 		})
 		.fail(err=>{
-			console.log(err)
+			$err.html('评论失败,请稍后再试')
 		})
 	})
 })(jQuery);

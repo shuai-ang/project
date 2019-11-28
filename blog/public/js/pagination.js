@@ -23,6 +23,7 @@
 				}
 
 				var id = $elem.data('id');
+				console.log(id)
 				var url = options.url+"?page="+page;
 				if(id){
 					url = url+"&id="+id;
