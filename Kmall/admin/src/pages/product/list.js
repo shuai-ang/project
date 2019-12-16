@@ -13,7 +13,7 @@ import Layout from 'common/layout'
 
 
 //容器组件
-class CategoryList extends Component{
+class ProductList extends Component{
 	constructor(props){
 		super(props)
 	}
@@ -100,15 +100,15 @@ class CategoryList extends Component{
 		const dataSource = list.toJS()
 		// console.log(data)
 		return(
-			<div className='CategoryList'>
+			<div className='ProductList'>
 				<Layout>
 					<Breadcrumb style={{ margin: '16px 0' }}>
                         <Breadcrumb.Item>首页</Breadcrumb.Item>
-                        <Breadcrumb.Item>分类管理</Breadcrumb.Item>
-                        <Breadcrumb.Item>分类列表</Breadcrumb.Item>
+                        <Breadcrumb.Item>商品管理</Breadcrumb.Item>
+                        <Breadcrumb.Item>商品列表</Breadcrumb.Item>
                     </Breadcrumb>
                     <div className='btn'>
-                    	<Link to='/category/add'><Button className='add-btn' type="primary">新增分类</Button></Link>
+                    	<Link to='/product/save'><Button className='add-btn' type="primary">新增商品</Button></Link>
                     </div>
                     <div className='content'>
                     	<Table columns={columns} 
@@ -140,11 +140,11 @@ class CategoryList extends Component{
 //将属性映射到组件中
 const mapStateToProps = (state)=>{
 	return {
-		list:state.get('category').get('list'),
-		current:state.get('category').get('current'),
-		pageSize:state.get('category').get('pageSize'),
-		total:state.get('category').get('total'),
-		isFecthing:state.get('category').get('isFecthing')
+		list:state.get('product').get('list'),
+		current:state.get('product').get('current'),
+		pageSize:state.get('product').get('pageSize'),
+		total:state.get('product').get('total'),
+		isFecthing:state.get('product').get('isFecthing')
 	}
 }
 //将方法映射到组件
@@ -169,4 +169,4 @@ const mapDispatchToProps = (dispatch)=>{
 }
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(CategoryList)
+export default connect(mapStateToProps,mapDispatchToProps)(ProductList)

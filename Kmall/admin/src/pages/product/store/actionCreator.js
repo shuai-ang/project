@@ -29,7 +29,7 @@ const setLevelCategories = (payload) =>({
 export const getLevelCategories = ()=>{
 	return (dispatch,getState)=>{
 		api.levelCategories({
-			level:2
+			level:3
 		})
 		.then(result=>{
 			const data = result.data;

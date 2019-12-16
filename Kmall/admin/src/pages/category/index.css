@@ -1,3 +1,9 @@
-.User .ant-table-content{
+.CategoryList .ant-table-content{
 	min-height: 600px;
+}
+.CategoryList .btn{
+	height: 40px;
+}
+.CategoryList .add-btn{
+	float: right;
 }

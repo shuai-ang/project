@@ -9,10 +9,12 @@ import CategoryAdd from './add.js'
 class Category extends Component{
 	render(){
 		return (
-			<Switch>
-				<Route path='/category' component={CategoryList}></Route>
-				<Route path='/category/add' component={CategoryAdd}></Route>
-			</Switch>
+			<div className='Category'>
+				<Switch>
+					<Route path='/category' exact component={CategoryList}></Route>
+					<Route path='/category/add' component={CategoryAdd}></Route>
+				</Switch>
+			</div>
 		)
 	}
 }

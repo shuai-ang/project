@@ -28,8 +28,7 @@ class AdminLayout extends Component{
                       </Content>
                     </Layout>
                   </Layout>
-                </Layout>,
-                mountNode,
+                </Layout>
           </div>
        )
    }
