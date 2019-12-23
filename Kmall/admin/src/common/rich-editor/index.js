@@ -26,7 +26,8 @@ class RichEditor extends Component{
 			  'indent',
 			  'outdent',
 			  'alignment',
-			]
+			],
+			isLoad:false
 		}
 		$.ajaxSetup({
 			xhrFields:{
@@ -35,7 +36,7 @@ class RichEditor extends Component{
 		})
 	}
 	componentDidMount(){
-		var editor = new Simditor({
+		this.editor = new Simditor({
 		  textarea: this.textarea,
 		  toolbar:this.state.toolbar,
 		  upload:{
@@ -43,6 +44,21 @@ class RichEditor extends Component{
 		    fileKey: 'upload'
 		  }
 		})
+		this.editor.on('valuechanged',()=>{
+			this.setState({isLoad:true},()=>{
+				this.props.getValues(this.editor.getValue())
+			})
+		})
+	}
+	componentDidUpdate(){
+		// console.log(this.props.values)
+		if(this.props.values && !this.state.isLoad){
+			this.editor.setValue(this.props.values)
+			this.setState({
+				isLoad:true
+			})
+		}
+		
 	}
 	render(){
 		return (

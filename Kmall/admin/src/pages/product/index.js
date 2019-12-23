@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import ProductList from './list.js'
 import ProductSave from './save.js'
+import ProductDetail from './detail.js'
 
 class Product extends Component{
 	render(){
@@ -12,7 +13,8 @@ class Product extends Component{
 			<div className='Product'>
 				<Switch>
 					<Route path='/product' exact component={ProductList}></Route>
-					<Route path='/product/save' component={ProductSave}></Route>
+					<Route path='/product/save/:productId?' component={ProductSave}></Route>
+					<Route path='/product/detail/:productId?' component={ProductDetail}></Route>
 				</Switch>
 			</div>
 		)

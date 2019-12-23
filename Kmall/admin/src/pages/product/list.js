@@ -3,7 +3,7 @@ import axios from 'axios'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import './index.css'
-import { Breadcrumb,Table,Button,Input,InputNumber,Switch } from 'antd'
+import { Breadcrumb,Table,Button,Input,InputNumber,Switch,Divider } from 'antd'
 import {
   Link
 } from "react-router-dom";
@@ -16,6 +16,7 @@ import Layout from 'common/layout'
 class ProductList extends Component{
 	constructor(props){
 		super(props)
+		
 	}
 	componentDidMount(){
 		this.props.handlePage(1)
@@ -23,13 +24,12 @@ class ProductList extends Component{
 	render(){
 		const columns = [
 		  {
-		    title: '分类名称',
+		    title: '商品名称',
 		    dataIndex: 'name',
 		    key: 'name',
-		    width:'40%',
 		    render: (name,record) => {
 		    	return (<Input 
-		    	style={{width:'60%'}}
+		    	style={{width:'40%'}}
 		    	defaultValue={name}
 		    	onBlur={(ev)=>{
 		    		if(ev.target.value != name){
@@ -39,23 +39,7 @@ class ProductList extends Component{
 		    },
 		  },
 		  {
-		    title: '手机分类名称',
-		    dataIndex: 'mobileName',
-		    key: 'mobileName',
-		    width:'30%',
-		    render: (mobileName,record) => {
-		    	return (<Input 
-		    	style={{width:'40%'}}
-		    	defaultValue={mobileName}
-		    	onBlur={(ev)=>{
-		    		if(ev.target.value != mobileName){
-		    			handleUpdateMobileName(record._id,ev.target.value)
-		    		}
-		    	}}/>)
-		    },
-		  },
-		  {
-		    title: '是否显示',
+		    title: '是否首页显示',
 		    dataIndex: 'isShow',
 		    key: 'isShow',
 		    render: (isShow,record) => {
@@ -67,6 +51,40 @@ class ProductList extends Component{
 			    			// console.log(checked)
 			    			const isShow = checked ? '1' : '0'
 			    			handleUpdateIsShow(record._id,isShow)
+			    		}}
+			    />)
+			}
+		   },
+		   {
+		    title: '上架/下架',
+		    dataIndex: 'status',
+		    key: 'status',
+		    render: (status,record) => {
+		    	return (<Switch 
+			    		checkedChildren="显示" 
+			    		unCheckedChildren="隐藏" 
+			    		checked={status=='0' ? false : true}
+			    		onChange={(checked)=>{
+			    			// console.log(checked)
+			    			const status = checked ? '1' : '0'
+			    			handleUpdateStatus(record._id,status)
+			    		}}
+			    />)
+			}
+		   },
+		   {
+		    title: '是否热卖',
+		    dataIndex: 'isHot',
+		    key: 'isHot',
+		    render: (isHot,record) => {
+		    	return (<Switch 
+			    		checkedChildren="显示" 
+			    		unCheckedChildren="隐藏" 
+			    		checked={isHot=='0' ? false : true}
+			    		onChange={(checked)=>{
+			    			// console.log(checked)
+			    			const isHot = checked ? '1' : '0'
+			    			handleUpdateIsHot(record._id,isHot)
 			    		}}
 			    />)
 			}
@@ -84,6 +102,18 @@ class ProductList extends Component{
 		    		}
 		    	}}/>)
 		    },
+		  },
+		  {
+		  	title:'操作',
+		  	render:(text,record)=>{
+		  		return (
+		  			<span>
+		  				<Link to={'/product/save/'+record._id}>编辑</Link>
+		  				<Divider type="vertical" />
+		  				<Link to={'/product/detail/'+record._id}>查看</Link>
+		  			</span>
+	  			)
+		  	}
 		  }
 		]
 		const { list,
@@ -93,9 +123,11 @@ class ProductList extends Component{
 				handlePage,
 				isFecthing,
 				handleUpdateName,
-				handleUpdateMobileName,
-				handleUpdateOrder,
-				handleUpdateIsShow
+				handleUpdateIsShow,
+				handleUpdateStatus,
+				handleUpdateIsHot,
+				handleUpdateOrder
+				
 			} = this.props;
 		const dataSource = list.toJS()
 		// console.log(data)
@@ -113,6 +145,7 @@ class ProductList extends Component{
                     <div className='content'>
                     	<Table columns={columns} 
                     	dataSource={dataSource} 
+                    	rowKey='_id'
                     	pagination={{
                     		current:current,
                     		pageSize:pageSize,
@@ -156,14 +189,17 @@ const mapDispatchToProps = (dispatch)=>{
 		handleUpdateName:(id,newName)=>{
 			dispatch(actionCreator.getUpdateNameAction(id,newName))
 		},
-		handleUpdateMobileName:(id,newMobileName)=>{
-			dispatch(actionCreator.getUpdateMobileNameAction(id,newMobileName))
+		handleUpdateIsShow:(id,newIsShow)=>{
+			dispatch(actionCreator.getUpdateIsShowAction(id,newIsShow))
+		},
+		handleUpdateStatus:(id,newStatus)=>{
+			dispatch(actionCreator.getUpdateStatusAction(id,newStatus))
+		},
+		handleUpdateIsHot:(id,newIsHot)=>{
+			dispatch(actionCreator.getUpdateIsHotAction(id,newIsHot))
 		},
 		handleUpdateOrder:(id,newOrder)=>{
 			dispatch(actionCreator.getUpdateOrderAction(id,newOrder))
-		},
-		handleUpdateIsShow:(id,newIsShow)=>{
-			dispatch(actionCreator.getUpdateIsShowAction(id,newIsShow))
 		}
 	}
 }

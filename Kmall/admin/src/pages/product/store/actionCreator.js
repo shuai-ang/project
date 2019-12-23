@@ -3,16 +3,53 @@ import * as types from './actionTypes.js'
 import api from 'api'
 import { message } from 'antd';
 
-export const getAddCategories = (values)=>{
+const setMainImageErr = () =>({
+	type:types.SET_MAIN_IMAGE_ERR
+})
+const setImagesErr = () =>({
+	type:types.SET_IMAGES_ERR
+})
+export const getSaveProductAction = (err,values)=>{
 	return (dispatch,getState)=>{
-		api.addCategories(values)
+		console.log(values)
+		const state = getState().get('product')
+		const mainImage = state.get('mainImage')
+		const images = state.get('images')
+		const detail = state.get('detail')
+		let hasErr = false;
+		let request = api.addProducts; 
+		if(err){
+			hasErr = true;
+		}
+		if(!mainImage){
+			hasErr = true;
+			dispatch(setMainImageErr())
+		}
+		if(!images){
+			hasErr = true;
+			dispatch(setImagesErr())
+		}
+		if(hasErr){
+			return
+		}
+		//判断新增还是编辑
+		if(values.id){
+			request = api.updateProducts
+		}
+		request({
+			...values,
+			mainImage:mainImage,
+			images:images,
+			detail:detail
+		})
 		.then(result=>{
 			// console.log(result)
 			
 			const data = result.data;
 			if(data.code == 0){
-				message.success('新增分类成功!');
-				dispatch(setLevelCategories(data.data))
+				message.success(data.message,()=>{
+					window.location.href = '/product'
+				});
 			}else{
 				message.error(data.message);
 			}
@@ -20,8 +57,21 @@ export const getAddCategories = (values)=>{
 		.catch(err=>{
 			console.log(err)
 		})
+		
 	}
 }
+export const MainImageAction = (payload) =>({
+	type:types.SET_MAIN_IMAGE,
+	payload
+})
+export const ImagesAction = (payload) =>({
+	type:types.SET_IMAGES,
+	payload
+})
+export const DetailAction = (payload) =>({
+	type:types.SET_DETAIL,
+	payload
+})
 const setLevelCategories = (payload) =>({
 	type:types.SET_LEVEL_CATEGORIES,
 	payload
@@ -58,7 +108,7 @@ const getPageDoneAction = (data) =>({
 export const getPageAction = (page)=>{
 	return (dispatch,getState)=>{
 		dispatch(getPageStartAction())
-		api.getCategoriesList({
+		api.getProductsList({
 			page:page
 		})
 		.then(result=>{
@@ -79,20 +129,20 @@ export const getPageAction = (page)=>{
 		})
 	}
 }
-export const getUpdateNameAction = (id,newName)=>{
+export const getUpdateIsShowAction = (id,newIsShow)=>{
 	 
 	return (dispatch,getState)=>{
-		const page = getState().get('category').get('current')
-		api.updateCategoriesName({
+		const page = getState().get('product').get('current')
+		api.updateProductsIsShow({
 			id:id,
-			name:newName,
+			isShow:newIsShow,
 			page:page
 		})
 		.then(result=>{
 			// console.log(result)
 			const data = result.data;
 			if(data.code == 0){
-				message.success('更新分类成功!');
+				message.success('更新首页显示成功!');
 				dispatch(setPageAction(data.data))
 			}else{
 				message.error('请求失败,请稍后再试!');
@@ -104,20 +154,45 @@ export const getUpdateNameAction = (id,newName)=>{
 		})
 	}
 }
-export const getUpdateMobileNameAction = (id,newMobileName)=>{
+export const getUpdateStatusAction = (id,newStatus)=>{
 	 
 	return (dispatch,getState)=>{
-		const page = getState().get('category').get('current')
-		api.updateCategoriesMobileName({
+		const page = getState().get('product').get('current')
+		api.updateProductsStatus({
 			id:id,
-			mobileName:newMobileName,
+			status:newStatus,
 			page:page
 		})
 		.then(result=>{
 			// console.log(result)
 			const data = result.data;
 			if(data.code == 0){
-				message.success('更新手机分类成功!');
+				message.success('更新上下架成功!');
+				dispatch(setPageAction(data.data))
+			}else{
+				message.error('请求失败,请稍后再试!');
+			}
+		})
+		.catch(err=>{
+			console.log(err)
+			message.error('请求失败,请稍后再试!')
+		})
+	}
+}
+export const getUpdateIsHotAction = (id,newIsHot)=>{
+	 
+	return (dispatch,getState)=>{
+		const page = getState().get('product').get('current')
+		api.updateProductsIsHot({
+			id:id,
+			isHot:newIsHot,
+			page:page
+		})
+		.then(result=>{
+			// console.log(result)
+			const data = result.data;
+			if(data.code == 0){
+				message.success('更新是否热卖成功!');
 				dispatch(setPageAction(data.data))
 			}else{
 				message.error('请求失败,请稍后再试!');
@@ -132,8 +207,8 @@ export const getUpdateMobileNameAction = (id,newMobileName)=>{
 export const getUpdateOrderAction = (id,newOrder)=>{
 	 
 	return (dispatch,getState)=>{
-		const page = getState().get('category').get('current')
-		api.updateCategoriesOrder({
+		const page = getState().get('product').get('current')
+		api.updateProductsOrder({
 			id:id,
 			order:newOrder,
 			page:page
@@ -142,7 +217,7 @@ export const getUpdateOrderAction = (id,newOrder)=>{
 			// console.log(result)
 			const data = result.data;
 			if(data.code == 0){
-				message.success('更新排序成功!');
+				message.success('更新商品排序成功!');
 				dispatch(setPageAction(data.data))
 			}else{
 				message.error('请求失败,请稍后再试!');
@@ -154,24 +229,27 @@ export const getUpdateOrderAction = (id,newOrder)=>{
 		})
 	}
 }
-export const getUpdateIsShowAction = (id,newIsShow)=>{
+const setDetailProductAction = (payload) =>({
+	type:types.SET_DETAIL_PRODUCT,
+	payload
+})
+export const DetailProductAction = (id)=>{
 	 
 	return (dispatch,getState)=>{
-		const page = getState().get('category').get('current')
-		api.updateCategoriesIsShow({
-			id:id,
-			isShow:newIsShow,
-			page:page
+		api.getDetailProduct({
+			id:id
 		})
 		.then(result=>{
 			// console.log(result)
+			
 			const data = result.data;
+			console.log(data)
 			if(data.code == 0){
-				message.success('更新显示隐藏成功!');
-				dispatch(setPageAction(data.data))
+				dispatch(setDetailProductAction(data.data))
 			}else{
 				message.error('请求失败,请稍后再试!');
 			}
+
 		})
 		.catch(err=>{
 			console.log(err)
