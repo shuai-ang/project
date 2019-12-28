@@ -31,6 +31,9 @@ module.exports = {
 		'result':'./src/pages/result',
 		'user-center':'./src/pages/user-center',
 		'user-update-password':'./src/pages/user-update-password',
+		'detail':'./src/pages/detail',
+		'cart':'./src/pages/cart',
+		'order-confirm':'./src/pages/order-confirm',
 	},
 	//输出
 	output: {// webpack 如何输出结果的相关选项
@@ -119,6 +122,9 @@ module.exports = {
 	    new htmlWebpackPlugin(getHtmlConfig('result','结果页')),
 	    new htmlWebpackPlugin(getHtmlConfig('user-center','用户中心')),
 	    new htmlWebpackPlugin(getHtmlConfig('user-update-password','修改密码')),
+	    new htmlWebpackPlugin(getHtmlConfig('detail','商品详情')),
+	    new htmlWebpackPlugin(getHtmlConfig('cart','购物车')),
+	    new htmlWebpackPlugin(getHtmlConfig('order-confirm','订单结算')),
 	    //自动清理多余文件
 	    new CleanWebpackPlugin(),
 	    new MiniCssExtractPlugin({
@@ -129,7 +135,15 @@ module.exports = {
 	    contentBase: './dist',//内容的目录
 	    port:3002,//服务运行的端口,
 	   	proxy: [{
-	      context: ['/sessions','/users','/categories','/ads','/floors'],
+	      context: ['/sessions',
+				     '/users',
+				     '/categories',
+				     '/ads',
+				     '/floors',
+				     '/products',
+				     '/carts',
+				     '/orders',
+				     '/shippings'],
 	      target: 'http://127.0.0.1:3000',
 	    }]
 	}

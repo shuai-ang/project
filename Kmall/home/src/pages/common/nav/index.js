@@ -6,6 +6,7 @@ var page = {
 	init:function(){
 		this.loadUsername()
 		this.bindEvent()
+		this.loadCarts()
 		return this
 	},
 	loadUsername:function(){
@@ -32,6 +33,17 @@ var page = {
 			})
 		})
 		
+	},
+	loadCarts:function(){
+		var $cartNum = $('.cart-num')
+		api.getCartsNum({
+			success:function(data){
+				$cartNum.text(data)
+			},
+			error:function(){
+				$cartNum.text(0)
+			}
+		})
 	}
 }
 

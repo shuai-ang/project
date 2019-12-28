@@ -9,6 +9,22 @@ var API_CONFIG = {
 	getHomeCategories:['/categories/homeCategories','get'],
 	getAdsImage:['/ads/positionAds','get'],
 	getHomeFloors:['/floors','get'],
+	getProductsList:['/products/list','get'],
+
+
+	getProductDetail:['/products/detail','get'],
+	addCarts:['/carts','post'],
+	getCartsNum:['/carts/count','get'],
+	getCarts:['/carts','get'],
+	updateCartChoice:['/carts/choices','put'],
+	deleteCart:['/carts','delete'],
+	updateCartCounts:['/carts/counts','put'],
+
+
+	getOrdersList:['/orders/products','get'],
+	addShippings:['/shippings','post'],
+	getShippings:['/shippings/list','get'],
+	deleteShippings:['/shippings','delete'],
 }
 
 module.exports = {API_CONFIG}

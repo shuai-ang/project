@@ -64,7 +64,7 @@ var page = {
 	loadHomeFloors:function(){
 		api.getHomeFloors({
 			success:function(data){
-				console.log(data)
+				// console.log(data)
 				var html = _util.render(floorsTpl,{
 					floors:data
 				})

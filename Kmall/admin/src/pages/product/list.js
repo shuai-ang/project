@@ -7,7 +7,7 @@ import { Breadcrumb,Table,Button,Input,InputNumber,Switch,Divider } from 'antd'
 import {
   Link
 } from "react-router-dom";
-
+const { Search } = Input
 import {actionCreator} from './store/index.js'
 import Layout from 'common/layout'
 
@@ -27,15 +27,14 @@ class ProductList extends Component{
 		    title: '商品名称',
 		    dataIndex: 'name',
 		    key: 'name',
-		    render: (name,record) => {
-		    	return (<Input 
-		    	style={{width:'40%'}}
-		    	defaultValue={name}
-		    	onBlur={(ev)=>{
-		    		if(ev.target.value != name){
-		    			handleUpdateName(record._id,ev.target.value)
-		    		}
-		    	}}/>)
+		    render: (name) => {
+		    	if(keyword){
+		    		let reg = new RegExp(keyword,'ig')
+		    		let newName = name.replace(reg,'<b style="color:purple">'+keyword+'</b>')
+		    		return <div dangerouslySetInnerHTML={{__html: newName}}></div>
+		    	}else{
+		    		return name
+		    	}
 		    },
 		  },
 		  {
@@ -120,6 +119,7 @@ class ProductList extends Component{
 				current,
 				pageSize,
 				total,
+				keyword,
 				handlePage,
 				isFecthing,
 				handleUpdateName,
@@ -140,6 +140,13 @@ class ProductList extends Component{
                         <Breadcrumb.Item>商品列表</Breadcrumb.Item>
                     </Breadcrumb>
                     <div className='btn'>
+                    	<Search 
+			        		placeholder="请输入关键词" 
+			        		onSearch={
+			        			value => handlePage(1,value)
+			        		} 
+			        		style={{width:300}}
+			        		enterButton />
                     	<Link to='/product/save'><Button className='add-btn' type="primary">新增商品</Button></Link>
                     </div>
                     <div className='content'>
@@ -153,7 +160,12 @@ class ProductList extends Component{
                     	}}
                     	onChange={(page)=>{
                     		// console.log(page)
-                    		handlePage(page.current)
+                    		if(keyword){
+                    			handlePage(page.current,keyword)
+                    		}else{
+                    			handlePage(page.current)
+                    		}
+                    		
                     	}}
                     	loading={{
                     		spinning:isFecthing,
@@ -177,17 +189,15 @@ const mapStateToProps = (state)=>{
 		current:state.get('product').get('current'),
 		pageSize:state.get('product').get('pageSize'),
 		total:state.get('product').get('total'),
+		keyword:state.get('product').get('keyword'),
 		isFecthing:state.get('product').get('isFecthing')
 	}
 }
 //将方法映射到组件
 const mapDispatchToProps = (dispatch)=>{
 	return {
-		handlePage:(page)=>{
-			dispatch(actionCreator.getPageAction(page))
-		},
-		handleUpdateName:(id,newName)=>{
-			dispatch(actionCreator.getUpdateNameAction(id,newName))
+		handlePage:(page,value)=>{
+			dispatch(actionCreator.getPageAction(page,value))
 		},
 		handleUpdateIsShow:(id,newIsShow)=>{
 			dispatch(actionCreator.getUpdateIsShowAction(id,newIsShow))

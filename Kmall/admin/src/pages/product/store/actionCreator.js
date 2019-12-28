@@ -11,7 +11,7 @@ const setImagesErr = () =>({
 })
 export const getSaveProductAction = (err,values)=>{
 	return (dispatch,getState)=>{
-		console.log(values)
+		// console.log(values)
 		const state = getState().get('product')
 		const mainImage = state.get('mainImage')
 		const images = state.get('images')
@@ -105,12 +105,16 @@ const getPageStartAction = (data) =>({
 const getPageDoneAction = (data) =>({
 	type:types.Page_Request_Done
 })
-export const getPageAction = (page)=>{
+export const getPageAction = (page,value)=>{
+	let options = {
+			page:page
+	}
+	if(value){
+		options.keyword = value
+	}
 	return (dispatch,getState)=>{
 		dispatch(getPageStartAction())
-		api.getProductsList({
-			page:page
-		})
+		api.getProductsList(options)
 		.then(result=>{
 			// console.log(result)
 			const data = result.data;
@@ -243,7 +247,7 @@ export const DetailProductAction = (id)=>{
 			// console.log(result)
 			
 			const data = result.data;
-			console.log(data)
+			// console.log(data)
 			if(data.code == 0){
 				dispatch(setDetailProductAction(data.data))
 			}else{

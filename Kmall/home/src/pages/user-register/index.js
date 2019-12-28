@@ -72,7 +72,8 @@ var page = {
 			api.register({
 				data:formValues,
 				success:function(){
-					window.location.href = '/result.html?type=register'
+					// window.location.href = '/result.html?type=register'
+					_util.goResult('register')
 				},
 				error:function(msg){
 					formErr.show(msg)

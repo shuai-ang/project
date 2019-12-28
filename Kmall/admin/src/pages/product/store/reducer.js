@@ -22,7 +22,8 @@ const defaultState = fromJS({
 	name:'',
 	description:'',
 	price:'',
-	stock:''
+	stock:'',
+	keyword:''
 })
 import * as types from './actionTypes.js'
 
@@ -32,7 +33,8 @@ export default (state=defaultState,action)=>{
 			list:fromJS(action.payload.list),
 			current:fromJS(action.payload.current),
 			pageSize:fromJS(action.payload.pageSize),
-			total:fromJS(action.payload.total)
+			total:fromJS(action.payload.total),
+			keyword:fromJS(action.payload.keyword),
 		})
 	}
 	if(action.type == types.Page_Request_Start){

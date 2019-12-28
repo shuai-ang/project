@@ -37,6 +37,12 @@ class ProductDetail extends Component{
 				images,
 				detail
 		} = this.props
+		let imageBox = []
+		if(images){
+			imageBox = images.split(',').map(function(url,index){
+				return <li key={index}><img src={url}/></li>
+			})
+		}
 		// console.log(categories)
 		return (
 			<div className='ProductDetail'>
@@ -66,20 +72,16 @@ class ProductDetail extends Component{
 					        </Form.Item>
 					        <Form.Item 
 						        label="封面图片"
-						        required={true}
-						        
 					        >
-					          
+					          	{mainImage ? <ul className='imageBox'><li><img src={mainImage} /></li></ul> : null}
 					        </Form.Item>
 					        <Form.Item 
 						        label="商品图片"
-						        required={true}
-						        
 					        >
-					          
+					          	<ul className='imageBox'>{imageBox}</ul>
 					        </Form.Item>
 					        <Form.Item label="商品详情">
-					          
+					          	<div dangerouslySetInnerHTML={{__html: detail}}></div>
 					        </Form.Item>
 					        
 					    </Form>
