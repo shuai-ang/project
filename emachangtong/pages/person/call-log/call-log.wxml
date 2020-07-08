@@ -1,0 +1,4 @@
+<!--pages/person/call-log/call-log.wxml-->
+<view class="container call-log">
+  <text>暂无通话记录</text>
+</view>

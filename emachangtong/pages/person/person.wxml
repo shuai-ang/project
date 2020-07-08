@@ -1,0 +1,63 @@
+<!--pages/person/person.wxml-->
+<view class="container person clearfix">
+  <view class="title">
+    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
+    <view wx:else>
+      <view class="title-img">
+        <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
+      </view>
+      <view class="title-name">
+        <view class="name">
+          <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+        </view>
+        <view>
+          <text>感谢使用码上挪车,以下为您的相关信息</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="person-content">
+    <view class="nav clearfix">
+      <view class="order" bindtap="tapOrder">
+        <view class="order-num num">
+          <text>1</text>
+        </view>
+        <view>
+          <text>订单/笔</text>
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="cart" bindtap="tapCart">
+        <view class="cart-num num">
+          <text>0</text>
+        </view>
+        <view>
+          <text>挪车码/张</text>
+        </view>
+      </view>
+    </view>
+    <view class="main">
+      <view class="phone-text item" bindtap="tapCallLog">
+        <view class="phone-icon menu">
+          <icon class="iconfont icon-tonghuajilu"></icon>
+          <text>通话记录</text>
+        </view>
+        <icon class="iconfont icon-right"></icon>
+      </view>
+      <view class="help item" bindtap="tapHelp">
+        <view class="help-icon menu">
+          <icon class="iconfont icon-shiyongbangzhu"></icon>
+          <text>使用帮助</text>
+        </view>
+        <icon class="iconfont icon-right"></icon>
+      </view>
+      <view class="problem item" bindtap="tapSolute">
+        <view class="problem-icon menu">
+          <icon class="iconfont icon-ziyuan"></icon>
+          <text>常见问题</text>
+        </view>
+        <icon class="iconfont icon-right"></icon>
+      </view>
+    </view>
+  </view>
+</view>

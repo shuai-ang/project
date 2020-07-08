@@ -1,0 +1,9 @@
+<!--pages/success/success.wxml-->
+<view class="container success">
+  <view class="title">
+    <text>恭喜您绑码成功!</text>
+  </view>
+  <view class="back" bindtap="tapBack">
+    <text>返回首页</text>
+  </view>
+</view>

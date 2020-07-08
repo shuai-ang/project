@@ -1,0 +1,97 @@
+<!--pages/shop/shop.wxml-->
+<view class="container shop">
+  <functional-page-navigator 
+    name="chooseAddress" 
+    version="develop"
+    bind:success="onSuccess"
+    bind:fail="onFail">
+      <view class="get-address" bindtap="tapAddress">
+        <view class="add-address">
+          <icon class="iconfont icon-location"></icon>
+          <view class="person-infor">
+            <text class="no-address" wx:if="{{address == ''}}">暂无收货地址,点击添加</text>
+            <view class="infor-list" wx:elif="{{address !== ''}}">
+              <view class="infor-top clearfix">
+                <view class="name"><text>{{userName}}</text></view>
+                <view class="phoneNum"><text>{{telNumber}}</text></view>
+              </view>
+              <view class="address"><text>{{address}}</text></view>
+            </view>
+          </view>
+        </view>
+        <icon class="iconfont icon-right"></icon>
+      </view>
+  </functional-page-navigator>
+  
+  <view class="cart">
+    <view class="cart-img">
+      <image src="/images/desc/cart1.png"></image>
+    </view>
+    <view class="cart-detail">
+      <view class="cart-title">挪车贴</view>
+      <view class="quality">材质:  可移不干胶</view>
+      <view class="cart-length">尺寸:  81mm * 89mm</view>
+      <view class="cart-price">
+        <text class="price">￥{{cartPrice}}</text>
+        <view class="cart-num">
+          <icon class="iconfont icon-minus-circle" bindtap="tapMinus"></icon>
+          <text class="num-text">{{cartNum}}</text>
+          <icon class="iconfont icon-plus-circle" bindtap="tapPlus"></icon>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="price-list">
+    <view class="price-item totalPrice">
+      <view class="price-title">商品总价</view>
+      <view class="price-text">￥{{totalPrice}}</view>
+    </view>
+    <view class="price-item servicePrice">
+      <view class="price-title">信息服务费</view>
+      <view class="price-text">￥{{servicePrice}}</view>
+    </view>
+    <view class="price-item transportPrice">
+      <view class="price-title">运费</view>
+      <view class="price-text">￥10.00</view>
+    </view>
+    <view class="price-item preferentPrice minus">
+      <view class="price-title">
+        <view class="preferent">惠</view>
+        <view class="preferent-text">优惠领取挪车贴</view>
+      </view>
+      <view class="price-text">- ￥{{preferentPrice}}</view>
+    </view>
+    <view class="price-item firstPrice minus">
+      <view class="price-title">
+        <view class="preferent">惠</view>
+        <view class="preferent-text">首份信息服务费减免</view>
+      </view>
+      <view class="price-text">- ￥9.90</view>
+    </view>
+    <view class="price-item minusPrice minus">
+      <view class="price-title">
+        <view class="preferent">惠</view>
+        <view class="preferent-text">运费减免</view>
+      </view>
+      <view class="price-text">- ￥0.10</view>
+    </view>
+    <view class="price-item getPrice">
+      <view class="price-text">
+        <view class="shop-num">
+          <text>共1件商品</text>
+        </view>
+        <view class="shop-price">
+          <text>合计:  ￥{{shopPrice}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="bottom">
+    <view class="sum">
+      <text>合计金额 :  </text><text class="minus">￥{{sum}}</text>
+    </view>
+    <view class="get-cart" bindtap="tapGetCart">
+      <text>立即领取</text>
+    </view>
+  </view>
+</view>

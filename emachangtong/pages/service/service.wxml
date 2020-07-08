@@ -1,0 +1,4 @@
+<!--pages/service/service.wxml-->
+<view class="container service">
+  <text>更多服务,敬请期待！</text>
+</view>

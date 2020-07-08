@@ -1,0 +1,15 @@
+<template name="tab-template">
+    <view class="tab-item">
+        <view class="tab-list service">
+            <image class="service-icon" src="/images/icon/1.png"></image>
+            <text class="service-text">更多服务</text>
+        </view>
+        <view class="tab-list person">
+            <image class="person-icon" src="/images/icon/2.png"></image>
+            <text class="person-text">我的</text>
+        </view>
+        <view class="tab-list shop">
+            <text class="shop-text">限时优惠领取</text>
+        </view>
+    </view>
+</template>

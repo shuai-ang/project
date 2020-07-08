@@ -1,0 +1,193 @@
+/* pages/shop/shop.wxss */
+@import "../../style/stylesheet.wxss";
+.container{
+  padding: 10rpx;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+.clearfix:after {
+  content: "";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+functional-page-navigator {
+  width: 100%;
+  height: 160rpx;
+  display: block;
+}
+  
+.get-address{
+  width: 100%;
+  height: 160rpx;
+  padding: 0 20rpx;
+  margin-bottom: 10rpx;
+  box-sizing: border-box;
+  line-height: 160rpx;
+  border-bottom: 2px dashed #3a82ff;
+  background-color:#ffffff;
+}
+.get-address .add-address{
+  float: left;
+}
+.add-address .icon-location{
+  float: left;
+  margin-right: 20rpx;
+  color: #3a82ff;
+}
+.add-address .person-infor{
+  float: right;
+  width: 500rpx;
+}
+.person-infor .infor-list{
+  width: 100%;
+  height: 80rpx;
+  line-height: 50rpx;
+}
+.person-infor .infor-list .address{
+  font-size: 14px;
+}
+.person-infor .infor-top{
+  font-weight: 600;
+}
+.person-infor .infor-top .name{
+  float: left;
+  margin-right: 50rpx;
+}
+.person-infor .infor-top .phoneNum{
+  float: left;
+}
+.get-address .icon-right{
+  float: right;
+  color: #ccc;
+}
+.cart{
+  width: 100%;
+  height: 300rpx;
+  padding: 20rpx 20rpx;
+  margin-bottom: 10rpx;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+.cart .cart-img{
+  float: left;
+  margin:20rpx 40rpx 20rpx 20rpx;
+}
+.cart .cart-img image{
+  width: 200rpx;
+  height: 240rpx;
+}
+.cart .cart-detail{
+  float: left;
+}
+.cart .cart-detail .cart-title{
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
+  font-size: 16px;
+  font-weight: 800;
+}
+.cart .cart-detail .quality{
+  margin-bottom: 10rpx;
+}
+.cart .cart-detail .cart-length{
+  margin-bottom: 25rpx;
+}
+.cart .cart-detail .cart-price{
+  width: 400rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+}
+.cart .cart-detail .cart-price .price{
+  float: left;
+  font-weight: 800;
+}
+.cart .cart-detail .cart-price .cart-num{
+  float: right;
+  font-size: 20px;
+}
+.num-text{
+  margin:0 20rpx;
+}
+.icon-minus-circle{
+  font-size: 24px;
+}
+.icon-plus-circle{
+  font-size: 24px;
+}
+.price-list{
+  width: 100%;
+  height: 600rpx;
+  padding: 20rpx 20rpx;
+  margin-bottom: 10rpx;
+  box-sizing: border-box;
+  background-color: #ffffff;
+}
+.price-list .price-item{
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-bottom: 1px solid #eaeaea;
+}
+.price-list .price-item .price-title{
+  float: left;
+}
+.price-list .price-item .price-title .preferent{
+  float: left;
+  font-size: 12px;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  padding: 0 2px;
+  margin-top: 12px;
+  margin-right: 10rpx;
+  box-sizing: border-box;
+  color: #ffffff;
+  border-radius: 4rpx;
+  background-color: crimson;
+}
+.price-list .price-item .price-title .preferent-text{
+  float: right;
+}
+.price-list .price-item .price-text{
+  float: right;
+}
+.minus{
+  color: #c94545;
+}
+.price-list .getPrice{
+  border-bottom: transparent;
+}
+.getPrice .shop-num{
+  float: left;
+  margin-right: 20rpx;
+  font-size: 16px;
+  color: #ccc;
+}
+.getPrice .shop-price{
+  float: right;
+}
+.bottom{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  font-size: 16px;
+}
+.bottom .sum{
+  float: left;
+  width: 60%;
+  height: 100%;
+  line-height: 100rpx;
+  padding-left: 30rpx;
+  box-sizing: border-box;
+}
+.bottom .get-cart{
+  float: right;
+  width: 40%;
+  height: 100%;
+  line-height: 100rpx;
+  text-align: center;
+  color: #ffffff;
+  background-color: #3a82ff;
+}

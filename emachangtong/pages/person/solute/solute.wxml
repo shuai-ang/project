@@ -1,0 +1,173 @@
+<!--pages/person/solute/solute.wxml-->
+<view class="container solute">
+  <view class="solute-list">
+    <view class="solute-item">
+      <view class="question">
+        <view class="question-icon">
+          <text>Q</text>
+        </view>
+        <view class="min-left"></view>
+        <view class="question-desc">
+          <text>在线体验生成的码和寄出的码是不是同一个?</text>
+        </view>
+      </view>
+      <view class="answer">
+        <view class="answer-desc">
+          <text>不是，在线体验生成的码仅限于线上体验和打印使用，寄出的码是全新的空码，到手之后需要使用微信重新扫码绑定。</text>
+        </view>
+        <view class="min-right"></view>
+        <view class="answer-icon">
+          <text>A</text>
+        </view>
+      </view>
+    </view>
+    <view class="solute-item">
+      <view class="question">
+        <view class="question-icon">
+          <text>Q</text>
+        </view>
+        <view class="min-left"></view>
+        <view class="question-desc">
+          <text>申请之后多久发货?</text>
+        </view>
+      </view>
+      <view class="answer">
+        <view class="answer-desc">
+          <text>工作日申请后第二天发货，周末及节假日申请后在下一个工作日发出。</text>
+        </view>
+        <view class="min-right"></view>
+        <view class="answer-icon">
+          <text>A</text>
+        </view>
+      </view>
+    </view>
+    <view class="solute-item">
+      <view class="question">
+        <view class="question-icon">
+          <text>Q</text>
+        </view>
+        <view class="min-left"></view>
+        <view class="question-desc">
+          <text>发货之后怎么查看我的物流信息?</text>
+        </view>
+      </view>
+      <view class="answer">
+        <view class="answer-desc">
+          <text>发货之后我们会发送一条包含快递单号的短信，您可以使用搜索引擎搜索查看物流信息，也可以在微信搜索“码上挪车”小程序，在“我的订单”里查看物流信息。</text>
+        </view>
+        <view class="min-right"></view>
+        <view class="answer-icon">
+          <text>A</text>
+        </view>
+      </view>
+    </view>
+    <view class="solute-item">
+      <view class="question">
+        <view class="question-icon">
+          <text>Q</text>
+        </view>
+        <view class="min-left"></view>
+        <view class="question-desc">
+          <text>快递一直没收到怎么办?</text>
+        </view>
+      </view>
+      <view class="answer">
+        <view class="answer-desc">
+          <text>物流信息由辛普森委托第三方物流公司寄送，如出现物流问题可致电物流客服询问，如没有回应则可以致电辛普森客服咨询。</text>
+        </view>
+        <view class="min-right"></view>
+        <view class="answer-icon">
+          <text>A</text>
+        </view>
+      </view>
+    </view>
+    <view class="solute-item">
+      <view class="question">
+        <view class="question-icon">
+          <text>Q</text>
+        </view>
+        <view class="min-left"></view>
+        <view class="question-desc">
+          <text>挪车码收到后怎么用?</text>
+        </view>
+      </view>
+      <view class="answer">
+        <view class="answer-desc">
+          <text>您将收到精美挪车贴一张，收货后需要使用车主本人微信扫码绑定车牌号，绑定后挪车贴可贴在挡风玻璃四角或后方玻璃内侧使用。</text>
+        </view>
+        <view class="min-right"></view>
+        <view class="answer-icon">
+          <text>A</text>
+        </view>
+      </view>
+    </view>
+    <view class="solute-item">
+      <view class="question">
+        <view class="question-icon">
+          <text>Q</text>
+        </view>
+        <view class="min-left"></view>
+        <view class="question-desc">
+          <text>挪车贴粘贴后可以移动吗?会不会留下胶水痕迹?</text>
+        </view>
+      </view>
+      <view class="answer">
+        <view class="answer-desc">
+          <text>车贴在粘贴后可揭下重复粘贴使用，不会残留胶水印记。</text>
+        </view>
+        <view class="min-right"></view>
+        <view class="answer-icon">
+          <text>A</text>
+        </view>
+      </view>
+    </view>
+    <view class="solute-item">
+      <view class="question">
+        <view class="question-icon">
+          <text>Q</text>
+        </view>
+        <view class="min-left"></view>
+        <view class="question-desc">
+          <text>绑定信息可以修改吗?如果不想用了可不可以解绑?</text>
+        </view>
+      </view>
+      <view class="answer">
+        <view class="answer-desc">
+          <text>绑定信息可由开启该车贴的微信账号扫码修改且不限次数，若挪车码物料发生破损或其他情况导致无法使用，车主可破坏挪车二维码保证其无法扫码后再丢弃，也可以致电客服要求我方工作人员解绑。</text>
+        </view>
+        <view class="min-right"></view>
+        <view class="answer-icon">
+          <text>A</text>
+        </view>
+      </view>
+    </view>
+    <view class="solute-item">
+      <view class="question">
+        <view class="question-icon">
+          <text>Q</text>
+        </view>
+        <view class="min-left"></view>
+        <view class="question-desc">
+          <text>使用中会不会产生额外费用?</text>
+        </view>
+      </view>
+      <view class="answer">
+        <view class="answer-desc">
+          <text>挪车码在使用过程中没有额外费用，仅会在拨叫过程中产生拨叫人本人通话资费标准的市话费。</text>
+        </view>
+        <view class="min-right"></view>
+        <view class="answer-icon">
+          <text>A</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="bottom">
+    <view class="service">
+      <text>本服务由辛普森提供</text>
+    </view>
+    <view class="phone">
+      <text>客服电话: </text><text class="phone-num">111111111</text>
+    </view>
+  </view>
+</view>

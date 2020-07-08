@@ -1,0 +1,5 @@
+/* pages/service/service.wxss */
+.service{
+  padding-top: 100rpx;
+  text-align: center;
+}

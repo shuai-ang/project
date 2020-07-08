@@ -1,0 +1,6 @@
+/* pages/person/call-log/call-log.wxss */
+.call-log{
+  text-align: center;
+  font-size: 14px;
+  color: #9c9ea8;
+}

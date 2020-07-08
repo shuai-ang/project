@@ -1,0 +1,88 @@
+<!--pages/person/help/help.wxml-->
+<view class="container help">
+  <view class="title">
+    <view class="title-list">
+      <view class="title-help">
+        <text>码上挪车使用帮助</text>
+      </view>
+      <view class="title-desc">
+        <text>请您在收到挪车贴后，第一时间绑定车辆，绑定完成后即可开始使用。</text>
+      </view>
+    </view>
+  </view>
+  <view class="main clearfix">
+    <view class="problem">
+      <view class="problem-item problem1">
+        <view class="item-title">
+          <text>如何绑定车辆？</text>
+        </view>
+        <view class="question">
+          <view class="question1 clearfix">
+            <view class="num">1</view><view class="quest-text">微信扫一扫挪车贴上二维码。</view>
+          </view>
+          <view class="question1">
+            <view class="num">2</view><view class="quest-text">进入车辆绑定页面，输入车牌号即可完成绑定。</view>
+          </view>
+        </view>
+        <view class="attention">
+          <text>完成绑定后将挪车贴贴在挡风玻璃上</text>
+        </view>
+      </view>
+      <view class="problem-item problem2">
+        <view class="item-title">
+          <text>如何通知您挪车？</text>
+        </view>
+        <view class="question">
+          <view class="question1">
+            <view class="num">1</view><view class="quest-text">他人打开微信， 扫描挪车贴上二维码。</view>
+          </view>
+          <view class="question1">
+            <view class="num">2</view><view class="quest-text">系统通过 虚拟电话的方式，拨通您和他人号码，双方号码互不可见，保证隐私安全;也可短信提醒您挪车。</view>
+          </view>
+        </view>
+      </view>
+      <view class="problem-item problem3">
+        <view class="item-title">
+          <text>如何重新绑定车辆？</text>
+        </view>
+        <view class="question">
+          <view class="question1">
+            <view class="num">1</view><view class="quest-text">请您打开微信，扫描挪车贴上二维码。</view>
+          </view>
+          <view class="question1">
+            <view class="num">2</view><view class="quest-text">查找到需要重新绑定的挪车码，点击“修改绑定”，输入新的车牌号即可对挪车码进行重新绑定。</view>
+          </view>
+        </view>
+      </view>
+      <view class="good-tab">
+        <view class="tab-item">
+          <view class="tab-icon">
+            <icon class="iconfont icon-yinsibaohu"></icon>
+          </view>
+          <view class="tab-text">
+            <text>隐私保护</text>
+          </view>
+        </view>
+        <view class="tab-item">
+          <view class="tab-icon">
+            <icon class="iconfont icon-speed-choosed"></icon>
+          </view>
+          <view class="tab-text">
+            <text>快速便捷</text>
+          </view>
+        </view>
+        <view class="tab-item">
+          <view class="tab-icon">
+            <icon class="iconfont icon-app30"></icon>
+          </view>
+          <view class="tab-text">
+            <text>多管齐下</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="bottom">
+    <text>本服务由辛普森为您服务</text>
+  </view>
+</view>

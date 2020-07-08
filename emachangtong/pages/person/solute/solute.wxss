@@ -1,0 +1,106 @@
+/* pages/person/solute/solute.wxss */
+.container{
+  padding: 10rpx 20rpx;
+  background-color: #f8f8f8;
+}
+.solute-list{
+  width: 100%;
+}
+.solute-list .solute-item{
+  width: 100%;
+  
+  font-size: 16px;
+  margin-top: 80rpx;
+  background-color: #ffffff;
+  overflow: hidden;
+}
+.solute-list .solute-item .question{
+  position: relative;
+  width: 100%;
+  margin-top: 20rpx;
+}
+.solute-list .solute-item .question-desc{
+  margin: 0rpx auto;
+  width: 500rpx;
+  line-height: 50rpx;
+  color: #ffffff;
+  padding: 10rpx;
+  box-sizing: border-box;
+  background-color: #3a82ff;
+  border-radius: 20rpx;
+}
+.solute-item .question .question-icon{
+  position: absolute;
+  left: 20rpx;
+  bottom: 0;
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+  background-color: #3a82ff;
+  border-radius: 50%;
+}
+.solute-item .question .min-left{
+  position: absolute;
+  left: 88rpx;
+  bottom: 0;
+  width: 0;
+  border-top: 20rpx solid transparent;
+  border-right: 20rpx solid transparent;
+  border-bottom: 20rpx solid #3a82ff;
+  border-left: 20rpx solid transparent;
+}
+.solute-list .solute-item .answer{
+  position: relative;
+  width: 100%;
+  margin-top: 20rpx;
+}
+.solute-list .solute-item .answer-desc{
+  margin: 0rpx auto;
+  width: 500rpx;
+  line-height: 50rpx;
+  color: #000000;
+  padding: 10rpx;
+  box-sizing: border-box;
+  background-color: rgb(214, 175, 156);
+  border-radius: 20rpx;
+}
+.solute-item .answer .answer-icon{
+  position: absolute;
+  right: 20rpx;
+  bottom: 0;
+  width: 40rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+  background-color: #FF7F00;
+  border-radius: 50%;
+}
+.solute-item .answer .min-right{
+  position: absolute;
+  right: 88rpx;
+  bottom: 0;
+  width: 0;
+  border-top: 20rpx solid transparent;
+  border-right: 20rpx solid transparent;
+  border-bottom: 20rpx solid rgb(214, 175, 156);
+  border-left: 20rpx solid transparent;
+}
+.bottom{
+  width: 100%;
+  height: 150rpx;
+  color: rgb(109, 100, 100);
+  font-size: 12px;
+  text-align: center;
+  background-color: #ffffff;
+}
+.bottom .service{
+  margin-top: 60rpx;
+}
+.phone .phone-num{
+  color: #3a82ff;
+}

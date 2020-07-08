@@ -1,0 +1,35 @@
+<!--pages/person/order/order.wxml-->
+<view class="container order">
+  <view class="order-list">
+    <view class="order-time">
+      <view class="order-text">
+        <text>下单时间: 2020-6-16 15:20:38</text>
+      </view>
+      <view class="post">
+        <text>未邮寄</text>
+      </view>
+    </view>
+    <view class="order-detail">
+      <view class="order-pay order-item">
+        <text>支付金额:    ￥19.90</text>
+      </view>
+      <view class="order-num order-item">
+        <text>购买数量:    1 套</text>
+      </view>
+      <view class="name order-item">
+        <text>客户姓名:    张三</text>
+      </view>
+      <view class="order-phone order-item">
+        <text>联系电话:    18300000000</text>
+      </view>
+      <view class="address order-item">
+        <text>邮寄地址:    河南省许昌市魏都区颖泽花园</text>
+      </view>
+    </view>
+    <view class="drawback">
+      <view class="back">
+        <text>申请退款</text>
+      </view>
+    </view>
+  </view>
+</view>

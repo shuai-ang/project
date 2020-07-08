@@ -1,0 +1,91 @@
+<!--pages/home/home.wxml-->
+<import src="./tab-template/tab-template.wxml"/>
+<view class="home">
+  <swiper
+    autoplay="true" interval="3000" duration="300" class="swiper" circular="true">
+      <swiper-item>
+        <image mode="scaleToFill" class="swiper-img" src="/images/carousel/carousel1.png"></image>
+      </swiper-item>
+      <swiper-item>
+        <image mode="scaleToFill" class="swiper-img" src="/images/carousel/carousel2.png"></image>
+      </swiper-item>
+  </swiper>
+  <view class="contain">
+    <view class="nav">
+      <view class="name">
+        <view class="guanfang">
+          <text>官方</text>
+        </view>
+        <view class="name-text">
+          <text>二维码挪车贴  |  车主必备挪车神器</text>
+        </view>
+      </view>
+      <view class="price">
+        <view class="get">
+          <text>优惠领取挪车贴</text>
+        </view>
+        <view class="price-text">
+          <text>￥19.90</text>
+        </view>
+      </view>
+    </view>
+    <view class="content">
+      <view class="action">
+        <view class="action-item protect">
+          <image class="action-icon" src="/images/icon/action1.png"></image>
+          <view class="mid">
+            <text>隐私保护</text>
+          </view>
+          <view class="end">
+            <text>匿名打电话</text>\n<text>信息无泄漏</text>
+          </view>
+        </view>
+        <view class="action-item fast">
+          <image class="action-icon" src="/images/icon/action2.png"></image>
+          <view class="mid">
+            <text>快速便捷</text>
+          </view>
+          <view class="end">
+            <text>支付宝扫码</text>\n<text>一键通知挪车</text>
+          </view>
+        </view>
+        <view class="action-item alot">
+          <image class="action-icon" src="/images/icon/action3.png"></image>
+          <view class="mid">
+            <text>多管齐下</text>
+          </view>
+          <view class="end">
+            <text>电话短信推送</text>\n<text>多通道触达</text>
+          </view>
+        </view>
+      </view>
+      <view class="online" bindtap="tapOnLine">
+        <text>线上体验</text>
+      </view>
+    </view>
+    <view class="desc">
+      <view class="product-text">
+        <text>产品详情</text>
+      </view>
+      <view class="product-img">
+        <image class="img-item" src="/images/desc/1.jpg"></image>
+        <image class="img-item" src="/images/desc/2.jpg"></image>
+        <image class="img-item" src="/images/desc/3.jpg"></image>
+        <image class="img-item" src="/images/desc/4.jpg"></image>
+ <!--   <image class="img-item" src="/images/desc/5.jpg"></image>
+        <image class="img-item" src="/images/desc/6.jpg"></image>
+        <image class="img-item" src="/images/desc/7.jpg"></image>
+        <image class="img-item" src="/images/desc/8.jpg"></image>  -->
+      </view>
+    </view>
+  </view>
+  <!--
+  <view class="tab">
+    <template is="tab-template"/>
+  </view>
+  -->
+  <view class="bottom" bindtap="tapShop">
+    <text>立即优惠领取</text>
+  </view>
+</view>
+

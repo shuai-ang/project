@@ -1,0 +1,35 @@
+.tab-item{
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 80rpx;
+  background-color: #ffffff;
+}
+.tab-item .tab-list{
+  float: left;
+  text-align: center;
+  line-height: 80rpx;
+  vertical-align: middle;
+}
+.service{
+  width: 20%;
+  font-size: 26rpx;
+}
+.service .service-icon{
+  width: 26rpx;
+  height: 26rpx;
+}
+.person{
+  width: 20%;
+  font-size: 26rpx;
+}
+.person .person-icon{
+  width: 26rpx;
+  height: 26rpx;
+}
+.shop{
+  width: 60%;
+  height: 100%;
+  background-color: #2267fa;
+  color: #ffffff;
+}

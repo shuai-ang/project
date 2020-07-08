@@ -1,0 +1,55 @@
+{
+  "pages":[
+    "pages/online/online",
+    "pages/shop/shop",
+    "pages/home/home",
+    "pages/index/index",
+    "pages/phone/phone",
+    "pages/success/success",
+    
+    "pages/experience/experience",
+    
+    "pages/person/person",
+    
+    "pages/service/service",
+    "pages/person/order/order",
+    "pages/person/cart/cart",
+    "pages/person/call-log/call-log",
+    "pages/person/help/help",
+    "pages/person/solute/solute",
+    "pages/logs/logs"
+  ],
+  "tabBar":{
+    "color":"#aaa",
+    "selectedColor":"#000",
+    "backgroundColor":"#fff",
+    "list":[
+        {
+          "pagePath":"pages/home/home",
+          "text":"挪车码",
+          "iconPath":"/images/icon/erweima.png",
+          "selectedIconPath": "/images/icon/erweima2.png"
+        },
+        {
+          "pagePath":"pages/service/service",
+          "text":"更多服务",
+          "iconPath":"/images/icon/service.png",
+          "selectedIconPath": "/images/icon/service2.png"
+        },
+        {
+          "pagePath": "pages/person/person",
+          "text": "我的",
+          "iconPath": "/images/icon/person.png",
+          "selectedIconPath": "/images/icon/person2.png"
+        }
+    ]
+  },
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "e码畅通",
+    "navigationBarTextStyle":"black"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,59 @@
+<!--pages/experience/experience.wxml-->
+<view class="container experience" catchtap="tapHide">
+  <view class="nav">
+    <view class="nav-item">
+      <view class="num-input">
+        <text>输入手机号和车牌号</text>
+      </view>
+      <view class="quick">
+        <text>立即开启挪车码</text>
+      </view>
+    </view>
+  </view>
+  <form class="signin">
+    <view class="car-number signin-item clearfix">
+      <view class="car-text">
+        <text>车牌号码</text>
+      </view>
+      <view class="num-input">
+        <view class="province" catchtap="tapProvince">
+          <text>{{province}}</text><view class="province-btn"></view>
+        </view>
+        <input name="carNum" bindinput="bindCarInput" bindblur="bindCarBlur" type="text" placeholder="请输入车牌号" class="carNum"></input>
+      </view>
+    </view>
+    <view class="phone-number signin-item clearfix">
+      <view class="phone-text">
+        <text>手机号码</text>
+      </view>
+      <view class="phone-input">
+        <input name="phoneNum" bindinput="bindPhoneInput" bindblur="bindPhoneBlur" type="text" placeholder="请输入手机号"></input>
+      </view>
+    </view>
+    <view class="check-number signin-item clearfix">
+      <view class="check-text">
+        <text>验证码</text>
+      </view>
+      <view class="check-input">
+        <input name="checkNum" type="number" bindinput="bindCheckInput" placeholder="请输入验证码"></input>
+      </view>
+  <!--<view class="get-check" bindtap="tapCheck">
+        <text>{{time}}</text>
+      </view>
+  -->
+      <button class="get-check" bindtap="tapCheck" type="default" disabled="{{isClick}}" plain="true">{{time}}</button>
+    </view>
+  </form>
+  <view class="get-start" bindtap="tapStart">
+    <text>立即开启</text>
+  </view>
+  <view class="first">
+    <text>{{errMsg}}</text>
+  </view>
+  <view class="bottom {{show?'del_box':'hide_box'}}">
+    <view class="province-list clearfix">
+      <view class="province-item" wx:for="{{provinceArr}}" wx:key="index" bindtap="tapProvinceItem" data-text="{{item}}"><text>{{item}}</text></view>
+      <view class="hide-item" bindtap="tapHide"><text>隐藏</text></view>
+    </view>
+  </view>
+</view>

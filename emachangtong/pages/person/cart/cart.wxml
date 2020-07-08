@@ -1,0 +1,9 @@
+<!--pages/person/cart/cart.wxml-->
+<view class="container cart">
+  <view class="no-data">
+    <image src="/images/desc/not1.png"></image>
+    <view>
+      <text>暂无挪车码</text>
+    </view>
+  </view>
+</view>

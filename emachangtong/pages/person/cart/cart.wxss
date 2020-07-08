@@ -1,0 +1,12 @@
+/* pages/person/cart/cart.wxss */
+.container{
+  width: 100%;
+  background-color: #f8f8f8;
+}
+.no-data{
+  text-align: center;
+}
+.no-data image{
+  width: 500rpx;
+  height: 300rpx;
+}

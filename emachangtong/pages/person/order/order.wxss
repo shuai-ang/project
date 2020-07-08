@@ -1,0 +1,49 @@
+/* pages/person/order/order.wxss */
+.container{
+  padding: 20rpx;
+  box-sizing: border-box;
+  background-color: #f8f8f8;
+}
+.order-list{
+  width: 100%;
+  padding: 20rpx;
+  background-color: #ffffff;
+}
+.order-list .order-time{
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+}
+.order-list .order-time .order-text{
+  float: left;
+  font-size: 14px;
+  color: #9c9ea8;
+}
+.order-list .order-time .post{
+  float: right;
+  color: #3a82ff;
+  font-weight: 500;
+}
+.order-list .order-detail{
+  width: 100%;
+  border-top: 1px solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
+}
+.order-list .order-detail .order-item{
+  width: 100%;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.order-list .drawback{
+  width: 100%;
+  height: 100rpx;
+}
+.order-list .drawback .back{
+  float: right;
+  width: 200rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  margin-top: 20rpx;
+  text-align: center;
+  border: 1px solid #eaeaea;
+}

@@ -1,0 +1,19 @@
+<!--pages/phone/phone.wxml-->
+<view class="container phone">
+  <view class="title">
+    <view class="title-list">
+      <view class="item item-left">
+        <text>临时停靠</text>
+      </view>
+      <view class="item item-right">
+        <text>请多关照</text>
+      </view>
+    </view>
+    <view class="title-bottom">
+      <text>{{license}}</text>
+    </view>
+  </view>
+  <view class="call" bindtap="tapCall">
+    <text>电话联系车主</text>
+  </view>
+</view>
