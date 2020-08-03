@@ -3,7 +3,7 @@
   <view class="title">
     <view class="title-list">
       <view class="title-help">
-        <text>码上挪车使用帮助</text>
+        <text>挪车使用帮助</text>
       </view>
       <view class="title-desc">
         <text>请您在收到挪车贴后，第一时间绑定车辆，绑定完成后即可开始使用。</text>
@@ -54,6 +54,7 @@
           </view>
         </view>
       </view>
+      <!--
       <view class="good-tab">
         <view class="tab-item">
           <view class="tab-icon">
@@ -80,6 +81,7 @@
           </view>
         </view>
       </view>
+      -->
     </view>
   </view>
   <view class="bottom">

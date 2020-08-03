@@ -124,7 +124,7 @@
 }
 .check-number .get-check{
   float: left;
-  width: 190rpx;
+  width: 225rpx;
   height: 60rpx;
   line-height: 40rpx;
   margin-top: 20rpx;

@@ -1,0 +1,66 @@
+/* pages/online/erweimatest/erweimatest.wxss */
+page{
+  position: fixed;
+  height: 100%;
+  background-color: #f7f7f7;
+}
+.container{
+  padding-top: 30rpx;
+}
+.title{
+  padding: 10rpx 30rpx;
+  width: 100%;
+  height: 100rpx;
+  font-size: 14px;
+  box-sizing: border-box;
+  margin-bottom: 20rpx;
+  background-color: rgb(197, 190, 85);
+}
+.erweima{
+  display: flex;
+  justify-content: center;
+  width: 707rpx;
+  height: 540rpx;
+  padding: 40rpx 50rpx;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  background-color: #ffffff;
+}
+.erweima image{
+  width: 410rpx;
+  height: 450rpx;
+}
+.shop{
+  position: absolute;
+  top: 667rpx;
+  width: 90%;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 20px;
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+  text-align: center;
+  color: #ffffff;
+  background-color: #3a82ff;
+  border-radius: 10rpx;
+}
+button {
+  position: absolute;
+  top: 800rpx;
+  width: 100%;
+  background: #ffffff;
+  border: none;
+  border-radius: 10rpx;
+  padding: 0;
+  margin: 0;
+}
+.btn {
+  background: #f7f7f7;
+  font-weight: normal;
+  text-decoration-line: underline;
+  color: #3a82ff;
+}
+.save{
+  text-decoration-line: underline;
+  color: #3a82ff;
+}

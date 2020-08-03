@@ -1,5 +1,13 @@
 <!--pages/person/order/order.wxml-->
 <view class="container order">
+  <view class="no-order">
+    <view class="order-img">
+      <image src="/images/desc/noorder.png"></image>
+    </view>
+    <view class="order-text">
+      <text>您还没有相关的订单</text>
+    </view>
+  </view>
   <view class="order-list">
     <view class="order-time">
       <view class="order-text">

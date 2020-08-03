@@ -1,5 +1,6 @@
 <!--pages/online/online.wxml-->
 <view class="container online">
+  <!--
   <form class="signin">
     <view class="car-number signin-item clearfix">
       <view class="car-text">
@@ -9,7 +10,7 @@
         <view class="province" catchtap="tapProvince">
           <text>{{province}}</text><view class="province-btn"></view>
         </view>
-        <input name="carNum" bindinput="bindCarInput" bindblur="bindCarBlur" type="text" placeholder="请输入车牌号" class="carNum"></input>
+        <input name="carNum" bindblur="bindCarBlur" type="text" placeholder="请输入车牌号" class="carNum"></input>
       </view>
     </view>
     <view class="phone-number signin-item clearfix">
@@ -30,16 +31,127 @@
       <button class="get-check" bindtap="tapCheck" type="default" disabled="{{isClick}}" plain="true">{{time}}</button>
     </view>
   </form>
-  <view class="get-erwei">
-    <text>生成二维码</text>
+  
+  <view class="car-num">
+    <view class="num-item"><text></text></view>
+    <view class="num-item"><text></text></view>
+    <view class="num-item"><text></text></view>
+    <view class="num-item"><text></text></view>
+    <view class="num-item"><text></text></view>
+    <view class="num-item"><text></text></view>
+    <view class="num-item"><text></text></view>
+    <view class="num-item last-item"><text>新能源</text></view>
+  </view>
+  -->
+  <view class="plate-input-body">
+    <view class="new-plate-input-content">
+      <view class="{{inputOnFocusIndex=='0'?'plate-nums-foc':'plate-nums-first'}}">
+        <text bindtap="inputClick" class="plate-num-text" data-id="0">{{inputPlates.index0}}</text>
+      </view>
+      <view class="{{inputOnFocusIndex=='1'?'plate-nums-foc':'plate-nums-first'}}">
+        <text bindtap="inputClick" class="plate-num-text" data-id="1">{{inputPlates.index1}}</text>
+      </view>
+      <view class="{{inputOnFocusIndex=='2'?'plate-nums-foc':'plate-nums-first'}}">
+        <text bindtap="inputClick" class="plate-num-text" data-id="2">{{inputPlates.index2}}</text>
+      </view>
+      <view class="{{inputOnFocusIndex=='3'?'plate-nums-foc':'plate-nums-first'}}">
+        <text bindtap="inputClick" class="plate-num-text" data-id="3">{{inputPlates.index3}}</text>
+      </view>
+      <view class="{{inputOnFocusIndex=='4'?'plate-nums-foc':'plate-nums-first'}}">
+        <text bindtap="inputClick" class="plate-num-text" data-id="4">{{inputPlates.index4}}</text>
+      </view>
+      <view class="{{inputOnFocusIndex=='5'?'plate-nums-foc':'plate-nums-first'}}">
+        <text bindtap="inputClick" class="plate-num-text" data-id="5">{{inputPlates.index5}}</text>
+      </view>
+      <view class="{{inputOnFocusIndex=='6'?'plate-nums-foc':'plate-nums-first'}}">
+        <text bindtap="inputClick" class="plate-num-text" data-id="6">{{inputPlates.index6}}</text>
+      </view>
+      <view class="{{inputOnFocusIndex=='7'?'plate-nums-foc':'plate-nums-first'}}">
+        <text bindtap="lastInputClick" wx:if="{{flag}}" class="energy" data-id="7">{{inputPlates.index7}}</text>
+        <text bindtap="lastInputClick" wx:if="{{!flag}}" class="plate-num-text" data-id="7">{{inputPlates.index7}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="next" bindtap="tapNext">
+    <text>下一步</text>
   </view>
   <view class="first">
     <text>请您先绑定车牌号,以便享受挪车服务</text>
   </view>
+  <!--
   <view class="bottom {{show?'del_box':'hide_box'}}">
     <view class="province-list clearfix">
       <view class="province-item" wx:for="{{provinceArr}}" wx:key="index" bindtap="tapProvinceItem" data-text="{{item}}"><text>{{item}}</text></view>
-      <view class="hide-item" bindtap="tapHide"><text>隐藏</text></view>
+      <view class="hide-item" bindtap="tapHide"><text>删除</text></view>
+    </view>
+  </view>
+  -->
+  <!--键盘-->
+  <view class="keyboard" wx:if="{{isKeyboard}}">
+    <view class="kb_top">
+      <text catchtap="tapSpecBtn" data-index="1" style="position:absolute;right:0;display:block;height:74rpx;padding:0 34rpx; color:#3a82ff;line-height:74rpx; font-size: 30rpx;">关闭</text>
+    </view>
+    <view style="width:100%; text-align:center;" wx:if="{{!isNumberKB}}">
+      <view class="bottom-list">
+        <view catchtap="tapKeyboard" class="td td_num" data-index="{{idx}}" data-val="{{itemName}}" hoverClass="board_bg" hoverStartTime="0" hoverStayTime="80" wx:if="{{idx<=9}}" wx:for="{{keyboard1}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">
+          {{itemName}}
+        </view>
+      </view>
+      <view class="bottom-list">
+        <view catchtap="tapKeyboard" class="td td_num" data-index="{{idx}}" data-val="{{itemName}}" hoverClass="board_bg" hoverStartTime="0" hoverStayTime="80" wx:if="{{idx<=19&&idx>9}}" wx:for="{{keyboard1}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">
+          {{itemName}}
+        </view>
+      </view>
+      <view class="bottom-list">
+        <view catchtap="tapKeyboard" class="td td_num" data-index="{{idx}}" data-val="{{itemName}}" hoverClass="board_bg" hoverStartTime="0" hoverStayTime="80" wx:if="{{idx<=29&&idx>19}}" wx:for="{{keyboard1}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">
+          {{itemName}}
+        </view>
+      </view>
+      <view class="bottom-list">
+        <view catchtap="tapKeyboard" class="td bottom-item" data-index="{{idx}}" data-val="{{itemName}}" hoverClass="board_bg" hoverStartTime="0" hoverStayTime="80" wx:if="{{idx<=37&&idx>29}}" wx:for="{{keyboard1}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">
+          {{itemName}}
+        </view>
+      </view>
+      <view bindtap="tapSpecBtn" class="del-first" data-index="0" hoverClass="del-hover" hoverStartTime="0" hoverStayTime="80">
+        <image class="del-img" data-index="0" mode="scaleToFill" src="/images/icon/delete.png"></image>
+      </view>
+    </view>
+    <view style="width:100%; text-align:center;" wx:if="{{isNumberKB}}">
+      <view class="bottom-list">
+        <view class="td td_num board_bg" wx:if="{{!tapNum&&idx<=9}}" wx:for="{{keyboardNumber}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">
+          {{itemName}}
+        </view>
+      </view>
+      <view class="bottom-list">
+        <view catchtap="tapKeyboard" class="td td_num" data-index="{{idx}}" data-val="{{itemName}}" hoverClass="board_bg" hoverStartTime="0" hoverStayTime="80" wx:if="{{tapNum&&idx<=9}}" wx:for="{{keyboardNumber}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">
+          {{itemName}}
+        </view>
+      </view>
+      <view class="bottom-list">
+        <view catchtap="tapKeyboard" class="td td_num" data-index="{{idx}}" data-val="{{itemName}}" hoverClass="board_bg" hoverStartTime="0" hoverStayTime="80" wx:if="{{idx>9&&idx<=19}}" wx:for="{{keyboardNumber}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">
+          {{itemName}}
+        </view>
+      </view>
+      <view class="bottom-list">
+        <view catchtap="tapKeyboard" class="td td_num" data-index="{{idx}}" data-val="{{itemName}}" hoverClass="board_bg" hoverStartTime="0" hoverStayTime="80" wx:if="{{idx>19&&idx<=29}}" wx:for="{{keyboardNumber}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">
+          {{itemName}}
+        </view>
+      </view>
+      <view style="width:auto;display:flex;text-align:left; margin-left:5rpx;">
+        <view catchtap="tapKeyboard" class="td bottom-item" data-index="{{idx}}" data-val="{{itemName}}" hoverClass="board_bg" hoverStartTime="0" hoverStayTime="80" wx:if="{{idx>29&&idx<=35}}" wx:for="{{keyboardNumber}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">
+          {{itemName}}
+        </view>
+        <view class="td bottom-item board_bg" wx:if="{{!tapNum&&idx>35}}" wx:for="{{keyboardNumber}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">
+          {{itemName}}
+        </view>
+        <view catchtap="tapKeyboard" class="td bottom-item" data-index="{{idx}}" data-val="{{itemName}}" hoverClass="board_bg" hoverStartTime="0" hoverStayTime="80" wx:if="{{tapNum&&idx>35}}" wx:for="{{keyboardNumber}}" wx:for-index="idx" wx:for-item="itemName" wx:key="idx">
+          {{itemName}}
+        </view>
+      </view>
+      <view bindtap="tapSpecBtn" class="del-first" data-index="0" hoverClass="del-hover" hoverStartTime="0" hoverStayTime="80">
+        <image class="del-img" data-index="0" mode="scaleToFill" src="/images/icon/delete.png"></image>
+      </view>
     </view>
   </view>
 </view>

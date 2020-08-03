@@ -1,9 +1,27 @@
 <!--pages/person/cart/cart.wxml-->
 <view class="container cart">
   <view class="no-data">
-    <image src="/images/desc/not1.png"></image>
+    <image src="/images/desc/nocart.png"></image>
     <view>
       <text>暂无挪车码</text>
+    </view>
+  </view>
+  <view class="cart-info">
+    <view class="cart-item" bindtap="tapCartItem">
+      <view class="cart-img">
+        <image src="/images/desc/cart1.png"></image>
+      </view>
+      <view class="number">
+        <view class="car-num">
+          <text>{{carNum}}</text>
+        </view>
+        <view class="phone-num">
+          <text>绑定手机:  {{phoneNum}}</text>
+        </view>
+      </view>
+      <view class="right">
+        <text>线上体验码</text>
+      </view>
     </view>
   </view>
 </view>

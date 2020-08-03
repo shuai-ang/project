@@ -77,5 +77,10 @@ Page({
         console.log('取消呼叫')
       }
     })
+  },
+  tapShopCart:function(){
+    wx.redirectTo({
+      url: '/pages/shop/shop',
+    })
   }
 })

@@ -1,11 +1,15 @@
 /* pages/person/help/help.wxss */
 @import "../../../style/stylesheet.wxss";
-.container{
+page{
   position: relative;
-  height: 2000rpx;
+  height: 100%;
+  background-color: #f8f8f8;
+}
+.container{
+  height: auto;
   padding: 0rpx;
   box-sizing: border-box;
-  background-color: #f8f8f8;
+  
 }
 .clearfix:after {
   content: "";
@@ -37,6 +41,7 @@
   position: absolute;
   top:300rpx;
   width: 90%;
+  z-index: 9;
 }
 .main .problem-item.problem1{
   height: 400rpx;
@@ -49,7 +54,6 @@
   box-sizing: border-box;
   background-color: #ffffff;
   border-radius: 5rpx;
-  box-shadow: 2px 2px rgb(201, 198, 198);
 }
 .main .problem-item .item-title{
   text-align: center;
@@ -81,14 +85,15 @@
   overflow: hidden;
 }
 .main .problem-item .attention{
-  width: 100%;
-  height: 70rpx;
-  line-height: 70rpx;
+  width: 90%;
+  height: 55rpx;
+  line-height: 55rpx;
   text-align: center;
   color: #ffffff;
-  font-size: 15px;
+  font-size: 30rpx;
+  margin: 0 auto;
   border-radius: 50rpx;
-  background-color: #d6c809;
+  background-color: #ff2424;
 }
 .main .good-tab{
   width: 100%;
@@ -113,7 +118,7 @@
 }
 .bottom{
   position: absolute;
-  top: 1800rpx;
+  top: 1480rpx;
   text-align: center;
   font-size: 18px;
   padding-top: 100rpx;

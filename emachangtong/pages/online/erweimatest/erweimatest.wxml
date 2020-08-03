@@ -1,0 +1,21 @@
+<!--pages/online/erweimatest/erweimatest.wxml-->
+<view class="container erweimatest">
+  <!--
+  <view class="title">
+    <text>此码为挪车通知体验码，剩余1次体验。请保存相册并分享给他人，扫码体验匿名挪车。</text>
+  </view>
+  -->
+  <view class="erweima">
+    <image src="{{photoUrl}}"></image>
+  </view>
+  <view class="shop" bindtap="tapShop">
+    <text>立即购买</text>
+  </view>
+  
+  <button wx:if="{{!isAuthSavePhoto}}" bindtap="onSaveToPhone"  class="btn button-hover" >
+    保存到相册
+  </button>
+  <button wx:else bind:tap="showModal"  class="btn button-hover" >            
+    保存到相册
+  </button>
+</view>

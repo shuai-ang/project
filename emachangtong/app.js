@@ -1,34 +1,7 @@
 //app.js
 App({
   onLaunch: function (options) {
-    console.log(options.query.sId)
-    var sId = options.query.sId;
-    if(sId){
-      wx.request({
-        url: 'http://39.96.72.38:8080/simpsonx-0.0.1-SNAPSHOT(1.8)/simpsonx/findUser',
-        method:'GET',
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        data:{
-          sId:sId
-        },
-        success:function(res){
-          var result = res.data;
-          console.log(result)
-          var license = decodeURI(result.license);
-          var phoneNumber = result.phoneNumber;
-          if(result){
-            console.log(license)
-            wx.redirectTo({
-              url: '/pages/phone/phone?phoneNumber='+phoneNumber+'&license='+license,
-            })
-          }else{
-            return;
-          }
-        }
-      })
-    }
+    
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -38,6 +11,20 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        //console.log(res.code)
+        /*
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: 'https://test.com/onLogin',
+            data: {
+              code: res.code
+            }
+          })
+        } else {
+          console.log('获取用户登录态失败！' + res.errMsg)
+        }
+        */
       }
     })
     // 获取用户信息

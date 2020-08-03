@@ -25,7 +25,6 @@ functional-page-navigator {
   margin-bottom: 10rpx;
   box-sizing: border-box;
   line-height: 160rpx;
-  border-bottom: 2px dashed #3a82ff;
   background-color:#ffffff;
 }
 .get-address .add-address{
@@ -63,20 +62,23 @@ functional-page-navigator {
   color: #ccc;
 }
 .cart{
-  width: 100%;
+  width: 700rpx;
   height: 300rpx;
   padding: 20rpx 20rpx;
-  margin-bottom: 10rpx;
+  margin-top: 20rpx;
+  margin-bottom: 20rpx;
   box-sizing: border-box;
   background-color: #ffffff;
+  border-radius: 10rpx;
+  box-shadow: 5rpx 5rpx 5rpx #f6f6f6;
 }
 .cart .cart-img{
   float: left;
-  margin:20rpx 40rpx 20rpx 20rpx;
+  margin:20rpx 45rpx 20rpx 20rpx;
 }
 .cart .cart-img image{
-  width: 200rpx;
-  height: 240rpx;
+  width: 190rpx;
+  height: 210rpx;
 }
 .cart .cart-detail{
   float: left;
@@ -89,9 +91,11 @@ functional-page-navigator {
 }
 .cart .cart-detail .quality{
   margin-bottom: 10rpx;
+  color: #737680;
 }
 .cart .cart-detail .cart-length{
-  margin-bottom: 25rpx;
+  margin-bottom: 20rpx;
+  color: #737680;
 }
 .cart .cart-detail .cart-price{
   width: 400rpx;
@@ -110,18 +114,22 @@ functional-page-navigator {
   margin:0 20rpx;
 }
 .icon-minus-circle{
-  font-size: 24px;
+  font-size: 50rpx;
+  color: #dfdfdf;
 }
 .icon-plus-circle{
-  font-size: 24px;
+  font-size: 50rpx;
+  color: #dfdfdf;
 }
 .price-list{
-  width: 100%;
+  width: 700rpx;
   height: 600rpx;
-  padding: 20rpx 20rpx;
+  padding: 20rpx 30rpx;
   margin-bottom: 10rpx;
   box-sizing: border-box;
   background-color: #ffffff;
+  border-radius: 10rpx;
+  box-shadow: 5rpx 5rpx 5rpx #f6f6f6;
 }
 .price-list .price-item{
   width: 100%;
@@ -144,7 +152,7 @@ functional-page-navigator {
   box-sizing: border-box;
   color: #ffffff;
   border-radius: 4rpx;
-  background-color: crimson;
+  background-color: #ff0000;
 }
 .price-list .price-item .price-title .preferent-text{
   float: right;
@@ -153,7 +161,7 @@ functional-page-navigator {
   float: right;
 }
 .minus{
-  color: #c94545;
+  color: #ff0000;
 }
 .price-list .getPrice{
   border-bottom: transparent;
@@ -173,14 +181,18 @@ functional-page-navigator {
   width: 100%;
   height: 100rpx;
   font-size: 16px;
+  
+  z-index: 9;
 }
 .bottom .sum{
   float: left;
   width: 60%;
-  height: 100%;
+  height: 100rpx;
   line-height: 100rpx;
   padding-left: 30rpx;
   box-sizing: border-box;
+  border-top: 1px solid #eaeaea;
+  background-color: #ffffff;
 }
 .bottom .get-cart{
   float: right;

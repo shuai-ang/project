@@ -25,7 +25,7 @@
   
   <view class="cart">
     <view class="cart-img">
-      <image src="/images/desc/cart1.png"></image>
+      <image src="/images/desc/cart.png"></image>
     </view>
     <view class="cart-detail">
       <view class="cart-title">挪车贴</view>
@@ -78,7 +78,7 @@
     <view class="price-item getPrice">
       <view class="price-text">
         <view class="shop-num">
-          <text>共1件商品</text>
+          <text>共1件</text>
         </view>
         <view class="shop-price">
           <text>合计:  ￥{{shopPrice}}</text>

@@ -1,10 +1,22 @@
 /* pages/home/home.wxss */
-@import "./tab-template/tab-template.wxss";
-.home{
-  position: relative;
+page{
   width: 100%;
+  height: 100%;
   background-color: #f8f8f8;
 }
+.home{
+  width: 100%;
+  padding: 0;
+}
+.title{
+  width: 100%;
+  height: 345rpx;
+}
+.title image{
+  width: 100%;
+  height: 100%;
+}
+/*轮播图样式
 .swiper{
   width: 100%;
   height: 500rpx;
@@ -13,14 +25,16 @@
   width: 100%;
   height: 100%;
 }
-.contain{
+*/
+.main{
   position: absolute;
-  top: 400rpx;
+  top: 380rpx;
   left: 5%;
   width: 90%;
   margin-bottom: 80rpx;
   background-color: #f8f8f8;
 }
+/*
 .nav{
   width: 100%;
   height: 180rpx;
@@ -71,6 +85,7 @@
   color: #ff0000;
   text-decoration: line-through;
 }
+*/
 .content{
   position: relative;
   width: 100%;
@@ -78,6 +93,7 @@
   margin-bottom: 30rpx;
 }
 .content .action{
+  display: flex;
   width: 100%;
   height: 300rpx;
 }
@@ -90,8 +106,15 @@
   float: left;
   font-size: 14px;
   text-align: center;
-  width: 33.33%;
+  width: 33.3%;
   height: 100%;
+}
+.action .line{
+  float: left;
+  width: 1px;
+  height: 150rpx;
+  margin-top: 70rpx;
+  background-color: #f1f1f1;
 }
 .action .action-item .mid{
   font-size: 14px;
@@ -102,19 +125,19 @@
   color: #9c9ea8;
   white-space: pre-wrap;
 }
-.online{
-  width: 600rpx;
-  height: 70rpx;
-  line-height: 70rpx;
+.shop{
+  width: 500rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
   margin: 0 auto;
-  color: #3a82ff;
-  border: 1px solid #3a82ff;
-  border-radius: 6rpx;
+  color: #ffffff;
+  background-color: #3a82ff;
+  border-radius: 10rpx;
 }
 .desc{
   width: 100%;
-  height: 2000rpx;
+  height: 2525rpx;
   background-color: #ffffff;
   padding: 20rpx;
   box-sizing: border-box;
@@ -130,7 +153,9 @@
 }
 .desc .img-item{
   width: 100%;
+  height: 2485rpx;
 }
+/*
 .bottom{
   position: fixed;
   top: 90%;
@@ -145,3 +170,4 @@
   background-color: #3a82ff;
   border-radius: 60rpx;
 }
+*/

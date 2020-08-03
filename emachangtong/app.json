@@ -1,19 +1,23 @@
 {
   "pages":[
-    "pages/online/online",
-    "pages/shop/shop",
+    
     "pages/home/home",
+    "pages/online/online",
+    "pages/online/bindphone/bindphone",
+    "pages/online/erweimatest/erweimatest",
     "pages/index/index",
+    
+    "pages/shop/shop",
+    
     "pages/phone/phone",
     "pages/success/success",
     
     "pages/experience/experience",
-    
     "pages/person/person",
-    
+    "pages/person/cart/cart",
     "pages/service/service",
     "pages/person/order/order",
-    "pages/person/cart/cart",
+    
     "pages/person/call-log/call-log",
     "pages/person/help/help",
     "pages/person/solute/solute",
@@ -26,21 +30,15 @@
     "list":[
         {
           "pagePath":"pages/home/home",
-          "text":"挪车码",
-          "iconPath":"/images/icon/erweima.png",
-          "selectedIconPath": "/images/icon/erweima2.png"
-        },
-        {
-          "pagePath":"pages/service/service",
-          "text":"更多服务",
-          "iconPath":"/images/icon/service.png",
-          "selectedIconPath": "/images/icon/service2.png"
+          "text":"首页",
+          "iconPath":"/images/icon/home.png",
+          "selectedIconPath": "/images/icon/home-select.png"
         },
         {
           "pagePath": "pages/person/person",
           "text": "我的",
           "iconPath": "/images/icon/person.png",
-          "selectedIconPath": "/images/icon/person2.png"
+          "selectedIconPath": "/images/icon/person-select.png"
         }
     ]
   },

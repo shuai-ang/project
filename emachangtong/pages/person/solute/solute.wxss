@@ -2,16 +2,16 @@
 .container{
   padding: 10rpx 20rpx;
   background-color: #f8f8f8;
+  overflow: hidden;
 }
 .solute-list{
   width: 100%;
 }
 .solute-list .solute-item{
   width: 100%;
-  
-  font-size: 16px;
-  margin-top: 80rpx;
-  background-color: #ffffff;
+  font-size: 28rpx;
+  margin-bottom: 80rpx;
+  background-color: #f8f8f8;
   overflow: hidden;
 }
 .solute-list .solute-item .question{
@@ -33,9 +33,9 @@
   position: absolute;
   left: 20rpx;
   bottom: 0;
-  width: 40rpx;
-  height: 40rpx;
-  line-height: 40rpx;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   font-size: 14px;
   color: #ffffff;
   text-align: center;
@@ -64,20 +64,20 @@
   color: #000000;
   padding: 10rpx;
   box-sizing: border-box;
-  background-color: rgb(214, 175, 156);
+  background-color:#ffe08e;
   border-radius: 20rpx;
 }
 .solute-item .answer .answer-icon{
   position: absolute;
   right: 20rpx;
   bottom: 0;
-  width: 40rpx;
-  height: 40rpx;
-  line-height: 40rpx;
+  width: 50rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   font-size: 14px;
   color: #ffffff;
   text-align: center;
-  background-color: #FF7F00;
+  background-color: #ffe08e;
   border-radius: 50%;
 }
 .solute-item .answer .min-right{
@@ -87,7 +87,7 @@
   width: 0;
   border-top: 20rpx solid transparent;
   border-right: 20rpx solid transparent;
-  border-bottom: 20rpx solid rgb(214, 175, 156);
+  border-bottom: 20rpx solid #ffe08e;
   border-left: 20rpx solid transparent;
 }
 .bottom{

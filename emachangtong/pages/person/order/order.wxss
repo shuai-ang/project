@@ -1,10 +1,28 @@
 /* pages/person/order/order.wxss */
+page{
+  height: 100%;
+  background-color: #eeeeee;
+}
 .container{
   padding: 20rpx;
   box-sizing: border-box;
   background-color: #f8f8f8;
 }
+.no-order{
+  display: block;
+  text-align: center;
+}
+.no-order .order-img image{
+  margin-top: 280rpx;
+  margin-bottom: 40rpx;
+  width: 335rpx;
+  height: 290rpx;
+}
+.no-order .order-text{
+  color: #9e9fa4;
+}
 .order-list{
+  display: none;
   width: 100%;
   padding: 20rpx;
   background-color: #ffffff;

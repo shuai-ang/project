@@ -1,19 +1,23 @@
 <!--pages/phone/phone.wxml-->
 <view class="container phone">
   <view class="title">
-    <view class="title-list">
-      <view class="item item-left">
-        <text>临时停靠</text>
-      </view>
-      <view class="item item-right">
-        <text>请多关照</text>
-      </view>
+    <view class="title-img">
+      <image src="/images/desc/call-title.png"></image>
     </view>
     <view class="title-bottom">
       <text>{{license}}</text>
     </view>
   </view>
-  <view class="call" bindtap="tapCall">
-    <text>电话联系车主</text>
+  <view class="main">
+    <view class="attention">
+      <text>以下通知使用虚拟号码进行通话,保护车主隐私</text>
+    </view>
+    <view class="call" bindtap="tapCall">
+      <text>电话联系车主</text>
+    </view>
+    <view class="shop-cart" bindtap="tapShopCart">
+      <text>购买挪车码</text>
+    </view>
   </view>
+  
 </view>

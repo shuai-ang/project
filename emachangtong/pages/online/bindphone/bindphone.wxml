@@ -1,0 +1,28 @@
+<!--pages/online/bindphone/bindphone.wxml-->
+<view class="container bindphone">
+  <form class="signin">
+    <view class="phone-number signin-item clearfix">
+      <view class="phone-text">
+        <text>手机号码</text>
+      </view>
+      <view class="phone-input">
+        <input name="phoneNum" maxlength="11" bindinput="bindPhoneInput" bindblur="bindPhoneBlur" type="text" placeholder="请输入手机号"></input>
+      </view>
+    </view>
+    <view class="check-number signin-item clearfix">
+      <view class="check-text">
+        <text>验证码</text>
+      </view>
+      <view class="check-input">
+        <input name="checkNum" maxlength="6" type="number" bindinput="bindCheckInput" placeholder="请输入验证码"></input>
+      </view>
+      <button class="get-check" catchtap="tapCheck" type="default" disabled="{{isClick}}" plain="true">{{time}}</button>
+    </view>
+  </form>
+  <view class="get-start" bindtap="tapStart">
+    <text>立即开启</text>
+  </view>
+  <view class="first">
+    <text>{{errMsg}}</text>
+  </view>
+</view>

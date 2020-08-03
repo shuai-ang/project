@@ -6,17 +6,14 @@ Page({
   data: {
     sId:'',
     motto: 'Hello World',
-    userInfo: {},
-    hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
     province:'省',
     show:false,
     carNum:'',
     phoneNum:'',
     checkInputNum:'',
-    checkNum:'1234',
+    checkNum:'',
     time: '获取验证码', //倒计时 
-    currentTime: 300,//限制300s
+    currentTime: 60,//限制60s
     isClick:false,//获取验证码按钮，默认允许点击
     errMsg:'请您先绑定车牌号,以便享受挪车服务',
     provinceArr:['京','津','渝','沪','冀','晋','辽','吉',
@@ -31,11 +28,44 @@ Page({
       url: '../logs/logs'
     })
   },
+  onShow:function(){
+    wx.showToast({
+      title: '数据加载中...',
+      icon:'loading',
+    })
+  },
   onLoad: function (options) {
-    
+    wx.hideToast({
+      title: '数据加载中...',
+      icon:'loading',
+    })
     var sId = options.sId;
     this.setData({sId:sId});
-    
+    if(sId){
+      wx.request({                                                                                                                              
+        url: 'https://www.simpsonit.cn:443/simpsonx-0.0.1-SNAPSHOT(1.8)/simpsonx/findUser',
+        method:'GET',
+        header: {
+          'content-type': 'application/json' // 默认值
+        },
+        data:{
+          sId:sId
+        },
+        success:function(res){
+          var result = res.data;
+          console.log(result)
+          var license = decodeURI(result.license);
+          var phoneNumber = result.phoneNumber;
+          if(phoneNumber){
+            wx.redirectTo({
+              url: '/pages/phone/phone?phoneNumber='+phoneNumber+'&license='+license,
+            })
+          }else{
+            return;
+          }
+        }
+      })
+    }
     
     
     
@@ -55,45 +85,12 @@ Page({
     } else {
       console.log("no scene");
     }
-    */
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
+    */ 
   },
   onUnload:function(){
     
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  },
+  
   bindMotto:function(){
     wx.switchTab({
       url: '/pages/home/home',
@@ -124,10 +121,14 @@ Page({
     let reg = /^[A-Z][0-9A-Z]{5}$/;
     const carReg = reg.test(val);
     if(!carReg){
-      this.setData({errMsg:'请输入正确的车牌号!'});
+      wx.showToast({
+        title: '请输入正确的车牌号!',
+        icon:'none',
+        duration:2000
+      })
       return;
     }else{
-      this.setData({errMsg:'请输入手机号!',carNum:val});
+      this.setData({carNum:val});
     }
   },
   /**手机号输入时 */
@@ -138,67 +139,111 @@ Page({
   /**手机号输入框失去焦点时 */
   bindPhoneBlur:function(e){
     var val = e.detail.value;
-    //console.log(val)
+    console.log(val)
     let reg = /^[1][356789][0-9]{9}$/;
     const phoneReg = reg.test(val);
-    if(!phoneReg){
-      this.setData({errMsg:'请输入正确的手机号!'});
-      return;
-    }else{
-      this.setData({errMsg:'请输入验证码!',phoneNum:val});
-    }
+    
+    this.setData({phoneNum:val});
+    
     //console.log(this.data)
   },
   /**点击获取验证码 */
   tapCheck:function(){
+    clearTimeout(delay);
     let _this = this;
-    let reg = /^[1][356789][0-9]{9}$/;
-    const phoneReg = reg.test(_this.data.phoneNum);
-    if(!phoneReg){
-      _this.setData({errMsg:'请输入正确的手机号!'});
-      return;
-    }else{
-      _this.setData({isClick: true});
-      // 300s倒计时 setInterval功能用于循环，常常用于播放动画，或者时间显示
-      var currentTime = _this.data.currentTime;
-      var  interval = setInterval(function(){
-        currentTime --;//减
-        _this.setData({
-          time: currentTime + '秒后获取'
+    
+    let delay = setTimeout(function(){
+      let reg = /^[1][356789][0-9]{9}$/;
+      console.log(_this.data.phoneNum)
+      const phoneReg = reg.test(_this.data.phoneNum);
+      console.log(phoneReg)
+      if(!phoneReg){
+        console.log('tapCheck')
+        wx.showToast({
+          title: '请输入正确的手机号!',
+          icon:'none',
+          duration:2000
         })
-        if (currentTime <= 0) {
-          clearInterval(interval);
+        return;
+      }else{
+        _this.setData({isClick: true});
+        _this.postRequest();
+      }
+    },250)
+    
+  },
+  //发送请求并跳转指定页面
+  postRequest:function(){
+    let _this = this;
+    wx.request({
+      url: 'https://www.simpsonit.cn:443/simpsonx-0.0.1-SNAPSHOT(1.8)/simpsonx/sendSms',
+      method:'GET',
+      data:{
+        phoneNumber:_this.data.phoneNum
+      },
+      success:function(res){
+        var result = res.data;
+        console.log(result)
+        //如果有验证码，显示发送成功
+        if(result){
+          wx.showToast({
+            title: '发送成功',
+            icon:'none',
+            duration:2000
+          })
+          _this.setData({checkNum:result});
+          // 60s倒计时 setInterval功能用于循环，常常用于播放动画，或者时间显示
+          var currentTime = _this.data.currentTime;
+          var  interval = setInterval(function(){
+            currentTime --;//减
+            _this.setData({
+              time: currentTime + '秒后获取'
+            })
+            if (currentTime <= 0) {
+              clearInterval(interval);
+              _this.setData({
+                time: '获取验证码',
+                currentTime: 60,
+                isClick: false
+              })
+            }
+          },1000);
+        }else{
+          wx.showToast({
+            title: '发送失败',
+            icon:'none',
+            duration:2000
+          })
           _this.setData({
             time: '获取验证码',
-            currentTime: 300,
+            currentTime: 60,
             isClick: false
           })
         }
-      },1000);
-      
-      
-      wx.request({
-        url: 'http://39.96.72.38:8080/simpsonx-0.0.1-SNAPSHOT(1.8)/simpsonx/sendSms',
-        method:'GET',
-        data:{
-          phoneNumber:_this.data.phoneNum
-        },
-        success:function(res){
-          var result = res.data;
-          console.log(result)
-          _this.setData({checkNum:result});
-        }
-      })
-      
-    }
+        
+      },
+      fail:function(){
+        wx.showToast({
+          title: '发送失败',
+          icon:'none',
+          duration:2000
+        })
+        _this.setData({
+          time: '获取验证码',
+          currentTime: 60,
+          isClick: false
+        })
+      }
+    })
+    
   },
   bindCheckBlur:function(e){
     var checkInputNum = e.detail.value;
     if(checkInputNum !== this.data.checkNum){
-      this.setData({errMsg:'请输入正确的验证码!',checkInputNum:checkInputNum});
+      this.setData({checkInputNum:checkInputNum});
       return;
     }else{
-      this.setData({errMsg:'点击立即开启!',checkInputNum:checkInputNum});
+      this.setData({checkInputNum:checkInputNum});
     }
   },
   tapStart:function(){
@@ -211,24 +256,38 @@ Page({
     var checkInputNum = this.data.checkInputNum/1;
     var checkNum = this.data.checkNum/1;
     if(province == '省'){
-      this.setData({errMsg:'请选择省份!'});
+      wx.showToast({
+        title: '请选择车牌所在的省份!',
+        icon:'none',
+        duration:2000
+      })
       return;
-    }else{
-      this.setData({errMsg:''});
     }
     /**验证车牌号 */
     if(!carReg){
-      this.setData({errMsg:'请输入正确的车牌号!'});
+      wx.showToast({
+        title: '请输入正确的车牌号!',
+        icon:'none',
+        duration:2000
+      })
       return;
     }
     /**验证手机号 */
     if(!phoneReg){
-      this.setData({errMsg:'请输入正确的手机号!'});
+      wx.showToast({
+        title: '请输入正确的手机号!',
+        icon:'none',
+        duration:2000
+      })
       return;
     }
     /**验证验证码 */
     if(checkInputNum !== checkNum){
-      this.setData({errMsg:'请输入正确的验证码!'});
+      wx.showToast({
+        title: '请输入正确的验证码!',
+        icon:'none',
+        duration:2000
+      })
       return;
     }
     if(province !== '省' && carReg && phoneReg && checkInputNum == checkNum){
@@ -242,7 +301,7 @@ Page({
             let sId = _this.data.sId;
             console.log(license)
             wx.request({
-              url: 'http://39.96.72.38:8080/simpsonx-0.0.1-SNAPSHOT(1.8)/simpsonx/update',
+              url: 'https://www.simpsonit.cn:443/simpsonx-0.0.1-SNAPSHOT(1.8)/simpsonx/update',
               method:'POST',
               header: {
                 'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
@@ -259,6 +318,13 @@ Page({
                 if(result == 'success'){
                   wx.redirectTo({
                     url: '/pages/success/success',
+                  })
+                }else if(result == 'overtime'){
+                  wx.showToast({
+                    title: '验证码已失效',
+                    icon:'none',
+                    duration:2000,
+                    mask:true
                   })
                 }
               },

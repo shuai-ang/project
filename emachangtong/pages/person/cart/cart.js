@@ -5,14 +5,19 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+      carNum:"豫KD5188",
+      phoneNum:"183******85"
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+      var phoneNum = "13900005566";
+      var reg = /^(\d{3})\d{6}(\d{2})$/;
+      var phoneNum1 = phoneNum.replace(reg,'$1******$2');
+      console.log(phoneNum1)
+      this.setData({phoneNum:phoneNum1});
   },
 
   /**
@@ -62,5 +67,10 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  tapCartItem:function(){
+    wx.redirectTo({
+      url: '/pages/online/erweimatest/erweimatest',
+    })
   }
 })

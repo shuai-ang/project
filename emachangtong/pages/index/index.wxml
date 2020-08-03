@@ -1,14 +1,5 @@
 <!--index.wxml-->
 <view class="container experience" catchtap="tapHide">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"></button>
-    <!--
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
-    -->
-  </view>
   <view class="nav">
     <view class="nav-item">
       <view class="num-input">
@@ -46,7 +37,7 @@
       <view class="check-input">
         <input name="checkNum" type="number" bindblur="bindCheckBlur" placeholder="请输入验证码"></input>
       </view>
-      <button class="get-check" bindtap="tapCheck" type="default" disabled="{{isClick}}" plain="true">{{time}}</button>
+      <button class="get-check" catchtap="tapCheck" type="default" disabled="{{isClick}}" plain="true">{{time}}</button>
     </view>
   </form>
   <view class="get-start" bindtap="tapStart">

@@ -4,7 +4,7 @@
     <view class="solute-item">
       <view class="question">
         <view class="question-icon">
-          <text>Q</text>
+          <text>问</text>
         </view>
         <view class="min-left"></view>
         <view class="question-desc">
@@ -17,14 +17,14 @@
         </view>
         <view class="min-right"></view>
         <view class="answer-icon">
-          <text>A</text>
+          <text>答</text>
         </view>
       </view>
     </view>
     <view class="solute-item">
       <view class="question">
         <view class="question-icon">
-          <text>Q</text>
+          <text>问</text>
         </view>
         <view class="min-left"></view>
         <view class="question-desc">
@@ -37,14 +37,14 @@
         </view>
         <view class="min-right"></view>
         <view class="answer-icon">
-          <text>A</text>
+          <text>答</text>
         </view>
       </view>
     </view>
     <view class="solute-item">
       <view class="question">
         <view class="question-icon">
-          <text>Q</text>
+          <text>问</text>
         </view>
         <view class="min-left"></view>
         <view class="question-desc">
@@ -57,14 +57,14 @@
         </view>
         <view class="min-right"></view>
         <view class="answer-icon">
-          <text>A</text>
+          <text>答</text>
         </view>
       </view>
     </view>
     <view class="solute-item">
       <view class="question">
         <view class="question-icon">
-          <text>Q</text>
+          <text>问</text>
         </view>
         <view class="min-left"></view>
         <view class="question-desc">
@@ -77,14 +77,14 @@
         </view>
         <view class="min-right"></view>
         <view class="answer-icon">
-          <text>A</text>
+          <text>答</text>
         </view>
       </view>
     </view>
     <view class="solute-item">
       <view class="question">
         <view class="question-icon">
-          <text>Q</text>
+          <text>问</text>
         </view>
         <view class="min-left"></view>
         <view class="question-desc">
@@ -97,14 +97,14 @@
         </view>
         <view class="min-right"></view>
         <view class="answer-icon">
-          <text>A</text>
+          <text>答</text>
         </view>
       </view>
     </view>
     <view class="solute-item">
       <view class="question">
         <view class="question-icon">
-          <text>Q</text>
+          <text>问</text>
         </view>
         <view class="min-left"></view>
         <view class="question-desc">
@@ -117,14 +117,14 @@
         </view>
         <view class="min-right"></view>
         <view class="answer-icon">
-          <text>A</text>
+          <text>答</text>
         </view>
       </view>
     </view>
     <view class="solute-item">
       <view class="question">
         <view class="question-icon">
-          <text>Q</text>
+          <text>问</text>
         </view>
         <view class="min-left"></view>
         <view class="question-desc">
@@ -137,14 +137,14 @@
         </view>
         <view class="min-right"></view>
         <view class="answer-icon">
-          <text>A</text>
+          <text>答</text>
         </view>
       </view>
     </view>
     <view class="solute-item">
       <view class="question">
         <view class="question-icon">
-          <text>Q</text>
+          <text>问</text>
         </view>
         <view class="min-left"></view>
         <view class="question-desc">
@@ -157,7 +157,7 @@
         </view>
         <view class="min-right"></view>
         <view class="answer-icon">
-          <text>A</text>
+          <text>答</text>
         </view>
       </view>
     </view>

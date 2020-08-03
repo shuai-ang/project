@@ -1,35 +1,50 @@
 /* pages/phone/phone.wxss */
+page{
+  position: fixed;
+}
 .container{
   padding: 0;
 }
 .title{
+  position: relative;
   width: 100%;
-  height: 400rpx;
+  height: 464rpx;
   color: #ffffff;
-  background-color: #3a82ff;
 }
-.title-list{
-  width: 400rpx;
-  height: 200rpx;
-  font-size: 24px;
-  font-weight: 500;
-  margin: 0 auto;
-  line-height: 200rpx;
-}
-.item-left{
-  float: left;
-}
-.item-right{
-  float: right;
+.title-img image{
+  width: 100%;
+  height: 464rpx;
 }
 .title-bottom{
-  width: 200rpx;
-  height: 60rpx;
-  line-height: 60rpx;
+  position: absolute;
+  top: 196rpx;
+  left: 50%;
+  width: 286rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #3a82ff;
   text-align: center;
-  margin: 0 auto;
-  font-size: 16px;
-  border: 1px solid #ffffff;
+  margin-left: -143rpx;
+  font-size: 36rpx;
+  border-radius: 10rpx;
+  background-color: #ffffff;
+}
+.main{
+  position: absolute;
+  top: 350rpx;
+  width: 540rpx;
+  height: 250rpx;
+  text-align: center;
+  padding: 28rpx 38rpx;
+  box-sizing: border-box;
+  border-radius: 10rpx;
+  background-color: #ffffff;
+  box-shadow: 0 15rpx 15rpx #f6f6f6;
+}
+.attention{
+  font-size: 22rpx;
+  text-align: left;
+  color: #7e7e99;
 }
 .call{
   width: 80%;
@@ -38,6 +53,13 @@
   text-align: center;
   color: #ffffff;
   background-color: #3a82ff;
-  margin-top: 50rpx;
+  margin-top: 24rpx;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 30rpx;
   border-radius: 10rpx;
+}
+.shop-cart{
+  font-size: 24rpx;
+  color: #3a82ff;
 }
