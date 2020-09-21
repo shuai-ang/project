@@ -25,7 +25,7 @@
                 <div class="floor-item">
                     <div class="item-title">活动时间:</div>
                     <div class="item-detail">
-                        2020年8月20日-2020年8月31日。
+                        2020年9月10日-2020年9月30日。
                     </div>
                 </div>
                 <div class="floor-item">
@@ -59,7 +59,7 @@
         name:'ActivityDec',
         data(){
             return {
-                lists:['本活动票数统计为用户分享链接后的拉粉数量,敬请期待新的活动。','8月20号将开展七夕节欢乐活动。'],
+                lists:['本活动票数统计为用户分享链接后的拉粉数量,敬请期待新的活动。','10月1号将开展中秋节欢乐活动。'],
             }
         },
         components:{

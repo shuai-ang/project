@@ -103,7 +103,7 @@
                         </div>
                     </div>
                 </div>
-                <van-button color="#c753ff" class="button-item" block size="large">投票</van-button>
+                <van-button color="#c753ff" class="button-item" block size="large" @click="voteTicket">{{voted}}</van-button>
                 <van-button color="#c753ff" class="button-item" block size="large" to="voteshop">打赏</van-button>
                 <div class="advertise">
                     <div class="advertise-list">
@@ -247,10 +247,11 @@
         data(){
             return {
                 showInfo:true,
-                lists:['本活动票数统计为用户分享链接后的拉粉数量,敬请期待新的活动。','8月20号将开展七夕节欢乐活动。'],
+                lists:['本活动票数统计为用户分享链接后的拉粉数量,敬请期待新的活动。','10月1号将开展中秋节欢乐活动。'],
                 username: '',
                 phonenum:'',
                 sms:'',
+                checkNum:'',
                 address:'',
                 assessment:'',
                 uploader: [],
@@ -259,14 +260,16 @@
                 personImg:'',
                 personNum:'',
                 personName:'',
-                personTicket:0
+                personTicket:0,
+                voted:'投票'
             }
         },
         created(){
-            console.log('personCreated..',this.ids)
-            var openid = this.ids;
+            
+            var openid = window.localStorage.getItem('openId');
+            console.log('personCreated..',openid)
             var _this = this;
-            axios.get('http://www.simpsonit.cn:80/businesspromotion-1.0.1-SNAPSHOT/user_massage/findop?openid='+openid)
+            axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/findop?openid='+openid)
             .then(function (result) {
                 console.log(result);
                 if(result.data == ''){
@@ -275,7 +278,9 @@
                     var person = result.data;
                     _this.showInfo = false;
                     _this.personImg = person.head_img;
-
+                    _this.personNum = person.user_number;
+                    _this.personName = decodeURI(person.user_name);
+                    _this.personTicket = person.number_ov;
                 }
             })
             .catch(function (error) {
@@ -286,26 +291,13 @@
             var params = this.getParams();
             console.log('params..',params)
             if(params){
+                
                 var key = params.split('=')[0];
                 var value = params.split('=')[1];
-                var _this = this;
+                
                 if(key == 'id'){
                     let id = value;
-                    axios.get('http://www.simpsonit.cn:80/businesspromotion-1.0.1-SNAPSHOT/user_massage/findId?user_number='+id)
-                    .then(function (result) {
-                        console.log(result);
-                        if(result && (result.data != {})){
-                            var person = result.data;
-                            _this.showInfo = false;
-                            _this.personImg = person.head_img;
-                            _this.personNum = person.user_number;
-                            _this.personName = decodeURI(person.user_name);
-
-                        }
-                    })
-                    .catch(function (error) {
-                        console.log(error);
-                    })
+                    this.getPlayerInfo(id);
                 }
             }
             
@@ -317,39 +309,74 @@
                 if(url.indexOf('id') >=0){
                     var params = url.split('?')[1];
                 
-                    return params;
+                    return params;//id='+id
                 }else{
                     return null;
                 }
                 
+            },
+            //通过编号获取用户详情
+            getPlayerInfo(id){
+                var _this = this;
+                axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/findId?user_number='+id)
+                .then(function (result) {
+                    console.log(result);
+                    if(result && (result.data != {})){
+                        var person = result.data;
+                        _this.showInfo = false;
+                        _this.personImg = person.head_img;
+                        _this.personNum = person.user_number;
+                        _this.personName = decodeURI(person.user_name);
+                        _this.personTicket = person.number_ov;
+                    }
+                })
+                .catch(function (error) {
+                    console.log(error);
+                })
             },
             //获取验证码
             getCheckNum(){
                 
                 var phonenum = this.phonenum;
                 let reg = /^[1][2356789][0-9]{9}$/;
-                const phoneReg = reg.test(phonenum)
+                const phoneReg = reg.test(phonenum);
+                let _this = this;
                 if(!phoneReg){
                     Toast("请输入正确的手机号!")
                 }else{
-                    console.log("getCheckNum..")
+                    console.log("phonenum..",phonenum)
+                    axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/sendSms?user_phone='+phonenum)
+                    .then(function (result) {
+                        console.log(result);
+                        _this.checkNum = result.data;
+                        Toast("验证码已发送")
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
                 }
             },
             onSubmit(values) {
                 console.log('submit', values);
-                var openid = this.ids;
+                var openid = window.localStorage.getItem('openId');
                 var username = encodeURI(values.username);
                 var phonenum = values.tel;
                 console.log(phonenum)
+                //验证码
+                var sms = values.sms - 0;
+                console.log('sms..',sms)
+                var checkNum = this.checkNum;
                 var address = encodeURI(values.address);
                 var assessment = encodeURI(values.assessment);
                 var uploader = values.uploader;
+                if(sms != checkNum){
+                    Toast("请输入正确的验证码!")
+                }
                 
-                
-                if((username != '') && (phonenum != '') && (address != '') && (uploader != [])){
+                if((username != '') && (phonenum != '') && (sms == checkNum) && (address != '') && (uploader != [])){
                     var imgUrl = this.imgUrl;
                     console.log('imgUrl',imgUrl);
-                    var url = 'http://www.simpsonit.cn:80/businesspromotion-1.0.1-SNAPSHOT/user_massage/save';
+                    var url = 'http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/save';
                     var activityId = 1;
                     // axios.post(url, {
                     //     openid:openid,
@@ -426,7 +453,7 @@
                 console.log(name)
                 formData.append("file", this.dataURLtoFileFun(content, name));
                   // 注意需要在调用接口的时候修改请求头为"multipart/form-data"，以表单的格式上传
-                axios.post('http://www.simpsonit.cn:80/businesspromotion-1.0.1-SNAPSHOT/wechat/photoUpload',formData, {
+                axios.post('http://www.simpsonit.cn:80/ykt-1.1.1/wechat/photoUpload',formData, {
                     headers: {
                       "Content-Type": "multipart/form-data"
                     }
@@ -453,6 +480,52 @@
                 u8arr[n] = bstr.charCodeAt(n);
               }
               return new File([u8arr], filename, { type: mime });
+            },
+            //投票逻辑处理
+            voteTicket(){
+                var voted = this.voted;
+                var voteopid = window.localStorage.getItem('openId');
+                console.log('voteopid',voteopid)
+                var personNum = this.personNum;
+                console.log('personNum..',personNum)
+                var activityId = 1;
+                var _this = this;
+                var url = 'http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/vote';
+                if(voted == '投票'){
+                    axios({
+                        method: 'get',
+                        url: url,
+                        params: {
+                            m_id:activityId,
+                            voteopid:voteopid,
+                            user_number:personNum
+                        }
+                    })
+                    .then(function (response) {
+                        console.log(response);
+                        var info = response.data;
+                        //通过返回的信息处理逻辑
+                        if(info == "zijitoupiao"){//1.自己给自己投票时,不允许
+                            Toast("不能给自己投票");
+                            return;
+                        }else if(info == "success"){//2.投票成功时
+                            _this.voted = '已投票';
+                            _this.getPlayerInfo(personNum);
+                        }else if(info == "useup"){//3.当每天的票数用完时
+                            Toast("今天的票数已用完")
+                        }else if(info == "jinriyitougaixuanshou"){//4.今日已投过该选手
+                            Toast("今日已投过该选手")
+                            _this.voted = '已投票';
+                        }
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                }else if(voted == '已投票'){
+                    return
+                }
+                
             }
         },
         computed:{

@@ -69,21 +69,22 @@
         name:'Home',
         data(){
             return {
-                lists:['本活动票数统计为用户分享链接后的拉粉数量,敬请期待新的活动。','8月20号将开展七夕节欢乐活动。'],
+                lists:['本活动票数统计为用户分享链接后的拉粉数量,敬请期待新的活动。','10月1号将开展中秋节欢乐活动。'],
+                visits:'',
                 playerList:[
                     {
                         imgUrl:require('../../assets/images/person1.jpg'),
                         num:'01',
                         name:'随风起舞',
                         ticket:'2890',
-                        voted:'投票'
+                        //voted:'投票'
                     },
                     {
                         imgUrl:require('../../assets/images/person2.jpg'),
                         num:'02',
                         name:'曼舞翩翩',
                         ticket:'3000',
-                        voted:'投票'
+                        //voted:'投票'
                     },
                 ],
                 code:'',
@@ -91,34 +92,37 @@
             }
         },
         mounted(){
-            // this.getCode();
-            this.getVisits();
-            //this.getPlayerInfo();
+            console.log('openid..',window.localStorage.getItem('openId'))
+            var openid = window.localStorage.getItem('openId');
+            console.log(typeof openid)
+            if(!openid || openid == "undefined"){ // 如果缓存localStorage中没有微信openId，则需用code去后台获取
+                console.log('if..')
+                this.getCode();
+                this.getPlayerInfo();
+            }else {
+                console.log('else..')
+                this.getPlayerInfo();
+            }
+            
         },
         beforeUpdate(){
 
         },
         methods:{
-            //判断页面是首次加载还是刷新,获取首页访问量
-            getVisits(){
-                if (window.performance.navigation.type == 1) {
-                    console.log("页面被刷新")
-                }else{
-                    console.log("首次被加载")
-                }
-            },
+            
             getPlayerInfo(){
                 var _this = this;
                 var activityId = 1;
-                axios.get('http://www.simpsonit.cn:80/businesspromotion-1.0.1-SNAPSHOT/user_massage/findAll?v_m_id='+activityId)
+                //获取所有参赛选手信息
+                axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/findAll?v_m_id='+activityId)
                 .then(function (result) {
                     console.log(result);
                     var playerList = result.data;
                     console.log(playerList)
                     let newList = playerList.map(function(player){
                         player.user_name = decodeURI(player.user_name);
-                        player.ticket = 0;
-                        player.voted = '投票';
+                        player.ticket = player.number_ov;
+                        //player.voted = '投票';
                         return player;
                     })
                     console.log(newList)
@@ -152,8 +156,8 @@
                 if (this.code == null || this.code === '') { // 如果没有code，则去请求
                     window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&redirect_uri=${encodeURIComponent(local)}&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect`
                     this.code = this.getUrlCode().code;
-                    //console.log(this.code)
                     var code = this.code;
+                    console.log('getCode..',code)
                     this.getId(code);
                 } else {
                     // 你自己的业务逻辑
@@ -164,15 +168,18 @@
             },
             getId(code){
                 var _this = this;
-                axios.get('http://www.simpsonit.cn:80/businesspromotion-1.0.1-SNAPSHOT/wechat/callBack?code='+code)
+                console.log('getId..',code)
+                axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/wechat/callBack?code='+code)
                 .then(function (result) {
-                  console.log(result.data.openid);
-                  var openid = result.data.openid;
-                  _this.$store.commit(GET_OPENID,openid);
-                  _this.openid = openid;
+                    console.log('result..',result)
+                    console.log(result.data.openid);
+                    var openid = result.data.openid;
+                    _this.$store.commit(GET_OPENID,openid);
+                    _this.openid = openid;
+                    window.localStorage.setItem('openId',openid)
                 })
                 .catch(function (error) {
-                  console.log(error);
+                    console.log(error);
                 })
             },
             getUrlCode() { // 截取url中的code方法
@@ -192,9 +199,16 @@
                 window.location.href = './#/getactivity';
             },
             toPlayerInfo(id){
-                console.log('id...',id)
+                // console.log('id...',id)
+                var openid = window.localStorage.getItem('openId');
+                console.log('openid..',openid)
                 window.location.href = './#/personinfo?id='+id;
             }
+        },
+        computed:{
+                ids:function(){
+                    return this.$store.state.home.openid
+                }
         },
         components:{
             marquee,

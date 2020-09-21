@@ -22,49 +22,49 @@
                 <div class="title-item line"></div>
             </div>
             <div class="num-list">
-                <div class="num-item">
+                <div class="num-item" v-show="topTwoShow" @click="clickTopTwo">
                     <div class="head-img">
-                        <img src="../../assets/images/people2.jpg" alt="">
+                        <img :src="topTwoImg" alt="">
                     </div>
                     <img src="../../assets/images/num2.png" class="num-icon">
-                    <div class="name"><span>蔡徐坤</span></div>
-                    <div class="tickets"><span>30157票</span></div>
+                    <div class="name"><span>{{topTwoName}}</span></div>
+                    <div class="tickets"><span>{{topTwoTicket}}票</span></div>
                 </div>
-                <div class="num1">
+                <div class="num1" v-show="topOneShow" @click="clickTopOne">
                     <div class="head-img">
-                        <img src="../../assets/images/people1.jpg" alt="">
+                        <img :src="topOneImg" alt="">
                     </div>
                     <img src="../../assets/images/num1.png" class="num-icon">
-                    <div class="name"><span>李现</span></div>
-                    <div class="tickets"><span>35421票</span></div>
+                    <div class="name"><span>{{topOneName}}</span></div>
+                    <div class="tickets"><span>{{topOneTicket}}票</span></div>
                 </div>
-                <div class="num-item">
+                <div class="num-item" v-show="topThreeShow" @click="clickTopThree">
                     <div class="head-img">
-                        <img src="../../assets/images/people3.jpg" alt="">
+                        <img :src="topThreeImg" alt="">
                     </div>
                     <img src="../../assets/images/num3.png" class="num-icon">
-                    <div class="name"><span>崔胜铉</span></div>
-                    <div class="tickets"><span>29832票</span></div>
+                    <div class="name"><span>{{topThreeName}}</span></div>
+                    <div class="tickets"><span>{{topThreeTicket}}票</span></div>
                 </div>
             </div>
             <div class="num-bottom">
-                <div class="bottom-item">
+                <div class="bottom-item" v-show="topFourShow" @click="clickTopFour">
                     <div class="bottom-img">
-                        <img src="../../assets/images/people4.jpg" alt="">
+                        <img :src="topFourImg" alt="">
                     </div>
                     <div class="bottom-detail">
-                        <div class="bottom-name"><span>井柏然</span></div>
-                        <div class="bottom-ticket"><span>28736票</span></div>
+                        <div class="bottom-name"><span>{{topFourName}}</span></div>
+                        <div class="bottom-ticket"><span>{{topFourTicket}}票</span></div>
                     </div>
                     <img src="../../assets/images/num4.png" class="bottom-icon">
                 </div>
-                <div class="bottom-item">
+                <div class="bottom-item" v-show="topFiveShow" @click="clickTopFive">
                     <div class="bottom-img">
-                        <img src="../../assets/images/people5.jpg" alt="">
+                        <img :src="topFiveImg" alt="">
                     </div>
                     <div class="bottom-detail">
-                        <div class="bottom-name"><span>唐艺昕</span></div>
-                        <div class="bottom-ticket"><span>28435票</span></div>
+                        <div class="bottom-name"><span>{{topFiveName}}</span></div>
+                        <div class="bottom-ticket"><span>{{topFiveTicket}}票</span></div>
                     </div>
                     <img src="../../assets/images/num5.png" class="bottom-icon">
                 </div>
@@ -88,7 +88,37 @@
         name:'Charts',
         data(){
             return {
-                lists:['本活动票数统计为用户分享链接后的拉粉数量,敬请期待新的活动。','8月20号将开展七夕节欢乐活动。'],
+                lists:['本活动票数统计为用户分享链接后的拉粉数量,敬请期待新的活动。','10月1号将开展中秋节欢乐活动。'],
+                //第一名
+                topOneShow:false,
+                topOneImg:'',
+                topOneName:'',
+                topOneTicket:'',
+                topOneNum:'',
+                //第二名
+                topTwoShow:false,
+                topTwoImg:'',
+                topTwoName:'',
+                topTwoTicket:'',
+                topTwoNum:'',
+                //第三名
+                topThreeShow:false,
+                topThreeImg:'',
+                topThreeName:'',
+                topThreeTicket:'',
+                topThreeNum:'',
+                //第四名
+                topFourShow:false,
+                topFourImg:'',
+                topFourName:'',
+                topFourTicket:'',
+                topFourNum:'',
+                //第五名
+                topFiveShow:false,
+                topFiveImg:'',
+                topFiveName:'',
+                topFiveTicket:'',
+                topFiveNum:'',
             }
         },
         mounted(){
@@ -96,15 +126,108 @@
         },
         methods:{
             getCharts(){
-                axios.get('http://www.simpsonit.cn:80/businesspromotion-1.0.1-SNAPSHOT/user_massage/rank')
+                var _this = this;
+                axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/rank')
                 .then(function (result) {
                     console.log(result);
-                    
+                    var topFiveArr = result.data;
+                    if(topFiveArr != []){
+                        if(topFiveArr.length == 1){
+                            _this.topOneDo(topFiveArr);
+                        }
+                        else if(topFiveArr.length == 2){
+                            _this.topOneDo(topFiveArr);
+                            _this.topTwoDo(topFiveArr);
+                        }
+                        else if(topFiveArr.length == 3){
+                            _this.topOneDo(topFiveArr);
+                            _this.topTwoDo(topFiveArr);
+                            _this.topThreeDo(topFiveArr);
+                        }
+                        else if(topFiveArr.length == 4){
+                            _this.topOneDo(topFiveArr);
+                            _this.topTwoDo(topFiveArr);
+                            _this.topThreeDo(topFiveArr);
+                            _this.topFourDo(topFiveArr);
+                        }
+                        else if(topFiveArr.length == 5){
+                            _this.topOneDo(topFiveArr);
+                            _this.topTwoDo(topFiveArr);
+                            _this.topThreeDo(topFiveArr);
+                            _this.topFourDo(topFiveArr);
+                            _this.topFiveDo(topFiveArr);
+                        }
+                    }
                 })
                 .catch(function (error) {
                     console.log(error);
                 })
-            }
+            },
+            topOneDo(arr){
+                this.topOneShow = true;
+                var topOneInfo = arr[0];
+                this.topOneImg = topOneInfo.head_img;
+                this.topOneName = decodeURI(topOneInfo.user_name);
+                this.topOneTicket = topOneInfo.number_ov;
+                this.topOneNum = topOneInfo.user_number;
+            },
+            topTwoDo(arr){
+                this.topTwoShow = true;
+                var topTwoInfo = arr[1];
+                this.topTwoImg = topTwoInfo.head_img;
+                this.topTwoName = decodeURI(topTwoInfo.user_name);
+                this.topTwoTicket = topTwoInfo.number_ov;
+                this.topTwoNum = topTwoInfo.user_number;
+            },
+            topThreeDo(arr){
+                this.topThreeShow = true;
+                var topThreeInfo = arr[2];
+                this.topThreeImg = topThreeInfo.head_img;
+                this.topThreeName = decodeURI(topThreeInfo.user_name);
+                this.topThreeTicket = topThreeInfo.number_ov;
+                this.topThreeNum = topThreeInfo.user_number;
+            },
+            topFourDo(arr){
+                this.topFourShow = true;
+                var topFourInfo = arr[3];
+                this.topFourImg = topFourInfo.head_img;
+                this.topFourName = decodeURI(topFourInfo.user_name);
+                this.topFourTicket = topFourInfo.number_ov;
+                this.topFourNum = topFourInfo.user_number;
+            },
+            topFiveDo(arr){
+                this.topFiveShow = true;
+                var topFiveInfo = arr[4];
+                this.topFiveImg = topFiveInfo.head_img;
+                this.topFiveName = decodeURI(topFiveInfo.user_name);
+                this.topFiveTicket = topFiveInfo.number_ov;
+                this.topFiveNum = topFiveInfo.user_number;
+            },
+            clickTopOne(){
+                var id = this.topOneNum;
+                window.location.href = './#/personinfo?id='+id;
+            },
+            clickTopTwo(){
+                var id = this.topTwoNum;
+                window.location.href = './#/personinfo?id='+id;
+            },
+            clickTopThree(){
+                var id = this.topThreeNum;
+                window.location.href = './#/personinfo?id='+id;
+            },
+            clickTopFour(){
+                var id = this.topFourNum;
+                window.location.href = './#/personinfo?id='+id;
+            },
+            clickTopFive(){
+                var id = this.topFiveNum;
+                window.location.href = './#/personinfo?id='+id;
+            },
+        },
+        computed:{
+                ids:function(){
+                    return this.$store.state.home.openid
+                }
         },
         components:{
             marquee,

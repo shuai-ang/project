@@ -11,21 +11,21 @@
                         <img src="../../assets/images/icon1.png" alt="">
                         <div class="num-detail">
                             <p class="person-text">参赛人数</p>
-                            <p id="person-nums">5184215</p>
+                            <p id="person-nums">{{playerNums}}</p>
                         </div>
                     </li>
                     <li class="num-item ticket-num">
                         <img src="../../assets/images/icon2.png" alt="">
                         <div class="num-detail">
                             <p class="person-text">累积投票</p>
-                            <p id="person-nums">5184215</p>
+                            <p id="person-nums">{{tickets}}</p>
                         </div>
                     </li>
                     <li class="num-item visit-num">
                         <img src="../../assets/images/icon3.png" alt="">
                         <div class="num-detail">
                             <p class="person-text">访问量</p>
-                            <p id="person-nums">5184215</p>
+                            <p id="person-nums">{{visits}}</p>
                         </div>
                     </li>
                 </ul>
@@ -56,7 +56,7 @@
                         <span>结束时间:</span><span>2020年</span><span>09月</span><span>30日</span>
                     </div>
                     <div class="attention">
-                        <span>提示:本活动只限于许昌地区用户参与!每个微信号只限3次投票次数,对违规行为系统将做进一步处理。</span>
+                        <span>提示:本活动只限于许昌地区用户参与!每个微信号每天只限3次投票次数,对违规行为系统将做进一步处理。</span>
                     </div>
                 </div>
             </div>
@@ -71,28 +71,65 @@
 </template>
 <script>
     import Vue from 'vue';
+    import axios from 'axios';
     import { CountDown } from 'vant';
     Vue.use(CountDown);
 
 	export default{
 		name:"Title",
+        // props:{
+        //     visit:{
+        //       type:Number,
+
+        //     }
+        // },
 		data(){
 			return{
+                visits:'',
 				value:'',
                 time: 0,
-                nowTime: Date.now()
+                nowTime: Date.now(),
+                playerNums:'300',
+                tickets:'500'
 			}
 		},
         mounted(){
+            this.getVisits();
             this.getTime();
+            this.getPeopleTickets();
         },
 		methods: {
             onSearch(val) {
                 console.log(val);
-                //this.searchPlayer()
+                this.searchPlayer()
             },
             onCancel() {
               console.log('取消');
+            },
+            //判断页面是首次加载还是刷新,获取首页访问量
+            getVisits(){
+                var activityId = 1;
+                var _this = this;
+                if (window.performance.navigation.type == 1) {
+                    console.log("页面被刷新")
+                    axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/vote_massages/fw?m_id='+activityId)
+                    .then(function (result) {
+                        console.log(result);
+                        var visits = result.data;
+                        _this.visits = visits - 1;
+                    })
+                }else{
+                    console.log("首次被加载")
+                    axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/vote_massages/fw?m_id='+activityId)
+                    .then(function (result) {
+                        console.log(result);
+                        var visits = result.data;
+                        _this.visits = visits;
+                    })
+                    .catch(function (error) {
+                      console.log(error);
+                    })
+                }
             },
             //计算活动结束距离现在的时间
             getTime(){
@@ -105,12 +142,27 @@
                     this.time = 0;
                 }
             },
+            //获取参赛人数和累计投票
+            getPeopleTickets(){
+                var activityId = 1;
+                var _this = this;
+                axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/vote_massages/findId?m_id='+activityId)
+                .then(function (result) {
+                    var activityinfo = result.data;
+                    _this.playerNums = activityinfo.activity_num + '';
+                    _this.tickets = activityinfo.c_voting + '';
+                })
+                .catch(function (error) {
+                  console.log(error);
+                })
+            },
             searchPlayer(){
                 console.log('search..')
-                //var id = this.value;
-                //window.location.href = './#/personinfo?id='+id;
+                var id = this.value;
+
+                window.location.href = './#/personinfo?id='+id;
             }
-        },
+        }
 	}
 </script>
 <style scoped lang='less'>
