@@ -1,0 +1,17 @@
+.service{
+	width: 100%;
+	height: 2083px;
+}
+
+.main{
+	width: 100%;
+	height: 683px;
+}
+.main .service-img{
+	width: 100%;
+	height: 427px;
+}
+.main .service-img img{
+	width: 100%;
+	height: 427px;
+}

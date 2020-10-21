@@ -15,6 +15,7 @@
     "pages/experience/experience",
     "pages/person/person",
     "pages/person/cart/cart",
+    "pages/person/cart/cart-detail/cart-detail",
     "pages/service/service",
     "pages/person/order/order",
     

@@ -9,11 +9,11 @@
         </div>
         <Title />
         <!-- 按钮部分 -->
-            <div class="action-list">
+            <!-- <div class="action-list">
                 <van-button color="#c753ff" class="action-item" block size="large" to="activitydec">活动简介</van-button>
                 <van-button color="#c753ff" class="action-item" block size="large" to="charts">排行榜</van-button>
                 <van-button color="#c753ff" class="action-item" block size="large" to="personinfo">个人信息</van-button>
-            </div>
+            </div> -->
         <!--floor 信息展示部分 -->
         <div class="floor">
             <div class="floor-title">
@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-        
+        <Votebottom />
     </div>
 </template>
 <!-- 逻辑 -->
@@ -78,6 +78,7 @@
     import axios from 'axios';
 	import marquee from '../../components/marquee';
     import Title from '../../components/title';
+    import Votebottom from '../../components/votebottom';
     import Vue from 'vue';
     import { Search,Icon,Button } from 'vant';
 
@@ -127,7 +128,8 @@
         methods:{
             getCharts(){
                 var _this = this;
-                axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/rank')
+                var activityId = 1;
+                axios.get('https://www.simpsonit.cn:443/yktgt-1.0.1/user_massage/rank?m_id='+activityId)
                 .then(function (result) {
                     console.log(result);
                     var topFiveArr = result.data;
@@ -167,7 +169,7 @@
                 this.topOneShow = true;
                 var topOneInfo = arr[0];
                 this.topOneImg = topOneInfo.head_img;
-                this.topOneName = decodeURI(topOneInfo.user_name);
+                this.topOneName = topOneInfo.user_name;
                 this.topOneTicket = topOneInfo.number_ov;
                 this.topOneNum = topOneInfo.user_number;
             },
@@ -175,7 +177,7 @@
                 this.topTwoShow = true;
                 var topTwoInfo = arr[1];
                 this.topTwoImg = topTwoInfo.head_img;
-                this.topTwoName = decodeURI(topTwoInfo.user_name);
+                this.topTwoName = topTwoInfo.user_name;
                 this.topTwoTicket = topTwoInfo.number_ov;
                 this.topTwoNum = topTwoInfo.user_number;
             },
@@ -183,7 +185,7 @@
                 this.topThreeShow = true;
                 var topThreeInfo = arr[2];
                 this.topThreeImg = topThreeInfo.head_img;
-                this.topThreeName = decodeURI(topThreeInfo.user_name);
+                this.topThreeName = topThreeInfo.user_name;
                 this.topThreeTicket = topThreeInfo.number_ov;
                 this.topThreeNum = topThreeInfo.user_number;
             },
@@ -191,7 +193,7 @@
                 this.topFourShow = true;
                 var topFourInfo = arr[3];
                 this.topFourImg = topFourInfo.head_img;
-                this.topFourName = decodeURI(topFourInfo.user_name);
+                this.topFourName = topFourInfo.user_name;
                 this.topFourTicket = topFourInfo.number_ov;
                 this.topFourNum = topFourInfo.user_number;
             },
@@ -199,7 +201,7 @@
                 this.topFiveShow = true;
                 var topFiveInfo = arr[4];
                 this.topFiveImg = topFiveInfo.head_img;
-                this.topFiveName = decodeURI(topFiveInfo.user_name);
+                this.topFiveName = topFiveInfo.user_name;
                 this.topFiveTicket = topFiveInfo.number_ov;
                 this.topFiveNum = topFiveInfo.user_number;
             },
@@ -231,7 +233,8 @@
         },
         components:{
             marquee,
-            Title
+            Title,
+            Votebottom
         },
     }
 </script>
@@ -275,6 +278,7 @@
         margin-top: 15px;
         padding: 0 8%;
         .rem(padding-bottom,15);
+        .rem(margin-bottom,40px);
         width: 100%;
         box-sizing: border-box;
         .floor-title{

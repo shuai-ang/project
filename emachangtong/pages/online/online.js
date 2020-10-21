@@ -31,33 +31,63 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var sId = options.sId;
-    this.setData({sId:sId});
-    if(sId){
-      wx.request({                                                                                                                              
-        url: 'https://www.simpsonit.cn:443/simpsonx-0.0.1-SNAPSHOT(1.9)/simpsonx/findUser',
-        method:'GET',
-        header: {
-          'content-type': 'application/json' // 默认值
-        },
-        data:{
-          sId:sId
-        },
-        success:function(res){
-          var result = res.data;
-          console.log(result)
-          var license = decodeURI(result.license);
-          var phoneNumber = result.phoneNumber;
-          if(phoneNumber){
-            wx.reLaunch({
-              url: '/pages/phone/phone?phoneNumber='+phoneNumber+'&license='+license,
-            })
-          }else{
-            return;
-          }
+    console.log(options)
+    if(options == {}){
+      return;
+    }else{
+      var q = decodeURIComponent(options.q);
+      if(q){
+        var reg = new RegExp('/'+'sId'+"=([^&]*)(&|$)");
+        var result = q.match(reg);
+        console.log(result[1]);
+        var sId = result[1];
+        this.setData({sId:sId});
+      }
+      
+      /*
+      if (options.scene) {
+        console.log("has scene");
+        var scene = decodeURIComponent(options.scene);
+        console.log("scene is ", scene);
+        var arrPara = scene.split("&");
+        var arr = [];
+        for (var i in arrPara) {
+          arr = arrPara[i].split("=");
+          wx.setStorageSync(arr[0],arr[1]);
+          console.log("setStorageSync:",arr[0],"=",arr[1]);
         }
-      })
+      } else {
+        console.log("no scene");
+      }
+      */ 
+      
+      if(sId){
+        wx.request({                                                                                                                              
+          url: 'https://www.simpsonit.cn:443/simpsonx-0.0.1-SNAPSHOT(1.2.1)/simpsonx/findUser',
+          method:'GET',
+          header: {
+            'content-type': 'application/json' // 默认值
+          },
+          data:{
+            sId:sId
+          },
+          success:function(res){
+            var result = res.data;
+            console.log(result)
+            var license = decodeURI(result.license);
+            var phoneNumber = result.phoneNumber;
+            if(phoneNumber){
+              wx.reLaunch({
+                url: '/pages/phone/phone?phoneNumber='+phoneNumber+'&license='+license,
+              })
+            }else{
+              return;
+            }
+          }
+        })
+      }
     }
+    
   },
   //切换车牌
   changeplate:function(){

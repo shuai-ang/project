@@ -22,13 +22,13 @@ module.exports = {
 
 	devServer: {
 		host: '0.0.0.0',
-		port: 80,
-		//proxy: 'http://127.0.0.1:3000',
+		port: 443,
+		// proxy: 'http://127.0.0.1:3000',
 		publicPath: '../',  //这里解决静态资源引用路径问题
 	    //设置代理
 	    proxy: {
 	      "/api": {
-	        target: "http://www.simpsonit.cn/", // 跨域访问
+	        target: "https://www.simpsonit.cn/", // 跨域访问
 	        ws: true, // 是否启用websockets
 	        changOrigin: true, //开启代理
 	        secure: false, // 将安全设置为false,才能访问https开头的

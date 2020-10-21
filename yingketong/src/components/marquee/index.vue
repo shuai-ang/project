@@ -9,6 +9,7 @@
     <!-- 为了计算总文本宽度，通过css在页面中隐藏 -->
     <p class="getWidth">{{text}}</p>
   </div>
+
 </template>
 
 <script>
@@ -47,14 +48,11 @@ export default {
       let _this = this;
       // 设置位移
       this.timer = setInterval(() => {
-        distance -= 1
-        // 如果位移超过文字宽度，则回到起点
-        if (-distance >= maxWidth) {
-          distance = 15 // 距离必须与marquee的margin宽度相同
-          
-        }
-        scroll.style.transform = 'translateX(' + distance + 'px)'
-      }, 20)
+        // substring(0,i)取字符串的前i个字符 
+          var start = _this.text.substring(0,1) //取第1个字符
+          var end = _this.text.substring(1)//取1～text.length-1的字符
+          _this.text = end + start
+      }, 300)
     }
   },
   beforeDestroy () {

@@ -29,7 +29,7 @@
                         </div>
                     </li>
                 </ul>
-                <form action="/">
+                <form action="/" class="search-box">
                   <van-search
                     v-model="value"
                     placeholder="请输入参赛编号"
@@ -60,12 +60,12 @@
                     </div>
                 </div>
             </div>
-            <!-- 按钮部分 
+            <!-- 按钮部分 -->
             <div class="action-list">
                 <van-button color="#c753ff" class="action-item" block size="large" to="activitydec">活动简介</van-button>
                 <van-button color="#c753ff" class="action-item" block size="large" to="charts">排行榜</van-button>
                 <van-button color="#c753ff" class="action-item" block size="large" to="personinfo">个人信息</van-button>
-            </div>-->
+            </div>
         </div>
 	</div>    
 </template>
@@ -89,8 +89,8 @@
 				value:'',
                 time: 0,
                 nowTime: Date.now(),
-                playerNums:'300',
-                tickets:'500'
+                playerNums:'',
+                tickets:''
 			}
 		},
         mounted(){
@@ -112,7 +112,7 @@
                 var _this = this;
                 if (window.performance.navigation.type == 1) {
                     console.log("页面被刷新")
-                    axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/vote_massages/fw?m_id='+activityId)
+                    axios.get('https://www.simpsonit.cn:443/yktgt-1.0.1/vote_massages/fw?m_id='+activityId)
                     .then(function (result) {
                         console.log(result);
                         var visits = result.data;
@@ -120,7 +120,7 @@
                     })
                 }else{
                     console.log("首次被加载")
-                    axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/vote_massages/fw?m_id='+activityId)
+                    axios.get('https://www.simpsonit.cn:443/yktgt-1.0.1/vote_massages/fw?m_id='+activityId)
                     .then(function (result) {
                         console.log(result);
                         var visits = result.data;
@@ -146,7 +146,7 @@
             getPeopleTickets(){
                 var activityId = 1;
                 var _this = this;
-                axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/vote_massages/findId?m_id='+activityId)
+                axios.get('https://www.simpsonit.cn:443/yktgt-1.0.1/vote_massages/findId?m_id='+activityId)
                 .then(function (result) {
                     var activityinfo = result.data;
                     _this.playerNums = activityinfo.activity_num + '';
@@ -158,9 +158,27 @@
             },
             searchPlayer(){
                 console.log('search..')
-                var id = this.value;
-
-                window.location.href = './#/personinfo?id='+id;
+                var str = this.value;
+                var id = str.replace(/\s*/g,'');
+                if(id){
+                    var _this = this;
+                    axios.get('https://www.simpsonit.cn:443/yktgt-1.0.1/user_massage/findId?user_number='+id)
+                    .then(function (result) {
+                        console.log(result);
+                        if(result && (result.data != '')){
+                            window.location.href = './#/personinfo?id='+id;
+                        }else{
+                            return;
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+                    
+                }else{
+                    return
+                }
+                
             }
         }
 	}
@@ -177,19 +195,30 @@
     .main{
         display: flex;
         justify-content: center;
+        flex-wrap: wrap;
         width: 100%;
         .rem(height,300px);
         box-sizing: border-box;
         
         .activity-num{
             width: 90%;
-            .rem(height,120px);
+            .rem(height,110px);
+        }
+        .countdown{
+            .rem(width,290px);
+            .rem(height,147px);
+        }
+        .action-list{
+            .rem(width,290px);
+            .rem(height,50px);
         }
     }
     .num-list{
         font-size: 12px;
         .rem(padding-top,10);
         .rem(height,50px);
+        margin-left: auto;
+        margin-right: auto;
         .num-item{
             display: flex;
             float: left;
@@ -201,7 +230,7 @@
             img{
                 float: left;
                 margin-top: 20px;
-                margin-right: 5px;
+                .rem(margin-right,10px);
                 .rem(width,25px);
                 .rem(height,25px);
 
@@ -222,18 +251,21 @@
             border-right: none;
         }
     }
-    .search-img{
-        position: absolute;
-        .rem(top,245px);
-        .rem(left,270px);
-        .rem(width,18px);
-        .rem(height,18px);
+    .search-box{
+        position: relative;
+        .search-img{
+            position: absolute;
+            .rem(top,15px);
+            .rem(right,20px);
+            .rem(width,15px);
+            .rem(height,15px);
+        }
     }
+    
     .countdown{
-        position: absolute;
-        .rem(top,280px);
-        .rem(width,290px);
-        .rem(height,131px);
+        /*position: absolute;
+        .rem(top,280px);*/
+        
         font-size: 14px;
         span{
             margin-left: 3px;
@@ -262,5 +294,21 @@
             }
         }
     }
-    
+    .action-list{
+        /*position: absolute;
+        .rem(top,430px);*/
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        
+        .action-item{
+            .rem(width,60px);
+            .rem(height,30px);
+            .rem(line-height,30px);
+            text-align: center;
+            font-size: 14px;
+            background-color: #000;
+            border-radius: 5px;
+        }
+    }
 </style>

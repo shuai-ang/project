@@ -69,23 +69,6 @@ Page({
     
     
     
-    
-    /*
-    if (options.scene) {
-      console.log("has scene");
-      var scene = decodeURIComponent(options.scene);
-      console.log("scene is ", scene);
-      var arrPara = scene.split("&");
-      var arr = [];
-      for (var i in arrPara) {
-        arr = arrPara[i].split("=");
-        wx.setStorageSync(arr[0],arr[1]);
-        console.log("setStorageSync:",arr[0],"=",arr[1]);
-      }
-    } else {
-      console.log("no scene");
-    }
-    */ 
   },
   onUnload:function(){
     

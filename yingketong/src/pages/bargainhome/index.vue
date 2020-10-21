@@ -5,10 +5,11 @@
         <div class="title">
             <img src="../../assets/images/bargainhometitle.png" alt="">
         </div>
-        <div class="nav-img">
-            <img src="../../assets/images/bargainhomenav.png" alt="">
-        </div>
+        
         <div class="main">
+            <div class="nav-img">
+                <img src="../../assets/images/bargainhomenav.png" alt="">
+            </div>
             <div class="product-floor">
                 <div class="product-item" @click="addAddress">
                     <div class="product-detail">
@@ -111,13 +112,14 @@
           v-model="show"
           
           position="bottom"
-          :style="{ height: '70%' }"
+          :style="{ height: '90%' }"
         >
             <div class="address">
                 <div class="choose-address">
                     <span>选择收货地址</span>
                     <van-icon name="cross" size="20" @click="cancel"/>
                 </div>
+                <!-- 没有地址数据时,点击添加收货地址 -->
                 <div class="add-address" @click="showAddress" v-if="address">
                     <span>添加新的收货地址</span>
                     <van-icon name="arrow" color="#ececec"/>
@@ -172,7 +174,7 @@
         <!-- 中间弹出层：添加收货地址 -->
         <van-popup
           v-model="showAdd"
-          :style="{ height: '40%' }"
+          :style="{ height: '50%' }"
         >
             <div class="show-address">
                 <div class="addresslist">
@@ -251,13 +253,13 @@
         name:'BargainHome',
         data(){
             return {
-                show:false,
-                showAdd:false,
+                show:false,//是否显示底部弹出层：收货地址
+                showAdd:false,//是否显示中间弹出层：添加收货地址
                 username:'',
                 tel:'',
-                address:'',
+                address:'',//地址信息
                 value: '',
-                showArea: false,
+                showArea: false,//是否显示底部地区选择
                 areaList: arealist,
             }
         },
@@ -289,8 +291,9 @@
 <!-- 样式 -->
 <style scoped lang="less">
   	#BargainHome{
-        position: relative;
-        height: 1000px;
+        /*position: relative;*/
+        width: 100%;
+        height: auto;
         background-color: #f0c7ff;
     }
     .title{
@@ -301,29 +304,31 @@
             .rem(height,300px);
         }
     }
-    .nav-img{
-        position: absolute;
-        .rem(top,100px);
-        .rem(left,40px);
-        width: 85%;
-        .rem(height,50px);
-        z-index: 100;
-        img{
-            width: 100%;
-            .rem(height,50px);
-        }
-    }
+    
     .main{
-        position: absolute;
-        .rem(top,120px);
+        position: relative;
+        .rem(margin-top,-190px);
         .rem(padding-top,20px);
-        left: 10%;
         width: 80%;
         height: auto;
+        margin-left: auto;
+        margin-right: auto;
         box-sizing: border-box;
         background-color: #da79ff;
         border: 2px solid #fff;
         border-radius: 2px;
+        .nav-img{
+            position: absolute;
+            .rem(top,-20px);
+            .rem(left,-10px);
+            width: 105%;
+            .rem(height,50px);
+            z-index: 999;
+            img{
+                width: 110%;
+                .rem(height,50px);
+            }
+        }
     }
     .product-floor{
         display: flex;
@@ -505,12 +510,13 @@
             overflow: hidden;
             img{
                 float: left;
-               .rem(width,120px);
-               .rem(height,120px);
+               .rem(width,90px);
+               .rem(height,90px);
             }
             .bargain-detail{
                 float: left;
-                .rem(margin-top,90px);
+                .rem(margin-top,60px);
+                .rem(font-size,12px);
                 color: #cfcfcf;
             }
         }
@@ -524,6 +530,7 @@
         h3{
             font-weight: 800;
             .rem(margin,5,0);
+            .rem(font-size,12px);
         }
         .item{
             float: left;
@@ -560,6 +567,7 @@
         text-align: center;
         background-color: #e3a1ff;
         .rem(margin-top,5px);
+        .rem(margin-bottom,5px);
         margin-left: auto;
         margin-right: auto;
     }

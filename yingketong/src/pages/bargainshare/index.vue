@@ -91,8 +91,9 @@
         <van-overlay :show="show" @click="show = true">
           <div class="wrapper" @click.stop>
             <div class="success">
+                <i class="iconfont icon-chahao" @click="closeOverlay"></i>
                 <div class="success-img">
-                    <img src="../../assets/images/share1.png" alt="">
+                    <img src="../../assets/images/share2.png" alt="">
                 </div>
                 <div class="success-title"></div>
                 <div class="success-text">
@@ -136,7 +137,9 @@
             }
         },
         methods:{
-            
+            closeOverlay(){
+                this.show = false;
+            }
         }
     }
 </script>
@@ -364,11 +367,16 @@
         .rem(height,250px);
         background-color: #fff;
         border-radius: 10px;
-
+        .icon-chahao{
+            position: absolute;
+            .rem(top,-30px);
+            .rem(left,230px);
+            color: #c2c2c2;
+        }
         .success-img{
             position: absolute;
             .rem(top,-20px);
-            .rem(left,40px);
+            .rem(left,23px);
             .rem(width,200px);
             .rem(height,70px);
             img{

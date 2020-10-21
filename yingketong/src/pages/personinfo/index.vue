@@ -9,11 +9,11 @@
         </div>
         <Title />
         <!-- 按钮部分 -->
-            <div class="action-list">
+            <!-- <div class="action-list">
                 <van-button color="#c753ff" class="action-item" block size="large" to="activitydec">活动简介</van-button>
                 <van-button color="#c753ff" class="action-item" block size="large" to="charts">排行榜</van-button>
                 <van-button color="#c753ff" class="action-item" block size="large">个人信息</van-button>
-            </div>
+            </div> -->
         <!--floor 信息展示部分 -->
         <div class="floor">
             <div class="floor-title">
@@ -77,8 +77,9 @@
                             <van-uploader 
                                 v-model="uploader"
                                 :after-read="afterRead"
+                                :accept="'image/*'"
                                 multiple :max-count="1"
-                                :max-size="500 * 1024" @oversize="onOversize"
+                                :max-size="5 * 1024 * 1024" @oversize="onOversize"
                             />
                         </template>
                     </van-field>
@@ -95,16 +96,24 @@
                         <img :src="personImg" alt="">
                     </div>
                     <div class="person-detail">
-                        <div class="person-name person-item">
-                            <span>{{personNum}}号</span><span>{{personName}}</span>
+                        <div class="person-name">
+                            <!-- <span>{{personNum}}号</span><span>{{personName}}</span> -->
+                            <!-- <span>36号</span><span>欧阳盆栽</span> -->
+                            <p class="person-num">{{personNum}}号</p>
+                            <p class="name-text">{{personName}}</p>
+                            <img src="../../assets/images/num0.png" class="name-img">
                         </div>
-                        <div class="person-ticket person-item">
+                        <div class="person-ticket">
                             <span>当前{{personTicket}}票</span>
                         </div>
                     </div>
+                    <div class="buttons">
+                        <van-button color="#c753ff" class="button-item left-btn" block size="small" @click="voteTicket">{{voted}}</van-button>
+                        <van-button color="#c753ff" class="button-item right-btn" block size="small" to="voteshop">礼物打赏</van-button>
+                    </div>
                 </div>
-                <van-button color="#c753ff" class="button-item" block size="large" @click="voteTicket">{{voted}}</van-button>
-                <van-button color="#c753ff" class="button-item" block size="large" to="voteshop">打赏</van-button>
+                <!-- <van-button color="#c753ff" class="button-item" block size="large" @click="voteTicket">{{voted}}</van-button>
+                <van-button color="#c753ff" class="button-item" block size="large" to="voteshop">打赏</van-button> -->
                 <div class="advertise">
                     <div class="advertise-list">
                         <div class="advertise-top">
@@ -129,17 +138,19 @@
                 <div class="activity">
                     <div class="activity-brief activity-item">
                         <div class="activity-title">
-                            <span>活动简要</span>
+                            <img src="../../assets/images/font1.png" alt="">
                         </div>
                         <div class="brief">
+                            <div class="brief-line"></div>
                             <span>许昌报业传媒集团、曹魏古城综合开发建设指挥部联合许昌市摄影家协会，面向全市摄影爱好者，征集与荷花及曹魏古城有关的摄影作品!点击右下方“我要报名”，立即参与活动吧!即日起-- 8月6日18: 00结束</span>
                         </div>
                     </div>
                     <div class="activity-unit activity-item">
                         <div class="activity-title">
-                            <span>活动单位</span>
+                            <img src="../../assets/images/font2.png" alt="">
                         </div>
                         <div class="unit-list">
+                            <div class="unit-line"></div>
                             <div class="unit-item">
                                 <span class="large">主办单位:</span><span>许昌市文化广电和旅游局、许昌报业传媒集团、魏都区委宣传部</span>
                             </div>
@@ -169,9 +180,10 @@
                     </div>
                     <div class="prize activity-item">
                         <div class="activity-title">
-                            <span>活动奖品</span>
+                            <img src="../../assets/images/font3.png" alt="">
                         </div>
                         <div class="prize-list">
+                            <div class="prize-line"></div>
                             <div class="prize-item">
                                 <div class="prize-name">
                                     <span>一等奖1名:(总排名第1名即可获得)</span>
@@ -210,9 +222,10 @@
                     </div>
                     <div class="attention activity-item">
                         <div class="activity-title">
-                            <span>注意事项</span>
+                            <img src="../../assets/images/font4.png" alt="">
                         </div>
                         <div class="attention-list">
+                            <div class="attention-line"></div>
                             <div class="attention-item">1、每个微信号每天只能给3个选手加油!</div>
                             <div class="attention-item">2、此平台只限制许昌地区用户参与</div>
                             <div class="attention-item">3、 系统有自动检测功能，发现异常将自动进入监控名单并体制增长!</div>
@@ -223,7 +236,7 @@
                 </div>
             </div>
         </div>
-        
+        <Votebottom />
     </div>
 </template>
 <!-- 逻辑 -->
@@ -231,6 +244,7 @@
     import axios from 'axios';
 	import marquee from '../../components/marquee';
     import Title from '../../components/title';
+    import Votebottom from '../../components/votebottom';
     import Vue from 'vue';
     import { Search,Icon,Button,Form,Field,Uploader,Toast,CellGroup } from 'vant';
 
@@ -261,31 +275,11 @@
                 personNum:'',
                 personName:'',
                 personTicket:0,
-                voted:'投票'
+                voted:'为TA投票'
             }
         },
         created(){
             
-            var openid = window.localStorage.getItem('openId');
-            console.log('personCreated..',openid)
-            var _this = this;
-            axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/findop?openid='+openid)
-            .then(function (result) {
-                console.log(result);
-                if(result.data == ''){
-                    return;
-                }else{
-                    var person = result.data;
-                    _this.showInfo = false;
-                    _this.personImg = person.head_img;
-                    _this.personNum = person.user_number;
-                    _this.personName = decodeURI(person.user_name);
-                    _this.personTicket = person.number_ov;
-                }
-            })
-            .catch(function (error) {
-              console.log(error);
-            })
         },
         mounted(){
             var params = this.getParams();
@@ -299,6 +293,9 @@
                     let id = value;
                     this.getPlayerInfo(id);
                 }
+            }else if(params == null){
+                console.log('null..')
+                this.getOpidPlayerInfo();
             }
             
         },
@@ -315,22 +312,47 @@
                 }
                 
             },
-            //通过编号获取用户详情
-            getPlayerInfo(id){
+            //通过openid获取用户详情
+            getOpidPlayerInfo(){
+                var openid = window.localStorage.getItem('openId');
+                console.log('personCreated..',openid)
                 var _this = this;
-                axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/findId?user_number='+id)
+                axios.get('https://www.simpsonit.cn:443/yktgt-1.0.1/user_massage/findop?openid='+openid)
                 .then(function (result) {
                     console.log(result);
-                    if(result && (result.data != {})){
+                    if(result.data == ''){
+                        return;
+                    }else{
                         var person = result.data;
                         _this.showInfo = false;
                         _this.personImg = person.head_img;
                         _this.personNum = person.user_number;
-                        _this.personName = decodeURI(person.user_name);
+                        // _this.personName = decodeURI(person.user_name);
+                        _this.personName = person.user_name;
                         _this.personTicket = person.number_ov;
                     }
                 })
                 .catch(function (error) {
+                  console.log(error);
+                })
+            },
+            //通过编号获取用户详情
+            getPlayerInfo(id){
+                var _this = this;
+                axios.get('https://www.simpsonit.cn:443/yktgt-1.0.1/user_massage/findId?user_number='+id)
+                .then(function (result) {
+                    console.log(result);
+                    if(result && (result.data != '')){
+                        var person = result.data;
+                        _this.showInfo = false;
+                        _this.personImg = person.head_img;
+                        _this.personNum = person.user_number;
+                        _this.personName = person.user_name;
+                        _this.personTicket = person.number_ov;
+                    }
+                })
+                .catch(function (error) {
+                    
                     console.log(error);
                 })
             },
@@ -345,7 +367,7 @@
                     Toast("请输入正确的手机号!")
                 }else{
                     console.log("phonenum..",phonenum)
-                    axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/sendSms?user_phone='+phonenum)
+                    axios.get('https://www.simpsonit.cn:443/yktgt-1.0.1/user_massage/sendSms?user_phone='+phonenum)
                     .then(function (result) {
                         console.log(result);
                         _this.checkNum = result.data;
@@ -359,24 +381,32 @@
             onSubmit(values) {
                 console.log('submit', values);
                 var openid = window.localStorage.getItem('openId');
-                var username = encodeURI(values.username);
+                //var username = encodeURI(values.username);
+                var username = values.username;
                 var phonenum = values.tel;
+                //var telnum = phonenum - 0;
                 console.log(phonenum)
                 //验证码
                 var sms = values.sms - 0;
                 console.log('sms..',sms)
                 var checkNum = this.checkNum;
-                var address = encodeURI(values.address);
-                var assessment = encodeURI(values.assessment);
+                //var address = encodeURI(values.address);
+                var address = values.address;
+                //var assessment = encodeURI(values.assessment);
+                var assessment = values.assessment;
                 var uploader = values.uploader;
+                var imgUrl = this.imgUrl;
                 if(sms != checkNum){
                     Toast("请输入正确的验证码!")
                 }
+                if(imgUrl == ''){
+                    Toast("照片上传无效!")
+                }
                 
-                if((username != '') && (phonenum != '') && (sms == checkNum) && (address != '') && (uploader != [])){
-                    var imgUrl = this.imgUrl;
+                if((username != '') && (phonenum != '') && (sms == checkNum) && (address != '') && (imgUrl != '')){
+                    
                     console.log('imgUrl',imgUrl);
-                    var url = 'http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/save';
+                    var url = 'https://www.simpsonit.cn:443/yktgt-1.0.1/user_massage/save';
                     var activityId = 1;
                     // axios.post(url, {
                     //     openid:openid,
@@ -399,13 +429,13 @@
                             openid:openid,
                             user_name: username,
                             user_phone: phonenum,
-                            profile:address,
-                            zwpj:assessment,
+                            h_address:address,
+                            s_evaluation:assessment,
                             head_img:imgUrl
                         },
-                        header: {
-                            'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
-                        }
+                        // header: {
+                        //     'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+                        // }
                     })
                     .then(function (response) {
                         console.log(response);
@@ -420,17 +450,22 @@
                 }
                 
             },
-            afterRead(file) {
+            afterRead(file,detail) {
                 // 此时可以自行将文件上传至服务器
                 console.log(file);
+                // console.log(detail);
+                // if(file.content && file){
+                //     Toast("图片有内容"+file.content.length)
+                // }
                 if(file){
+                    //Toast("进入file..")
                     this.uploadImgFun(file.content,file.file.name);
                 }
             },
             beforeRead (file) {
-                if (file.type !== 'image/jpeg' && file.type !== 'image/png') {
+                if ((file.type !== 'image/jpeg') && (file.type !== 'image/png')) {
                     Toast('请上传 jpg/png 格式图片');
-                         return false;
+                    return false;
                 }
                 // let isLt1M = file.size / 1024 / 1024 <= 1
                 // if (!isLt1M) {
@@ -441,7 +476,7 @@
             },
             onOversize(file) {
                 console.log(file);
-                Toast('文件大小不能超过 500kb');
+                Toast('文件大小不能超过 5MB');
             },
             uploadImgFun(content,name){
                 var _this = this;
@@ -453,7 +488,7 @@
                 console.log(name)
                 formData.append("file", this.dataURLtoFileFun(content, name));
                   // 注意需要在调用接口的时候修改请求头为"multipart/form-data"，以表单的格式上传
-                axios.post('http://www.simpsonit.cn:80/ykt-1.1.1/wechat/photoUpload',formData, {
+                axios.post('https://www.simpsonit.cn:443/yktgt-1.0.1/wechat/photoUpload',formData, {
                     headers: {
                       "Content-Type": "multipart/form-data"
                     }
@@ -461,6 +496,7 @@
                     // 上传到服务器成功的操作...
                         console.log(res.data)
                         var imgUrl = res.data;
+                        //Toast("上传到服务器"+imgUrl);
                         var object = {};
                         let key = 'url';
                         object[key] = imgUrl;
@@ -473,6 +509,8 @@
               // 将base64转换为文件，dataurl为base64字符串，filename为文件名（必须带后缀名，如.jpg,.png）
               let arr = dataurl.split(",");
               let mime = arr[0].match(/:(.*?);/)[1];
+              console.log(arr[1].length+'');
+              //Toast(arr[1].length+'');
               let bstr = atob(arr[1]);
               let n = bstr.length;
               let u8arr = new Uint8Array(n);
@@ -490,8 +528,8 @@
                 console.log('personNum..',personNum)
                 var activityId = 1;
                 var _this = this;
-                var url = 'http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/vote';
-                if(voted == '投票'){
+                var url = 'https://www.simpsonit.cn:443/yktgt-1.0.1/user_massage/vote';
+                if(voted == '为TA投票'){
                     axios({
                         method: 'get',
                         url: url,
@@ -503,7 +541,7 @@
                     })
                     .then(function (response) {
                         console.log(response);
-                        var info = response.data;
+                        var info = response.data.tishi;
                         //通过返回的信息处理逻辑
                         if(info == "zijitoupiao"){//1.自己给自己投票时,不允许
                             Toast("不能给自己投票");
@@ -535,7 +573,8 @@
         },
         components:{
             marquee,
-            Title
+            Title,
+            Votebottom
         },
     }
 </script>
@@ -579,6 +618,7 @@
         margin-top: 15px;
         padding: 0 8%;
         .rem(padding-bottom,15px);
+        .rem(margin-bottom,50px);
         width: 100%;
         box-sizing: border-box;
         .floor-title{
@@ -615,17 +655,17 @@
         position: relative;
         margin-left: auto;
         margin-right: auto;
-        .rem(width,180px);
-        .rem(height,180px);
+        .rem(width,220px);
+        .rem(height,210px);
         border-radius: 5px;
         overflow: hidden;
         background-color: #fff;
         .person-img{
             width: 100%;
-            .rem(height,180px);
+            .rem(height,170px);
             img{
                 width: 100%;
-                .rem(height,180px);
+                .rem(height,170px);
             }
         }
         .person-detail{
@@ -636,27 +676,65 @@
             width: 100%;
             color: #fff;
             font-size: 14px;
-            .person-item{
+            .person-name{
+                position: relative;
+                .rem(width,40px);
+                .rem(height,55px);
+                .rem(margin-left,10px);
+                .rem(font-size,10px);
+                text-align: center;
+                .person-num{
+                    position: absolute;
+                    .rem(top,6px);
+                    .rem(width,40px);
+                    .rem(height,20px);
+                }
+                .name-text{
+                    position: absolute;
+                    .rem(top,22px);
+                    .rem(width,40px);
+                    .rem(height,20px);
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: clip;
+                }
+                .name-img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+            .person-ticket{
                 .rem(width,80px);
                 .rem(height,20px);
                 .rem(line-height,20px);
-                .rem(font-size,12px);
+                .rem(font-size,10px);
                 text-align: center;
                 border-radius: 5px;
                 background-color: rgba(0,0,0,0.5);
             }
         }
+        .buttons{
+            width: 100%;
+            .rem(height,20px);
+            .button-item{
+                .rem(margin-top,7px);
+                .rem(width,80px);
+                .rem(height,25px);
+                .rem(line-height,25px);
+                .rem(font-size,12px);
+                border-radius: 5px;
+            }
+            .left-btn{
+                float: left;
+                .rem(margin-left,10px);
+            }
+            .right-btn{
+                float: right;
+                .rem(margin-right,10px);
+            }
+        }
     }
-    .button-item{
-        margin-left: auto;
-        margin-right: auto;
-        .rem(margin-top,10px);
-        .rem(width,180px);
-        .rem(height,30px);
-        .rem(line-height,30px);
-        .rem(font-size,14px);
-        border-radius: 5px;
-    }
+    
     .action-list{
         position: absolute;
         .rem(top,430px);
@@ -677,7 +755,7 @@
         }
     }
     .advertise{
-        .rem(margin-top,20px);
+        .rem(margin-top,35px);
         width: 100%;
         .rem(height,200px);
         box-sizing: border-box;
@@ -709,19 +787,85 @@
     }
     .activity{
         width: 100%;
-        .rem(padding,0,20);
+        .rem(padding,0,30);
+        .rem(margin-top,20px);
+        color: #000;
+        .rem(font-size,10px);
         box-sizing: border-box;
+        border:2px solid #5847ff;
         .activity-item{
             .rem(margin-bottom,30px);
             .activity-title{
-                .rem(font-size,20px);
-                text-align: center;
+                .rem(width,80px);
+                .rem(height,23px);
+                margin-left: auto;
+                margin-right: auto;
                 .rem(margin-bottom,20px);
+                img{
+                    .rem(width,80px);
+                    .rem(height,23px);
+                }
             }
             .large{
-                .rem(font-size,14px);
+                .rem(font-size,12px);
+                font-weight: 600;
+            }
+            span{
+                .rem(font-size,10px);
             }
             
+        }
+        .activity-brief{
+            .rem(margin-top,-16px);
+            .activity-title{
+                .rem(padding,4,8);
+                background-color: #5847ff;
+            }
+            .brief{
+                position: relative;
+                .brief-line{
+                    opacity: 1;
+                    position: absolute;
+                    .rem(top,2px);
+                    .rem(left,-10px);
+                    .rem(width,2px);
+                    .rem(height,65px);
+                    background: linear-gradient(to bottom, #85fff5, #d8a5fe);
+                }
+            }
+        }
+    }
+    .unit-list{
+        position: relative;
+        .unit-line{
+            position: absolute;
+            .rem(top,2px);
+            .rem(left,-10px);
+            .rem(width,2px);
+            .rem(height,190px);
+            background: linear-gradient(to bottom, #85fff5, #d8a5fe);
+        }
+    }
+    .prize-list{
+        position: relative;
+        .prize-line{
+            position: absolute;
+            .rem(top,2px);
+            .rem(left,-10px);
+            .rem(width,2px);
+            .rem(height,300px);
+            background: linear-gradient(to bottom, #85fff5, #d8a5fe);
+        }
+    }
+    .attention-list{
+        position: relative;
+        .attention-line{
+            position: absolute;
+            .rem(top,2px);
+            .rem(left,-10px);
+            .rem(width,2px);
+            .rem(height,80px);
+            background: linear-gradient(to bottom, #85fff5, #d8a5fe);
         }
     }
     .unit-item{
@@ -731,12 +875,15 @@
     }
     .prize-item{
         .prize-name{
+            .rem(margin-right,6px);
             span{
                 .rem(font-size,14px);
+                font-weight: 600;
             }
         }
         span{
             .rem(font-size,12px);
         }
     }
+    
 </style>

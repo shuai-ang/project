@@ -9,11 +9,11 @@
         </div>
         <Title />
         <!-- 按钮部分 -->
-            <div class="action-list">
+            <!-- <div class="action-list">
                 <van-button color="#c753ff" class="action-item" block size="large" to="activitydec">活动简介</van-button>
                 <van-button color="#c753ff" class="action-item" block size="large" to="charts">排行榜</van-button>
                 <van-button color="#c753ff" class="action-item" block size="large" to="personinfo">个人信息</van-button>
-            </div>
+            </div> -->
         <!--floor 信息展示部分 -->
         <div class="floor">
             <div class="floor-title">
@@ -46,7 +46,7 @@
                 
             </div>
         </div>
-        
+        <Votebottom />
         <!--bottom 报名按钮部分 -->
         <!-- <div>
             <van-button color="#c753ff" class="bottom" block size="large" @click="toGetactivity">我要发起活动</van-button>
@@ -59,6 +59,7 @@
     import axios from 'axios';
 	import marquee from '../../components/marquee';
     import Title from '../../components/title';
+    import Votebottom from '../../components/votebottom';
     import Vue from 'vue';
     import { Search,Icon,Button } from 'vant';
 
@@ -73,17 +74,15 @@
                 visits:'',
                 playerList:[
                     {
-                        imgUrl:require('../../assets/images/person1.jpg'),
                         num:'01',
                         name:'随风起舞',
-                        ticket:'2890',
+                        ticket:'',
                         //voted:'投票'
                     },
                     {
-                        imgUrl:require('../../assets/images/person2.jpg'),
                         num:'02',
                         name:'曼舞翩翩',
-                        ticket:'3000',
+                        ticket:'',
                         //voted:'投票'
                     },
                 ],
@@ -114,19 +113,21 @@
                 var _this = this;
                 var activityId = 1;
                 //获取所有参赛选手信息
-                axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/user_massage/findAll?v_m_id='+activityId)
+                axios.get('https://www.simpsonit.cn:443/yktgt-1.0.1/user_massage/findAll?v_m_id='+activityId)
                 .then(function (result) {
-                    console.log(result);
-                    var playerList = result.data;
-                    console.log(playerList)
-                    let newList = playerList.map(function(player){
-                        player.user_name = decodeURI(player.user_name);
-                        player.ticket = player.number_ov;
-                        //player.voted = '投票';
-                        return player;
-                    })
-                    console.log(newList)
-                    _this.playerList = newList;
+                    console.log('findAll..',result);
+                    if(result){
+                        var playerList = result.data;
+                        console.log(playerList)
+                        let newList = playerList.map(function(player){
+                            player.user_name = player.user_name;
+                            player.ticket = player.number_ov;
+                            //player.voted = '投票';
+                            return player;
+                        })
+                        console.log(newList)
+                        _this.playerList = newList;
+                    }
                   
                 })
                 .catch(function (error) {
@@ -169,7 +170,7 @@
             getId(code){
                 var _this = this;
                 console.log('getId..',code)
-                axios.get('http://www.simpsonit.cn:80/ykt-1.1.1/wechat/callBack?code='+code)
+                axios.get('https://www.simpsonit.cn:443/yktgt-1.0.1/wechat/callBack?code='+code)
                 .then(function (result) {
                     console.log('result..',result)
                     console.log(result.data.openid);
@@ -212,7 +213,8 @@
         },
         components:{
             marquee,
-            Title
+            Title,
+            Votebottom
         },
     }
 </script>
@@ -254,6 +256,7 @@
     
     .floor{
         margin-top: 15px;
+        .rem(margin-bottom,40px);
         padding: 0 8%;
         width: 100%;
         box-sizing: border-box;
@@ -310,7 +313,7 @@
             }
         }
     }
-    .bottom{
+    /*.bottom{
         position: fixed;
         .rem(top,450px);
         width: 60%;
@@ -321,7 +324,7 @@
         font-weight: 300;
         color: #fff;
         text-align: center;
-    }
+    }*/
     .action-list{
         position: absolute;
         .rem(top,430px);

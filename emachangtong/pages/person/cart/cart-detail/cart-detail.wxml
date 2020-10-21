@@ -1,4 +1,4 @@
-<!--pages/online/erweimatest/erweimatest.wxml-->
+<!--pages/person/cart/cart-detail/cart-detail.wxml-->
 <view class="container erweimatest">
   <!--
   <view class="title">
@@ -7,9 +7,6 @@
   -->
   <view class="erweima">
     <image src="{{photoUrl}}"></image>
-  </view>
-  <view class="test">
-    <text>您的挪车码已生成,使用周期一个月</text>
   </view>
   <view class="shop" bindtap="tapShop">
     <text>立即购买</text>

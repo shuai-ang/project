@@ -68,7 +68,7 @@ Page({
   postRequest:function(){
     let _this = this;
     wx.request({
-      url: 'https://www.simpsonit.cn:443/simpsonx-0.0.1-SNAPSHOT(1.9)/simpsonx/sendSms',
+      url: 'https://www.simpsonit.cn:443/simpsonx-0.0.1-SNAPSHOT(1.2.1)/simpsonx/sendSms',
       method:'GET',
       data:{
         phoneNumber:_this.data.phoneNum
@@ -177,7 +177,7 @@ Page({
               let sId = _this.data.sId;
               console.log(license)
               wx.request({
-                url: 'https://www.simpsonit.cn:443/simpsonx-0.0.1-SNAPSHOT(1.9)/simpsonx/update',
+                url: 'https://www.simpsonit.cn:443/simpsonx-0.0.1-SNAPSHOT(1.2.1)/simpsonx/update',
                 method:'POST',
                 header: {
                   'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'

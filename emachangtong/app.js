@@ -11,20 +11,28 @@ App({
     wx.login({
       success: res => {
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        //console.log(res.code)
-        /*
+        console.log(res.code)
+        
         if (res.code) {
+          var _this = this;
           //发起网络请求
           wx.request({
-            url: 'https://test.com/onLogin',
+            url: 'https://www.simpsonit.cn:443/simpsonx-0.0.1-SNAPSHOT(1.2.1)/simpsonx/getop',
             data: {
               code: res.code
+            },
+            success(res){
+              console.log(res)
+              //获取openid
+              var openid = res.data.openid;
+              console.log('openid..',openid)
+              _this.globalData.openid = openid;
             }
           })
         } else {
           console.log('获取用户登录态失败！' + res.errMsg)
         }
-        */
+        
       }
     })
     // 获取用户信息
@@ -49,6 +57,7 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    openid:''
   }
 })

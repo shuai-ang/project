@@ -1,4 +1,4 @@
-/* pages/online/erweimatest/erweimatest.wxss */
+/* pages/person/cart/cart-detail/cart-detail.wxss */
 page{
   position: fixed;
   height: 100%;

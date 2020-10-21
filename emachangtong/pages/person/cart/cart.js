@@ -70,7 +70,7 @@ Page({
   },
   tapCartItem:function(){
     wx.redirectTo({
-      url: '/pages/online/erweimatest/erweimatest',
+      url: '/pages/person/cart/cart-detail/cart-detail',
     })
   }
 })

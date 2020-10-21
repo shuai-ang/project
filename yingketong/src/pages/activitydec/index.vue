@@ -9,11 +9,11 @@
         </div>
         <Title />
         <!-- 按钮部分 -->
-            <div class="action-list">
+            <!-- <div class="action-list">
                 <van-button color="#c753ff" class="action-item" block size="large" to="activitydec">活动简介</van-button>
                 <van-button color="#c753ff" class="action-item" block size="large" to="charts">排行榜</van-button>
                 <van-button color="#c753ff" class="action-item" block size="large" to="personinfo">个人信息</van-button>
-            </div>
+            </div> -->
         <!--floor 信息展示部分 -->
         <div class="floor">
             <div class="floor-title">
@@ -42,13 +42,14 @@
                 </div>
             </div>
         </div>
-        
+        <Votebottom />
     </div>
 </template>
 <!-- 逻辑 -->
 <script>
 	import marquee from '../../components/marquee';
     import Title from '../../components/title';
+    import Votebottom from '../../components/votebottom';
     import Vue from 'vue';
     import { Search,Icon,Button } from 'vant';
 
@@ -64,7 +65,8 @@
         },
         components:{
             marquee,
-            Title
+            Title,
+            Votebottom
         },
     }
 </script>
@@ -108,6 +110,7 @@
         margin-top: 15px;
         padding: 0 8%;
         .rem(padding-bottom,15px);
+        .rem(margin-bottom,40px);
         width: 100%;
         box-sizing: border-box;
         .floor-title{
